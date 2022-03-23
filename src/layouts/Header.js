@@ -14,7 +14,7 @@ import {
   Button,
 } from "reactstrap";
 import Logo from "./Logo";
-import { ReactComponent as LogoWhite } from "../assets/images/logos/materialprowhite.svg";
+import { ReactComponent as LogoWhite } from "../assets/images/logos/APISERO-logo.svg";
 import user1 from "../assets/images/users/user4.jpg";
 
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   return (
-    <Navbar color="primary" dark expand="md" className="fix-header">
+    <Navbar color="dark" dark expand="md" className="fix-header">
       <div className="d-flex align-items-center">
         <div className="d-lg-block d-none me-5 pe-3">
           <Logo />
