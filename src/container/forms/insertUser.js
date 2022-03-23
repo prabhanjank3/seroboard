@@ -7,7 +7,7 @@ import {Alert} from 'react-bootstrap';
 
 const insertAction = (data) => {
      return insertNewUser(data).then(resp => {
-        alert(`User ${resp.data.userId} created`);
+        alert(`User ${resp.data.userid} created`);
      }).catch(err => {
          alert('Something went wrong!');
      });
