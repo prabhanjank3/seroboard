@@ -16,7 +16,6 @@ import {
 import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/APISERO-logo.svg";
 import user1 from "../assets/images/users/user4.jpg";
-import { GoogleLogoutHook } from "../components/Login/GoogleLogoutHook";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -102,9 +101,7 @@ const Header = () => {
             <DropdownItem divider />
             <DropdownItem>My Balance</DropdownItem>
             <DropdownItem>Inbox</DropdownItem>
-            <DropdownItem>
-              <GoogleLogoutHook />
-            </DropdownItem>
+            <DropdownItem>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>

@@ -1,5 +1,6 @@
 import { lazy } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Login from "../components/Login";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -16,15 +17,15 @@ const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
-const Login = lazy(() => import("../components/Login/Login"));
 
 /*****Routes******/
 
-const ThemeRoutes = (isLoggedIn) => [
+const ThemeRoutes = [
   {
     path: "/",
-    element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
+    element: <FullLayout />,
     children: [
+      { path: "/", element: <Navigate to="/starter" /> },
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },
@@ -35,15 +36,6 @@ const ThemeRoutes = (isLoggedIn) => [
       { path: "/table", exact: true, element: <Tables /> },
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
-      { path: "/", element: <Navigate to="/starter" /> },
-    ],
-  },
-  {
-    path: "/",
-    element: !isLoggedIn ? <Login /> : <Navigate to="/starter" />,
-    children: [
-      { path: "login", element: <Login /> },
-      { path: "/", element: <Navigate to="/login" /> },
     ],
   },
 ];
