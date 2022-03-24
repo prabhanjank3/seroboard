@@ -3,3 +3,15 @@
     margin: 20px auto;
     width: 90%;
 }
+.batch-duration-input
+{
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.batch-duration-input-btn
+{
+    padding: 5px;
+    position: relative;
+    bottom: 5px;
+}
