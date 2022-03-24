@@ -1,9 +1,35 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { GoogleLoginHook } from "./GoogleLoginHook";
+import { GoogleLogin } from "react-google-login";
+
 function Login() {
-  const [showloginButton, setShowloginButton] = useState(true);
-  const [showlogoutButton, setShowlogoutButton] = useState(false);
+  const clientId =
+    "635698053280-qkbl9lqbgmrvu8caf3351mb782jk9cb9.apps.googleusercontent.com";
+
+  const [email, setEmail] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const onLoginSuccess = (res) => {
+    console.log("Login Success: Current User email => ", res.profileObj.email);
+    setEmail(res.profileObj.email);
+    fetch(`http://localhost:4567/Users/${email}`)
+      .then((a) => a.json())
+      .then((result) => {
+        console.log(result);
+        if (result.length > 0) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onLoginFailure = (res) => {
+    console.log("Login Failed:", res);
+  };
 
   return (
     <div className="container-fluid ps-md-0">
@@ -17,7 +43,14 @@ function Login() {
                   <h3 className="login-heading mb-4">Welcome back!</h3>
                   <div>
                     <div className="social-login">
-                      <GoogleLoginHook />
+                      <GoogleLogin
+                        clientId={clientId}
+                        buttonText="Sign In"
+                        onSuccess={onLoginSuccess}
+                        onFailure={onLoginFailure}
+                        cookiePolicy={"single_host_origin"}
+                        isSignedIn={true}
+                      />
                     </div>
                     <span className="d-block text-center my-4 text-muted">
                       — or —

@@ -8,11 +8,11 @@ const clientId =
 
 export function GoogleLoginHook() {
   const onLoginSuccess = (res) => {
-    alert("Login Success: Current User => ", res.profileObj);
+    console.log("Login Success: Current User => ", res.profileObj);
   };
 
   const onLoginFailure = (res) => {
-    alert("Login Failed:", res);
+    console.log("Login Failed:", res);
   };
 
   const { signIn } = useGoogleLogin({
