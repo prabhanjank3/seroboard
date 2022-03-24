@@ -17,6 +17,7 @@ import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/APISERO-logo.svg";
 import user1 from "../assets/images/users/user4.jpg";
 import { GoogleLogoutHook } from "../components/Login/GoogleLogoutHook";
+import { connect } from "react-redux";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -111,5 +112,17 @@ const Header = () => {
     </Navbar>
   );
 };
-
+const mapStateToProps = (state) => {
+  return {userData:{
+      role:state.authData.role,
+      userFirstName: state.authData.userFirstName
+  }};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+  setUserLoggedIn: (actionType,payLoad) => {
+      dispatch({type: actionType, payLoad:payLoad});
+  }
+  }
+};
 export default Header;
