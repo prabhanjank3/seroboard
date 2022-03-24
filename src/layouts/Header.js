@@ -14,8 +14,9 @@ import {
   Button,
 } from "reactstrap";
 import Logo from "./Logo";
-import { ReactComponent as LogoWhite } from "../assets/images/logos/materialprowhite.svg";
+import { ReactComponent as LogoWhite } from "../assets/images/logos/APISERO-logo.svg";
 import user1 from "../assets/images/users/user4.jpg";
+import { connect } from "react-redux";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -30,7 +31,7 @@ const Header = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   return (
-    <Navbar color="primary" dark expand="md" className="fix-header">
+    <Navbar color="dark" dark expand="md" className="fix-header">
       <div className="d-flex align-items-center">
         <div className="d-lg-block d-none me-5 pe-3">
           <Logo />
@@ -108,5 +109,17 @@ const Header = () => {
     </Navbar>
   );
 };
-
+const mapStateToProps = (state) => {
+  return {userData:{
+      role:state.authData.role,
+      userFirstName: state.authData.userFirstName
+  }};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+  setUserLoggedIn: (actionType,payLoad) => {
+      dispatch({type: actionType, payLoad:payLoad});
+  }
+  }
+};
 export default Header;
