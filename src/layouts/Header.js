@@ -17,8 +17,9 @@ import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/APISERO-logo.svg";
 import user1 from "../assets/images/users/user4.jpg";
 import { connect } from "react-redux";
-
-const Header = () => {
+import AddUserModal from "../components/modals/addUserModal";
+import AddBatchModal from "../components/modals/addBatchModal";
+const Header = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -76,16 +77,15 @@ const Header = () => {
           </NavItem>
           <UncontrolledDropdown inNavbar nav>
             <DropdownToggle caret nav>
-              DD Menu
+              Actions
             </DropdownToggle>
             <DropdownMenu end>
-              <DropdownItem>Option 1</DropdownItem>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
+              <DropdownItem><AddUserModal /></DropdownItem>
+              <DropdownItem><AddBatchModal /></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
+        {`Hello ${props.userData.userFirstName} (${props.userData.role})`}
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="transparent">
             <img
@@ -95,8 +95,9 @@ const Header = () => {
               width="30"
             ></img>
           </DropdownToggle>
+          
           <DropdownMenu>
-            <DropdownItem header>Info</DropdownItem>
+            <DropdownItem header>{props.userData.userFirstName}</DropdownItem>
             <DropdownItem>My Account</DropdownItem>
             <DropdownItem>Edit Profile</DropdownItem>
             <DropdownItem divider />
@@ -121,5 +122,5 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({type: actionType, payLoad:payLoad});
   }
   }
-};
-export default Header;
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

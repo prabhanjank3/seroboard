@@ -4,6 +4,7 @@ import {getAllUsers, deleteUser} from '../../services/apicalls/apicall';
 import {connect} from 'react-redux';
 import './tables.css';
 import EditUserModal from '../modals/editUserModal';
+import SearchUserForm from "../forms/serchUserForm";
 const NewUserTable =  (props) => {
     const [userDataState, setUserData] = useState({userData:[]});
     const setData = () => {
@@ -24,6 +25,8 @@ const NewUserTable =  (props) => {
         setData();
     }
     return (
+        <div>
+        <SearchUserForm />
         <Table striped bordered hover>
         <thead>
             <tr>
@@ -52,6 +55,7 @@ const NewUserTable =  (props) => {
             }
         </tbody>
         </Table>
+        </div>
     );
 }
 

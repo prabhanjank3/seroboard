@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import {Table, Button} from 'react-bootstrap';
 import { connect } from "react-redux";
-import {deleteBatch, getAllBatchs} from '../../services/apicalls/batchapicalls';
+import {deleteBatch, getAllBatchs, getBatchInDuration} from '../../services/apicalls/batchapicalls';
 import './tables.css';
 import EditBatchModal from '../modals/editBatchModal';
 import AddParticipantsModal from '../modals/addParticipantsModal';
 import {BsUiChecks} from 'react-icons/bs';
 import {HiDocumentReport} from 'react-icons/hi';
-
+import BatchDurationForm from "../forms/batchDuration";
 const BatchTable =  (props) => {
     const [batchDataState, setBatchData] = useState({batchData:[]});
-    const setData = () => {
-        getAllBatchs().then(resp => {
+    const initialDuration = {from:'2022-01-01', to:'2023-01-01'};
+    const setData = (duration) => {
+        getBatchInDuration({from:duration.from, to:duration.to}).then(resp => {
             setBatchData({ batchData:resp.data});
         })
     }
+    const setDuration = (newDuration) => {
+        setData(newDuration);
+    }
     useEffect(() => {
-        setData();
+        setData(initialDuration);
     },[]);
     const onDeleteClick = (id) => {
         deleteBatch(id).then(resp => {
@@ -24,6 +28,8 @@ const BatchTable =  (props) => {
         })
     }
     return (
+        <div>
+        <BatchDurationForm from={initialDuration.from} to={initialDuration.to} action={(newDuration) => {setDuration(newDuration)}}/>
         <Table striped bordered hover>
         <thead>
             <tr>
@@ -56,6 +62,7 @@ const BatchTable =  (props) => {
             }
         </tbody>
         </Table>
+        </div>
     );
 }
 const mapStateToProps = (state) => {

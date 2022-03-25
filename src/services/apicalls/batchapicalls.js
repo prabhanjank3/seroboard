@@ -7,6 +7,9 @@ const getAllBatchs = () => {
 const getBatchDetails = (id) => {
     return axios.get(Properties.SERVER_URL+'/batch/'+id);
 }
+const getBatchInDuration = (duration) => {
+    return axios.get(Properties.SERVER_URL+'/batchduration?from='+duration.from+'&to='+duration.to);
+}
 const insertNewBatch = (BatchData) => {
     return axios.post(Properties.SERVER_URL+'/batch', BatchData, {
         headers: {
@@ -24,11 +27,11 @@ const updateBatch = (id, data) => {
 const deleteBatch = (id) => {
     return axios.delete(Properties.SERVER_URL+'/batch/'+id);
 } 
-
 export {
     insertNewBatch,
     updateBatch,
     deleteBatch,
     getAllBatchs,
-    getBatchDetails
+    getBatchDetails,
+    getBatchInDuration
 };

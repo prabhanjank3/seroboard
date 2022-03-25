@@ -19,6 +19,12 @@ const getBatchByCondition = (condition, resp) => {
     resp.send((err)?err:result.rows);
     })
 };
+const getBatchInDuration = (condition, resp) => {
+    const qry = `SELECT * FROM public."Batch" WHERE batchstartdate <= '${condition.to}' AND batchenddate >= '${condition.from}'`;
+    pool.query(qry, [], (err, result) => {
+        resp.send(result.rows);
+    })
+}
 const deleteBatch = (id, resp) => {
     pool.query(`DELETE FROM public."Batch" where batchid='${id}'`, [], (err,result) => {
     resp.send((err)?err:result.rows);
@@ -35,3 +41,4 @@ module.exports.getAllBatchs = getAllBatchs;
 module.exports.getBatchByCondition = getBatchByCondition;
 module.exports.deleteBatch = deleteBatch;
 module.exports.updateBatch = updateBatch;
+module.exports.getBatchInDuration = getBatchInDuration;
