@@ -4,17 +4,25 @@ import {useNavigate} from 'react-router-dom';
 import DropdownInput from '../utils/dropdownInput';
 import './forms.css';
 import '../component.css';
-
-const NewUserForm = (props) => {
+import { convertArrayToPgArray } from "../../services/commonFunctions"; 
+const NewParticipantForm = (props) => {
     const initialState = {
         "participantfirstname": "",
         "participantlastname": "",
         "participantemail": "",
-        "participantbatchid":""
+        "participantbatchid":props.id,
+        "participantskills":""
     };
     const navigate = useNavigate();
+    const stringToPgArray = (str) => {
+        var starr = str.split(',');
+        return (convertArrayToPgArray(starr));
+        
+      }
     const sendForInsert = () => {
-        return props.action(formState);
+        var ret = stringToPgArray(formState.participantskills);
+        var data = ({...formState, participantskills:ret});
+        props.action(data);
     }
     const [formState, setState] = useState(initialState);
     return (
@@ -35,6 +43,12 @@ const NewUserForm = (props) => {
             </Col>
         </Row>
         <Row>
+            <Col>
+            <label for="exampleFormControlInput1" className="form-label" >Skills (enter comma seperated values without space)</label> 
+            <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="E.g Java,Python" onChange={(e) => {setState({...formState,"participantskills": e.target.value})}}/>
+            </Col>
+        </Row>
+        <Row>
         <Button type="button" className="btn btn-primary new-user-insert-btn" onClick={() => {sendForInsert()}} >Submit</Button>
         </Row>
         </Container>
@@ -42,4 +56,4 @@ const NewUserForm = (props) => {
     );
 }
 
-export default (NewUserForm);
+export default (NewParticipantForm);

@@ -6,4 +6,23 @@ const getDateInputFormat = (date) => {
     var stDate = year +'-'+month+'-'+day;
     return stDate;
 }
-export { getDateInputFormat };
+const convertArrayToPgArray = (arr) => {
+    let qry = '{';
+    let len = arr.length;
+    let counter = 0;
+    for(let key in arr)
+    {
+        counter=counter+1;
+        qry = qry+`"${arr[key]}"`;
+        if(counter !== len)
+        {
+            qry = qry +',';
+        }
+        else
+        {
+            qry = qry+'}';
+        }
+    }
+    return (qry);
+}
+export { getDateInputFormat, convertArrayToPgArray };
