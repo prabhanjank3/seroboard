@@ -22,7 +22,7 @@ const NewUserForm = (props) => {
     }
     const [formState, setState] = useState(initialState);
     return (
-    <div class="emp-input-form">
+    <div >
         <Container>
         <Row>
             <Col>

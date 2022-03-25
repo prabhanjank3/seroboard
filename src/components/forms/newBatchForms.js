@@ -8,10 +8,10 @@ import './forms.css';
 import '../component.css';
 export default (props) => {
     const initialState = {
-        "batchName": "",
-        "batchStartDate": "",
-        "batchEndDate": "",
-        "instructorName":"",
+        "batchname": "",
+        "batchstartdate": "",
+        "batchenddate": "",
+        "instructorname":"",
     };
     const navigate = useNavigate();
     const sendForInsert = () => {
@@ -19,17 +19,17 @@ export default (props) => {
     }
     const [formState, setState] = useState(initialState);
     return (
-    <div class="emp-input-form">
+    <div >
         <Container>
         <Row>
             <label for="exampleFormControlInput1" className="form-label" >Batch Name</label>
-            <input type="text" className="form-control" id="exampleFormControlInput1"  onChange={(e) => {setState({...formState,"batchName": e.target.value})}}/>
+            <input type="text" className="form-control" id="exampleFormControlInput1"  onChange={(e) => {setState({...formState,"batchname": e.target.value})}}/>
             <label for="exampleFormControlInput1" className="form-label" >Start Date</label>
-            <input type="date" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"batchStartDate": e.target.value})}}/>
+            <input type="date" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"batchstartdate": e.target.value})}}/>
             <label for="exampleFormControlInput1" className="form-label" >End Date</label>
-            <input type="date" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"batchEndDate": e.target.value})}}/>
+            <input type="date" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"batchenddate": e.target.value})}}/>
             <label for="exampleFormControlInput1" className="form-label" >Instructor</label> 
-            <RoleInput title='Select Instructor' options={['Raghu', 'Gopi', 'Mahesh']} onChange={(e) => {setState({...formState,"instructorName": e.target.value})}} />
+            <RoleInput title='Select Instructor' options={['Raghu', 'Gopi', 'Mahesh']} onChange={(e) => {setState({...formState,"instructorname": e.target.value})}} />
             
         </Row>
         <Row>

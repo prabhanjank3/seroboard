@@ -26,7 +26,7 @@ const EditUserModal = (props) => {
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add AddParticipants</Modal.Title>
+            <Modal.Title>Add Participants</Modal.Title>
           </Modal.Header>
           <Modal.Body><AddParticipantsForm id={props.id} /></Modal.Body>
         </Modal>
