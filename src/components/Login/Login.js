@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { GoogleLogin } from "react-google-login";
+import Properties from "../../Properties";
 
-function Login() {
-  const clientId =
-    "635698053280-qkbl9lqbgmrvu8caf3351mb782jk9cb9.apps.googleusercontent.com";
+function Login(props) {
+  console.log(props);
+
+  const clientId = Properties.REACT_APP_SERO_BOARD_CLIENT_ID;
 
   const [email, setEmail] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const onLoginSuccess = (res) => {
     console.log("Login Success: Current User email => ", res.profileObj.email);
@@ -15,11 +16,12 @@ function Login() {
     fetch(`http://localhost:4567/Users/${email}`)
       .then((a) => a.json())
       .then((result) => {
-        console.log(result);
+        console.log("This is resule" + result);
         if (result.length > 0) {
-          setIsLoggedIn(true);
+          console.log(result);
+          props.isLoggedIn(true);
         } else {
-          setIsLoggedIn(false);
+          props.isLoggedIn(false);
         }
       })
       .catch((err) => {

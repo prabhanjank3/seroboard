@@ -20,7 +20,7 @@ const Login = lazy(() => import("../components/Login/Login"));
 
 /*****Routes******/
 
-const ThemeRoutes = (isLoggedIn) => [
+const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
   {
     path: "/",
     element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
@@ -40,7 +40,11 @@ const ThemeRoutes = (isLoggedIn) => [
   },
   {
     path: "/",
-    element: !isLoggedIn ? <Login /> : <Navigate to="/starter" />,
+    element: !isLoggedIn ? (
+      <Login logging={isLoggedIn} isLoggedIn={setIsLoggedIn} />
+    ) : (
+      <Navigate to="/starter" />
+    ),
     children: [
       { path: "login", element: <Login /> },
       { path: "/", element: <Navigate to="/login" /> },
