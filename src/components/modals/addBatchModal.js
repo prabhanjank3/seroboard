@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Modal, Button} from 'react-bootstrap';
-import AddUser from '../../components/forms/newUserForm';
-import {insertNewUser} from '../../services/apicalls/apicall';
+import AddBatch from '../../components/forms/newBatchForms';
+import {insertNewBatch} from '../../services/apicalls/batchapicalls';
 import {Link, useNavigate} from 'react-router-dom';
 const AddUserModal = (props) => {
     const navigate = useNavigate();
@@ -10,9 +10,9 @@ const AddUserModal = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const insertAction = (data) => {
-        return insertNewUser(data).then(resp => {
+        return insertNewBatch(data).then(resp => {
             handleClose();
-           alert(`User created successfully!`);
+           alert(`Batch created successfully!`);
         }).catch(err => {
             alert('Something went wrong!');
         });
@@ -20,14 +20,14 @@ const AddUserModal = (props) => {
     return (
       <>
         <p onClick={handleShow}>
-            Add User
+            Add Batch
         </p>
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add User</Modal.Title>
           </Modal.Header>
-          <Modal.Body><AddUser action={(data) => insertAction(data).then(() => navigate('/'))} /></Modal.Body>
+          <Modal.Body><AddBatch action={(data) => insertAction(data).then(() => navigate('/'))} /></Modal.Body>
         </Modal>
       </>
     );

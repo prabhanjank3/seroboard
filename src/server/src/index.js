@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var usercontroller = require('./controller/usercontroller');
 var batchcontroller = require('./controller/batchcontroller');
-// var participentcontroller = require('./controller/participantscontroller');
+var participantcontroller = require('./controller/participantscontroller');
 var axios = require('axios');
 var cors = require('cors');
 const app = express();
@@ -20,16 +20,17 @@ app.patch('/user/:id', usercontroller.updateUser);
 // //Batch
 app.get('/batch', batchcontroller.getAllBatchs);
 app.get('/batch/:id', batchcontroller.getBatchDetails);
+app.get('/batchduration', batchcontroller.getBatchInDuration);
 app.post('/batch', batchcontroller.insertBatch);
 app.delete('/batch/:id', batchcontroller.deleteBatch);
 app.patch('/batch/:id', batchcontroller.updateBatch);
 
-// //Participants
-// app.get('/participent', participentcontroller.getAllParticipents);
-// app.get('/participent/:id', participentcontroller.getParticipentDetails);
-// app.post('/participent', participentcontroller.insertParticipent);
-// app.delete('/participent/:id', participentcontroller.deleteParticipent);
-// app.patch('/participent/:id', participentcontroller.updateParticipent);
+//Participants
+app.get('/participant', participantcontroller.getAllParticipants);
+//app.get('/participant/:id', participantcontroller.getParticipantDetails);
+app.post('/participant', participantcontroller.insertParticipant);
+app.delete('/participant/:id', participantcontroller.deleteParticipant);
+//app.patch('/participant/:id', participantcontroller.updateParticipant);
 
 
 

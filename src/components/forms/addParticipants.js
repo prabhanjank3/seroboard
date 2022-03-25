@@ -7,10 +7,10 @@ import '../component.css';
 
 const NewUserForm = (props) => {
     const initialState = {
-        "userFirstName": "",
-        "userLastName": "",
-        "userEmail": "",
-        "userBatchName":""
+        "participantfirstname": "",
+        "participantlastname": "",
+        "participantemail": "",
+        "participantbatchid":""
     };
     const navigate = useNavigate();
     const sendForInsert = () => {
@@ -23,15 +23,15 @@ const NewUserForm = (props) => {
         <Row>
             <Col>
             <label for="exampleFormControlInput1" className="form-label" >First Name</label>
-            <input type="text" className="form-control" id="exampleFormControlInput1"  onChange={(e) => {setState({...formState,"userFirstName": e.target.value})}}/>
+            <input type="text" className="form-control" id="exampleFormControlInput1"  onChange={(e) => {setState({...formState,"participantfirstname": e.target.value})}}/>
             <label for="exampleFormControlInput1" className="form-label" >Email</label>
-            <input type="email" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"userEmail": e.target.value})}}/>
+            <input type="email" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"participantemail": e.target.value})}}/>
             </Col>
             <Col>
             <label for="exampleFormControlInput1" className="form-label" >Last Name</label>
-            <input type="text" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"userLastName": e.target.value})}}/>
+            <input type="text" className="form-control" id="exampleFormControlInput1" onChange={(e) => {setState({...formState,"participantlastname": e.target.value})}}/>
             <label for="exampleFormControlInput1" className="form-label" >Batch</label> 
-            <DropdownInput title='Select Batch' options={['First']} onChange={(e) => {setState({...formState,"userBatchName": e.target.value})}} />
+            <input type="text" className="form-control" id="exampleFormControlInput1" value={props.id} onChange={(e) => {setState({...formState,"participantbatchid": e.target.value})}} disabled/>
             </Col>
         </Row>
         <Row>

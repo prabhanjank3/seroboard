@@ -3,7 +3,7 @@ const initialStore = {
     isUserLoggedIn: true,
     email: "",
     role: "ADMIN",
-    userFirstName: "Anuja",
+    userFirstName: "Raghu",
   },
 };
 const reducer = (state = initialStore, action) => {
