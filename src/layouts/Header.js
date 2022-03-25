@@ -80,8 +80,12 @@ const Header = (props) => {
               Actions
             </DropdownToggle>
             <DropdownMenu end>
-              <DropdownItem><AddUserModal /></DropdownItem>
-              <DropdownItem><AddBatchModal /></DropdownItem>
+              <DropdownItem>
+                <AddUserModal />
+              </DropdownItem>
+              <DropdownItem>
+                <AddBatchModal />
+              </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
@@ -95,7 +99,7 @@ const Header = (props) => {
               width="30"
             ></img>
           </DropdownToggle>
-          
+
           <DropdownMenu>
             <DropdownItem header>{props.userData.userFirstName}</DropdownItem>
             <DropdownItem>My Account</DropdownItem>
@@ -103,7 +107,6 @@ const Header = (props) => {
             <DropdownItem divider />
             <DropdownItem>My Balance</DropdownItem>
             <DropdownItem>Inbox</DropdownItem>
-            <DropdownItem>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>
@@ -111,16 +114,18 @@ const Header = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  return {userData:{
-      role:state.authData.role,
-      userFirstName: state.authData.userFirstName
-  }};
+  return {
+    userData: {
+      role: state.authData.role,
+      userFirstName: state.authData.userFirstName,
+    },
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-  setUserLoggedIn: (actionType,payLoad) => {
-      dispatch({type: actionType, payLoad:payLoad});
-  }
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+    setUserLoggedIn: (actionType, payLoad) => {
+      dispatch({ type: actionType, payLoad: payLoad });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

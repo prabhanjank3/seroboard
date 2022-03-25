@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -16,15 +16,15 @@ const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
+const Login = lazy(() => import("../components/Login/Login"));
 
 /*****Routes******/
 
-const ThemeRoutes = [
+const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
   {
     path: "/",
-    element: <FullLayout />,
+    element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
     children: [
-      { path: "/", element: <Navigate to="/starter" /> },
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },
@@ -35,6 +35,19 @@ const ThemeRoutes = [
       { path: "/table", exact: true, element: <Tables /> },
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+      { path: "/", element: <Navigate to="/starter" /> },
+    ],
+  },
+  {
+    path: "/",
+    element: !isLoggedIn ? (
+      <Login logging={isLoggedIn} isLoggedIn={setIsLoggedIn} />
+    ) : (
+      <Navigate to="/starter" />
+    ),
+    children: [
+      { path: "login", element: <Login /> },
+      { path: "/", element: <Navigate to="/login" /> },
     ],
   },
 ];
