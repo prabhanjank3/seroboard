@@ -1,7 +1,6 @@
 
 const partdao = require('../dao/participantdao');
 const insertParticipant = (req, resp) => {
-    console.log(req.body);
     partdao.insertParticipant(req.body,resp);
 };
 const getAllParticipants = (req,resp) => {
