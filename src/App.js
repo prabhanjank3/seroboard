@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div>
-      <div className="dark">{routing}</div>;
+      <div className="dark">{routing}</div>
     </div>
   );
 }

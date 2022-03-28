@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import reducer from "./store/reducer";
 import { HashRouter } from "react-router-dom";
 import Loader from "./layouts/loader/Loader";
+import "bootstrap-icons/font/bootstrap-icons.css";
 const store = createStore(reducer);
 ReactDOM.render(
   <Suspense fallback={<Loader />}>

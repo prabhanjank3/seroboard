@@ -4,7 +4,7 @@ import Feeds from "../components/dashboard/Feeds";
 import ProjectTables from "../components/dashboard/ProjectTable";
 import Usertable from "../components/tables/usertable";
 import Batchtable from "../components/tables/batchtable";
-import Blog from "../components/dashboard/Blog";
+// import Blog from "../components/dashboard/Blog";
 import bg1 from "../assets/images/bg/bg1.jpg";
 import bg2 from "../assets/images/bg/bg2.jpg";
 import bg3 from "../assets/images/bg/bg3.jpg";
@@ -53,23 +53,25 @@ const Starter = () => {
 
       {/***Sales & Feed***/}
       <Row>
-        <Col sm="6" lg="6" xl="7" xxl="6">
+        <Col sm="12" lg="12" xl="12" xxl="12">
           <Usertable />
         </Col>
-        <Col sm="6" lg="6" xl="5" xxl="6">
+        </Row>
+        <Row>
+        <Col sm="12" lg="12" xl="12" xxl="12">
           <Batchtable />
         </Col>
       </Row>
       {/***Table ***/}
-      <Row>
+      {/* <Row>
         <Col lg="12">
           <ProjectTables />
         </Col>
-      </Row>
+      </Row> */}
       {/***Blog Cards***/}
-      <Row>
+      {/* <Row>
         {BlogData.map((blg, index) => (
-          <Col sm="6" lg="6" xl="3" key={index}>
+          <Col sm="6" lg="4" xl="4" key={index}>
             <Blog
               image={blg.image}
               title={blg.title}
@@ -79,7 +81,7 @@ const Starter = () => {
             />
           </Col>
         ))}
-      </Row>
+      </Row> */}
     </div>
   );
 };
