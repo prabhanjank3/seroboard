@@ -19,7 +19,7 @@ const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const Login = lazy(() => import("../components/Login/Login"));
-
+const Batch = lazy(() => import("../views/Batch"));
 /*****Routes******/
 
 const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
@@ -28,8 +28,9 @@ const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
     element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
     children: [
       { path: "/starter", exact: true, element: <Starter /> },
+      { path: "/batch", exact: true, element: <Batch /> },
       { path: "/Usertable", exact: true, element: <Usertable /> },
-      // { path: "/alerts", exact: true, element: <Alerts /> },
+      { path: "/alerts", exact: true, element: <Batch /> },
       // { path: "/badges", exact: true, element: <Badges /> },
       // { path: "/buttons", exact: true, element: <Buttons /> },
       // { path: "/cards", exact: true, element: <Cards /> },

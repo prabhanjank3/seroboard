@@ -4,7 +4,7 @@ const insertParticipant = (req, resp) => {
     partdao.insertParticipant(req.body,resp);
 };
 const getAllParticipants = (req,resp) => {
-    partdao.getAllParticipants(resp);
+    partdao.getAllParticipants(req.query,resp);
 };
 const getParticipantDetails = async (req,resp) => {
     partdao.getParticipantByCondition({participantid: req.params.id}, resp)
