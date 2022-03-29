@@ -13,20 +13,21 @@ function Login(props) {
   const onLoginSuccess = (res) => {
     console.log("Login Success: Current User email => ", res.profileObj.email);
     setEmail(res.profileObj.email);
-    fetch(`http://localhost:4567/Users/${email}`)
-      .then((a) => a.json())
-      .then((result) => {
-        console.log("This is resule" + result);
-        if (result.length > 0) {
-          console.log(result);
-          props.isLoggedIn(true);
-        } else {
-          props.isLoggedIn(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    props.isLoggedIn(true);
+    // fetch(`http://localhost:4567/Users/${email}`)
+    //   .then((a) => a.json())
+    //   .then((result) => {
+    //     console.log("This is resule" + result);
+    //     if (result.length > 0) {
+    //       console.log(result);
+    //       props.isLoggedIn(true);
+    //     } else {
+    //       props.isLoggedIn(false);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const onLoginFailure = (res) => {
