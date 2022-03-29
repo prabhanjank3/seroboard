@@ -86,10 +86,6 @@ const ProjectTables = () => {
                         width="45"
                         height="45"
                       />
-                      <div className="ms-3">
-                        <h6 className="mb-0">{tdata.name}</h6>
-                        <span className="text-muted">{tdata.email}</span>
-                      </div>
                     </div>
                   </td>
                   <td>{tdata.project}</td>

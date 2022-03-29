@@ -16,7 +16,7 @@ export default (props) => {
     const [formState, setState] = useState(initialState);
     return (
     <div >
-        <Container>
+        <Container className="px-0">
         <Row>
             <Col lg={10}>
             <label for="exampleFormControlInput1" className="form-label" >From</label>

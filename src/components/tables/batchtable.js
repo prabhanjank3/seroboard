@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
@@ -35,17 +35,19 @@ const BatchTable = (props) => {
   };
   return (
     <div>
-      <BatchDurationForm
+      <Card className="mt-5">
+        <CardBody>
+        <BatchDurationForm
         from={initialDuration.from}
         to={initialDuration.to}
         action={(newDuration) => {
           setDuration(newDuration);
         }}
       />
-      <Table striped bordered hover>
+      <Table className="no-wrap mt-3 align-middle" responsive borderless>
         <thead>
           <tr>
-            <th>#</th>
+            <th>ID</th>
             <th>Batch Name</th>
             <th>Instructor</th>
             {(props.role === "ADMIN" || props.role === "INSTRUCTOR") && (
@@ -56,7 +58,7 @@ const BatchTable = (props) => {
         <tbody>
           {batchDataState.batchData.map((batch) => {
             return (
-              <tr key={batch.batchid}>
+              <tr key={batch.batchid} className="border-top">
                 <td>{batch.batchid}</td>
                 <td>{batch.batchname}</td>
                 <td>{batch.instructorname}</td>
@@ -89,6 +91,8 @@ const BatchTable = (props) => {
           })}
         </tbody>
       </Table>
+        </CardBody>
+      </Card>
     </div>
   );
 };

@@ -10,45 +10,45 @@ const navigation = [
     icon: "bi bi-speedometer2",
   },
   {
-    title: "Alert",
-    href: "/alerts",
+    title: "User",
+    href: "/Usertable",
     icon: "bi bi-bell",
   },
   {
-    title: "Badges",
-    href: "/badges",
+    title: "Instructor",
+    href: "/",
     icon: "bi bi-patch-check",
   },
   {
-    title: "Buttons",
-    href: "/buttons",
+    title: "Coordinator",
+    href: "/",
     icon: "bi bi-hdd-stack",
   },
+  // {
+  //   title: "Batches",
+  //   href: "/batch",
+  //   icon: "bi bi-card-text",
+  // },
   {
-    title: "Cards",
-    href: "/cards",
-    icon: "bi bi-card-text",
-  },
-  {
-    title: "Grid",
-    href: "/grid",
+    title: "Attendance",
+    href: "/",
     icon: "bi bi-columns",
   },
   {
-    title: "Table",
-    href: "/table",
+    title: "Batch",
+    href: "/batch",
     icon: "bi bi-layout-split",
   },
-  {
-    title: "Forms",
-    href: "/forms",
-    icon: "bi bi-textarea-resize",
-  },
-  {
-    title: "Breadcrumbs",
-    href: "/breadcrumbs",
-    icon: "bi bi-link",
-  },
+  // {
+  //   title: "Forms",
+  //   href: "/forms",
+  //   icon: "bi bi-textarea-resize",
+  // },
+  // {
+  //   title: "Breadcrumbs",
+  //   href: "/breadcrumbs",
+  //   icon: "bi bi-link",
+  // },
 ];
 
 const Sidebar = () => {
@@ -74,7 +74,7 @@ const Sidebar = () => {
             <i className="bi bi-x"></i>
           </Button>
         </div>
-        <div className="bg-dark text-white p-2 opacity-75">Steave Rojer</div>
+        <div className="bg-dark text-white p-2 opacity-75">Vishal Sharma</div>
       </div>
       <div className="p-3 mt-2">
         <Nav vertical className="sidebarNav">
