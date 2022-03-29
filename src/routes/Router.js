@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import Usertable from "../components/tables/usertable";
+
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -26,15 +28,15 @@ const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
     element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
     children: [
       { path: "/starter", exact: true, element: <Starter /> },
-      { path: "/about", exact: true, element: <About /> },
-      { path: "/alerts", exact: true, element: <Alerts /> },
-      { path: "/badges", exact: true, element: <Badges /> },
-      { path: "/buttons", exact: true, element: <Buttons /> },
-      { path: "/cards", exact: true, element: <Cards /> },
-      { path: "/grid", exact: true, element: <Grid /> },
-      { path: "/table", exact: true, element: <Tables /> },
-      { path: "/forms", exact: true, element: <Forms /> },
-      { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+      { path: "/Usertable", exact: true, element: <Usertable /> },
+      // { path: "/alerts", exact: true, element: <Alerts /> },
+      // { path: "/badges", exact: true, element: <Badges /> },
+      // { path: "/buttons", exact: true, element: <Buttons /> },
+      // { path: "/cards", exact: true, element: <Cards /> },
+      // { path: "/grid", exact: true, element: <Grid /> },
+      // { path: "/table", exact: true, element: <Tables /> },
+      // { path: "/forms", exact: true, element: <Forms /> },
+      // { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
       { path: "/", element: <Navigate to="/starter" /> },
     ],
   },
