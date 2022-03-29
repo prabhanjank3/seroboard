@@ -24,21 +24,21 @@ const navigation = [
     href: "/",
     icon: "bi bi-hdd-stack",
   },
-  {
-    title: "Batches",
-    href: "/",
-    icon: "bi bi-card-text",
-  },
+  // {
+  //   title: "Batches",
+  //   href: "/batch",
+  //   icon: "bi bi-card-text",
+  // },
   {
     title: "Attendance",
     href: "/",
     icon: "bi bi-columns",
   },
-  // {
-  //   title: "Table",
-  //   href: "/table",
-  //   icon: "bi bi-layout-split",
-  // },
+  {
+    title: "Batch",
+    href: "/batch",
+    icon: "bi bi-layout-split",
+  },
   // {
   //   title: "Forms",
   //   href: "/forms",
