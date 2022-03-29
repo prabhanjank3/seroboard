@@ -27,10 +27,10 @@ app.patch('/batch/:id', batchcontroller.updateBatch);
 
 //Participants
 app.get('/participant', participantcontroller.getAllParticipants);
-//app.get('/participant/:id', participantcontroller.getParticipantDetails);
+app.get('/participant/:id', participantcontroller.getParticipantDetails);
 app.post('/participant', participantcontroller.insertParticipant);
 app.delete('/participant/:id', participantcontroller.deleteParticipant);
-//app.patch('/participant/:id', participantcontroller.updateParticipant);
+app.patch('/participant/:id', participantcontroller.updateParticipant);
 
 
 

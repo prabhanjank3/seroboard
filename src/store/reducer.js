@@ -2,7 +2,7 @@ const initialStore = {
   authData: {
     isUserLoggedIn: true,
     email: "",
-    role: "ADMIN",
+    role: "COORDINATOR",
     userFirstName: "Raghu",
   },
 };
