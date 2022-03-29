@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var usercontroller = require('./controller/usercontroller');
 var batchcontroller = require('./controller/batchcontroller');
 var participantcontroller = require('./controller/participantscontroller');
+var attendencecontroller = require('./controller/attendancecontroller');
 var axios = require('axios');
 var cors = require('cors');
 const app = express();
@@ -27,10 +28,13 @@ app.patch('/batch/:id', batchcontroller.updateBatch);
 
 //Participants
 app.get('/participant', participantcontroller.getAllParticipants);
-//app.get('/participant/:id', participantcontroller.getParticipantDetails);
+app.get('/participant/:id', participantcontroller.getParticipantDetails);
 app.post('/participant', participantcontroller.insertParticipant);
 app.delete('/participant/:id', participantcontroller.deleteParticipant);
-//app.patch('/participant/:id', participantcontroller.updateParticipant);
+app.patch('/participant/:id', participantcontroller.updateParticipant);
+
+//Attendence
+app.get('/attendance', attendencecontroller.getAttendanceData);
 
 
 
