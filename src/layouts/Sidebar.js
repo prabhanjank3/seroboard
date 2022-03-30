@@ -2,6 +2,7 @@ import { Button, Nav, NavItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 import user1 from "../assets/images/users/user4.jpg";
 import probg from "../assets/images/bg/download.jpg";
+import { connect } from "react-redux";
 
 const navigation = [
   {
@@ -51,7 +52,7 @@ const navigation = [
   // },
 ];
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
@@ -74,7 +75,9 @@ const Sidebar = () => {
             <i className="bi bi-x"></i>
           </Button>
         </div>
-        <div className="bg-dark text-white p-2 opacity-75">Vishal Sharma</div>
+        <div className="bg-dark text-white p-2 opacity-75">
+          {props.userData.userFirstName}
+        </div>
       </div>
       <div className="p-3 mt-2">
         <Nav vertical className="sidebarNav">
@@ -99,4 +102,20 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+const mapStateToProps = (state) => {
+  return {
+    userData: {
+      role: state.authData.role,
+      userFirstName: state.authData.userFirstName,
+      isLoggedIn: state.authData.isUserLoggedIn,
+    },
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserLoggedIn: (actionType, payLoad) => {
+      dispatch({ type: actionType, payLoad: payLoad });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

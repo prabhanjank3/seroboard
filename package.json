@@ -8,6 +8,7 @@
     "@testing-library/user-event": "*",
     "apexcharts": "*",
     "axios": "^0.26.0",
+    "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.8.1",
     "concurrently": "^7.0.0",
     "dotenv": "^16.0.0",

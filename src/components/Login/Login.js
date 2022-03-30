@@ -1,57 +1,48 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { GoogleLogin } from "react-google-login";
 import Properties from "../../Properties";
-import AuthContext from "../../context/AuthProvider";
-import axios from "../../api/axios";
-
-const LOGIN_URL = "/users";
+import { connect } from "react-redux";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login(props) {
-  const { setAuth } = useContext(AuthContext);
+  const clientId = Properties.REACT_APP_SERO_BOARD_CLIENT_ID;
   const userRef = useRef(null);
   const errRef = useRef(null);
+  const navigate = useNavigate();
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMgs, setErrMgs] = useState("");
-  const [success, setSuccess] = useState("");
 
-  // useEffect(() => {
-  //   userRef.current.focus();
-  // }, []);
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
 
   useEffect(() => {
     setErrMgs("");
   }, [user, pwd]);
 
-  const navigate = useNavigate();
-
-  const [loginData, setLoginData] = useState(
-    localStorage.getItem("loginData")
-      ? JSON.parse(localStorage.getItem("loginData"))
-      : null
-  );
-
-  const clientId = Properties.REACT_APP_SERO_BOARD_CLIENT_ID;
-
-  const [email, setEmail] = useState("");
-
   async function handleLoginByGoogle(googleResponse) {
-    console.log(googleResponse);
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({ token: googleResponse?.tokenId }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      console.log(data);
-      setLoginData(data);
-      localStorage.setItem("loginData", JSON.stringify(data));
+      const response = await axios.post(
+        Properties.SERVER_URL + "/api/login",
+        JSON.stringify({ token: googleResponse?.tokenId }),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log(response.data);
+      const data = response.data;
+      if (data.length > 0) {
+        console.log(data[0]);
+        props.setUserLoggedIn("LOG_IN", data[0]);
+      } else {
+        alert("User Not Found In System");
+      }
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   }
 
@@ -59,7 +50,7 @@ function Login(props) {
     e.PreventDefault();
     try {
       const response = await axios.post(
-        LOGIN_URL,
+        Properties.SERVER_URL + "/api/login",
         JSON.stringify({ user, pwd }),
         {
           headers: { "Content-Type": "application/json" },
@@ -67,13 +58,8 @@ function Login(props) {
         }
       );
       console.log(JSON.stringify(response));
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
       setUser("");
       setPwd("");
-      setSuccess(true);
-      navigate("/dashboard");
     } catch (err) {
       if (!err?.response) {
         setErrMgs("No response from server");
@@ -87,113 +73,145 @@ function Login(props) {
       errRef.current.focus();
     }
   }
-  function handleLoginFailure(result) {
-    alert(result);
-  }
 
-  const onLoginSuccess = (res) => {
-    console.log("Login Success: Current User email => ", res.profileObj.email);
-    setEmail(res.profileObj.email);
-    props.isLoggedIn(true);
-    // fetch(`http://localhost:4567/Users/${email}`)
-    //   .then((a) => a.json())
-    //   .then((result) => {
-    //     console.log("This is resule" + result);
-    //     if (result.length > 0) {
-    //       console.log(result);
-    //       props.isLoggedIn(true);
-    //     } else {
-    //       props.isLoggedIn(false);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-
-  const onLoginFailure = (res) => {
-    console.log("Login Failed:", res);
+  const handleLoginFailure = (res) => {
+    alert(res);
   };
 
   return (
-    <div className="container-fluid ps-md-0">
-      <div className="row g-0">
-        <div className="d-none d-md-flex col-md-4 col-lg-6 bg-image" />
-        <div className="col-md-8 col-lg-6">
-          <div className="login d-flex align-items-center py-5">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-9 col-lg-8 mx-auto">
-                  <h3 className="login-heading mb-4">Welcome back!</h3>
-                  <div>
-                    <div className="social-login">
-                      <GoogleLogin
-                        clientId={clientId}
-                        buttonText="Sign In"
-                        onSuccess={onLoginSuccess}
-                        onFailure={onLoginFailure}
-                        cookiePolicy={"single_host_origin"}
-                        isSignedIn={true}
-                      />
-                    </div>
-                    <span className="d-block text-center my-4 text-muted">
-                      — or —
-                    </span>
+    <section className="container" id="login">
+      <div className="row">
+        <div className="authfy-container col-xs-12 col-sm-10 col-md-8 col-lg-6 col-sm-offset-1 col-md-offset-2 col-lg-offset-3">
+          <div className="col-sm-5 authfy-panel-left">
+            <div className="brand-col">
+              <div className="headline">
+                <div className="brand-logo">
+                  <img
+                    src="https://apisero.com/wp-content/uploads/2021/01/APISERO-logo.svg"
+                    width={150}
+                    alt="brand-logo"
+                  />
+                </div>
+
+                <p>Login using social media to get quick access</p>
+
+                <div className="row social-buttons">
+                  <div className="col-xs-4 col-sm-4 col-md-12">
+                    <GoogleLogin
+                      clientId={clientId}
+                      buttonText="Login With Google"
+                      onSuccess={handleLoginByGoogle}
+                      onFailure={handleLoginFailure}
+                      cookiePolicy={"single_host_origin"}
+                    ></GoogleLogin>
                   </div>
-                  <form>
-                    <div className="form-floating mb-3">
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="floatingInput"
-                        placeholder="name@example.com"
-                      />
-                      <label htmlFor="floatingInput">Email address</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="floatingPassword"
-                        placeholder="Password"
-                      />
-                      <label htmlFor="floatingPassword">Password</label>
-                    </div>
-                    <div className="form-check mb-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        defaultValue
-                        id="rememberPasswordCheck"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="rememberPasswordCheck"
-                      >
-                        Remember password
-                      </label>
-                    </div>
-                    <div className="d-grid">
-                      <button
-                        className="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
-                        type="submit"
-                      >
-                        Sign in
-                      </button>
-                      <div className="text-center">
-                        <a className="small" href="/">
-                          Forgot password?
-                        </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-7 authfy-panel-right">
+            <div className="authfy-login">
+              <div className="authfy-panel panel-login text-center active">
+                <div className="authfy-heading">
+                  <h3 className="auth-title">Login to your account</h3>
+                  <p>
+                    Don’t have an account?
+                    <Link to="signup"> Sign Up Free!</Link>
+                  </p>
+                </div>
+                <div className="row">
+                  <div className="col-xs-12 col-sm-12">
+                    <p
+                      ref={errRef}
+                      className={errMgs ? "errmgs" : "offscreen"}
+                      aria-live="assertive"
+                    >
+                      {errMgs}
+                    </p>
+                    <form
+                      name="loginForm"
+                      className="loginForm"
+                      onSubmit={handleLoginByForm}
+                    >
+                      <div className="form-group">
+                        <input
+                          type="email"
+                          className="form-control email"
+                          name="username"
+                          placeholder="Email address"
+                          ref={userRef}
+                          autoComplete="off"
+                          onChange={(e) => {
+                            setUser(e.target.value);
+                          }}
+                          value={user}
+                          required
+                        />
                       </div>
-                    </div>
-                  </form>
+                      <div className="form-group">
+                        <div className="pwdMask">
+                          <input
+                            type="password"
+                            className="form-control password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={(e) => {
+                              setPwd(e.target.value);
+                            }}
+                            value={pwd}
+                            required
+                          />
+                          <span className="fa fa-eye-slash pwd-toggle" />
+                        </div>
+                      </div>
+
+                      <div className="row remember-row">
+                        <div className="col-xs-6 col-sm-6">
+                          <label className="checkbox text-left">
+                            <input type="checkbox" defaultValue="remember-me" />
+                            <span className="label-text">Remember me</span>
+                          </label>
+                        </div>
+                        <div className="col-xs-6 col-sm-6">
+                          <p className="forgotPwd">
+                            <Link to="forgot-password">Forgot password?</Link>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <button
+                          className="btn btn-lg btn-primary btn-block"
+                          type="submit"
+                        >
+                          Login with email
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
-export default Login;
+
+const mapStateToProps = (state) => {
+  return {
+    userData: {
+      role: state.authData.role,
+      userFirstName: state.authData.userFirstName,
+    },
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserLoggedIn: (actionType, payLoad) => {
+      dispatch({ type: actionType, payLoad: payLoad });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

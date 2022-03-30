@@ -2,7 +2,6 @@ import { lazy } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import Usertable from "../components/tables/usertable";
 
-
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
@@ -22,7 +21,7 @@ const Login = lazy(() => import("../components/Login/Login"));
 
 /*****Routes******/
 
-const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
+const ThemeRoutes = (isLoggedIn) => [
   {
     path: "/",
     element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
@@ -42,11 +41,7 @@ const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
   },
   {
     path: "/",
-    element: !isLoggedIn ? (
-      <Login logging={isLoggedIn} isLoggedIn={setIsLoggedIn} />
-    ) : (
-      <Navigate to="/starter" />
-    ),
+    element: !isLoggedIn ? <Login /> : <Navigate to="/starter" />,
     children: [
       { path: "login", element: <Login /> },
       { path: "/", element: <Navigate to="/login" /> },
