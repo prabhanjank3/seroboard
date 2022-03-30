@@ -12,13 +12,19 @@ const getUserDetails = async (req, resp) => {
   userdao.getUserByCondition({ userId: req.params.id }, resp);
 };
 const getUserDetailsByEmail = async (req, resp) => {
-  const { token } = req.body;
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: process.env.REACT_APP_SERO_BOARD_CLIENT_ID,
-  });
-  const { email } = ticket.getPayload();
-  userdao.getUserByCondition({ useremail: email }, resp);
+  if (req.body?.email && req.body?.password) {
+    const email = req.body?.email;
+    //ToDo: Check for password
+    userdao.getUserByCondition({ useremail: email }, resp);
+  } else {
+    const { token } = req.body;
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.REACT_APP_SERO_BOARD_CLIENT_ID,
+    });
+    const { email } = ticket.getPayload();
+    userdao.getUserByCondition({ useremail: email }, resp);
+  }
 };
 const deleteUser = async (req, resp) => {
   userdao.deleteUser(req.params.id, resp);

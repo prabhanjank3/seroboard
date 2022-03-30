@@ -4,6 +4,7 @@ const initialStore = {
     email: "",
     role: "",
     userFirstName: "",
+    userImg: "",
   },
 };
 const reducer = (state = initialStore, action) => {
@@ -18,6 +19,7 @@ const reducer = (state = initialStore, action) => {
           userFirstName: fullName,
           email: action.payLoad.useremail,
           role: action.payLoad.userrole,
+          userImg: action.payLoad.imageUrl,
         },
       };
       break;

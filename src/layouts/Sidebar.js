@@ -4,7 +4,8 @@ import user1 from "../assets/images/users/user4.jpg";
 import probg from "../assets/images/bg/download.jpg";
 import { connect } from "react-redux";
 
-const navigation = [
+let navigation = [];
+const adminNav = [
   {
     title: "Dashboard",
     href: "/starter",
@@ -16,20 +17,10 @@ const navigation = [
     icon: "bi bi-bell",
   },
   {
-    title: "Instructor",
+    title: "Batches",
     href: "/",
-    icon: "bi bi-patch-check",
+    icon: "bi bi-card-text",
   },
-  {
-    title: "Coordinator",
-    href: "/",
-    icon: "bi bi-hdd-stack",
-  },
-  // {
-  //   title: "Batches",
-  //   href: "/batch",
-  //   icon: "bi bi-card-text",
-  // },
   {
     title: "Attendance",
     href: "/",
@@ -37,22 +28,70 @@ const navigation = [
   },
   {
     title: "Batch",
-    href: "/batch",
+    href: "/",
     icon: "bi bi-layout-split",
   },
-  // {
-  //   title: "Forms",
-  //   href: "/forms",
-  //   icon: "bi bi-textarea-resize",
-  // },
-  // {
-  //   title: "Breadcrumbs",
-  //   href: "/breadcrumbs",
-  //   icon: "bi bi-link",
-  // },
+];
+const coordinatorNav = [
+  {
+    title: "Dashboard",
+    href: "/starter",
+    icon: "bi bi-speedometer2",
+  },
+  {
+    title: "Profile",
+    href: "/",
+    icon: "bi bi-layout-split",
+  },
+  {
+    title: "Batches",
+    href: "/",
+    icon: "bi bi-card-text",
+  },
+];
+const instructorNav = [
+  {
+    title: "Dashboard",
+    href: "/starter",
+    icon: "bi bi-speedometer2",
+  },
+  {
+    title: "Profile",
+    href: "/",
+    icon: "bi bi-layout-split",
+  },
+  {
+    title: "Batches",
+    href: "/",
+    icon: "bi bi-card-text",
+  },
+  {
+    title: "Batch",
+    href: "/",
+    icon: "bi bi-layout-split",
+  },
+  {
+    title: "Scores",
+    href: "/",
+    icon: "bi bi-layout-split",
+  },
 ];
 
 const Sidebar = (props) => {
+  switch (props.userData.role) {
+    case "ADMIN":
+      navigation = adminNav;
+      break;
+    case "COORDINATOR":
+      navigation = coordinatorNav;
+      break;
+    case "INSTRUCTOR":
+      navigation = instructorNav;
+      break;
+
+    default:
+      break;
+  }
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };

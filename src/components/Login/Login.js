@@ -1,31 +1,41 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect } from "react";
 import "./Login.css";
 import { GoogleLogin } from "react-google-login";
 import Properties from "../../Properties";
 import { connect } from "react-redux";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 function Login(props) {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid Email").required("Required"),
+      password: Yup.string()
+        .required("Required")
+        .max(15, "Must be 15 characters or less"),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+      handleLoginByForm(values);
+    },
+  });
+
   const clientId = Properties.REACT_APP_SERO_BOARD_CLIENT_ID;
   const userRef = useRef(null);
-  const errRef = useRef(null);
-  const navigate = useNavigate();
-
-  const [user, setUser] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [errMgs, setErrMgs] = useState("");
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
-  useEffect(() => {
-    setErrMgs("");
-  }, [user, pwd]);
-
   async function handleLoginByGoogle(googleResponse) {
     try {
+      console.log(googleResponse);
       const response = await axios.post(
         Properties.SERVER_URL + "/api/login",
         JSON.stringify({ token: googleResponse?.tokenId }),
@@ -46,31 +56,25 @@ function Login(props) {
     }
   }
 
-  async function handleLoginByForm(e) {
-    e.PreventDefault();
+  async function handleLoginByForm(values) {
     try {
       const response = await axios.post(
         Properties.SERVER_URL + "/api/login",
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ email: values.email, password: values.password }),
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response));
-      setUser("");
-      setPwd("");
-    } catch (err) {
-      if (!err?.response) {
-        setErrMgs("No response from server");
-      } else if (err.response?.status === 400) {
-        setErrMgs("Missing username or password");
-      } else if (err.response?.status === 401) {
-        setErrMgs("Unauthorized User");
+      console.log(response.data);
+      const data = response.data;
+      if (data.length > 0) {
+        console.log(data[0]);
+        props.setUserLoggedIn("LOG_IN", data[0]);
       } else {
-        setErrMgs("Login Failed");
+        alert("User Not Found In System");
       }
-      errRef.current.focus();
+    } catch (err) {
+      alert(err);
     }
   }
 
@@ -116,53 +120,50 @@ function Login(props) {
                   <h3 className="auth-title">Login to your account</h3>
                   <p>
                     Don’t have an account?
-                    <Link to="signup"> Sign Up Free!</Link>
+                    <Link to="signup"> Sign Up!</Link>
                   </p>
                 </div>
                 <div className="row">
                   <div className="col-xs-12 col-sm-12">
-                    <p
-                      ref={errRef}
-                      className={errMgs ? "errmgs" : "offscreen"}
-                      aria-live="assertive"
-                    >
-                      {errMgs}
-                    </p>
                     <form
                       name="loginForm"
                       className="loginForm"
-                      onSubmit={handleLoginByForm}
+                      onSubmit={formik.handleSubmit}
                     >
                       <div className="form-group">
+                        {formik.touched.email && formik.errors.email ? (
+                          <span id="emailError" className="text-danger">
+                            {formik.errors.email}
+                          </span>
+                        ) : null}
                         <input
                           type="email"
+                          id="email"
                           className="form-control email"
-                          name="username"
                           placeholder="Email address"
-                          ref={userRef}
+                          onChange={formik.handleChange}
+                          value={formik.values.email}
                           autoComplete="off"
-                          onChange={(e) => {
-                            setUser(e.target.value);
-                          }}
-                          value={user}
-                          required
+                          onBlur={formik.handleBlur}
+                          ref={userRef}
                         />
                       </div>
                       <div className="form-group">
-                        <div className="pwdMask">
-                          <input
-                            type="password"
-                            className="form-control password"
-                            name="password"
-                            placeholder="Password"
-                            onChange={(e) => {
-                              setPwd(e.target.value);
-                            }}
-                            value={pwd}
-                            required
-                          />
-                          <span className="fa fa-eye-slash pwd-toggle" />
-                        </div>
+                        <input
+                          id="password"
+                          type="password"
+                          className="form-control password"
+                          name="password"
+                          placeholder="Password"
+                          onChange={formik.handleChange}
+                          value={formik.values.password}
+                          onBlur={formik.handleBlur}
+                        />
+                        {formik.touched.password && formik.errors.password ? (
+                          <span id="passwordError" className="text-danger">
+                            {formik.errors.password}
+                          </span>
+                        ) : null}
                       </div>
 
                       <div className="row remember-row">
@@ -179,12 +180,14 @@ function Login(props) {
                         </div>
                       </div>
                       <div className="form-group">
-                        <button
-                          className="btn btn-lg btn-primary btn-block"
-                          type="submit"
-                        >
-                          Login with email
-                        </button>
+                        <div className="d-grid gap-2">
+                          <button
+                            type="submit"
+                            className="btn btn-lg btn-primary"
+                          >
+                            Login with email
+                          </button>
+                        </div>
                       </div>
                     </form>
                   </div>

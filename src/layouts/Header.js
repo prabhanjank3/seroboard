@@ -72,16 +72,6 @@ const Header = (props) => {
 
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
-          <NavItem>
-            <Link to="/starter" className="nav-link">
-              Starter
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/about" className="nav-link">
-              About
-            </Link>
-          </NavItem>
           <UncontrolledDropdown inNavbar nav>
             <DropdownToggle caret nav>
               Actions
@@ -96,7 +86,7 @@ const Header = (props) => {
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
-        <p>
+        <p className="mt-3">
           {`Hello ${props.userData.userFirstName} (${props.userData.role})`}
         </p>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
@@ -110,15 +100,12 @@ const Header = (props) => {
           </DropdownToggle>
 
           <DropdownMenu>
-            <DropdownItem header>{props.userData.userFirstName}</DropdownItem>
             <DropdownItem>Edit Profile</DropdownItem>
             <DropdownItem divider />
             <DropdownItem>
               {props.userData.isLoggedIn ? (
-                <button onClick={handleLogout}>Logout</button>
-              ) : (
-                "Invalid User"
-              )}
+                <span onClick={handleLogout}>Logout</span>
+              ) : null}
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
