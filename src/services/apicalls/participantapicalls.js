@@ -1,8 +1,8 @@
 import axios from "axios";
 import Properties from "../../Properties";
 
-const getAllParticipants = () => {
-    return axios.get(Properties.SERVER_URL+'/participant');
+const getAllParticipants = (batchid) => {
+    return axios.get(Properties.SERVER_URL+'/participant?participantbatchid='+batchid);
 }
 const getParticipantDetails = (id) => {
     return axios.get(Properties.SERVER_URL+'/participant/'+id);

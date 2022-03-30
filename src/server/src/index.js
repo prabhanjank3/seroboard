@@ -1,11 +1,10 @@
-let express = require("express");
-let bodyParser = require("body-parser");
-let usercontroller = require("./controller/usercontroller");
-let batchcontroller = require("./controller/batchcontroller");
-let participantcontroller = require("./controller/participantscontroller");
-
-let axios = require("axios");
-let cors = require("cors");
+var express = require("express");
+var bodyParser = require("body-parser");
+var usercontroller = require("./controller/usercontroller");
+var batchcontroller = require("./controller/batchcontroller");
+var participantcontroller = require("./controller/participantscontroller");
+var attendencecontroller = require("./controller/attendancecontroller");
+var cors = require("cors");
 const app = express();
 
 app.use(bodyParser.json());
@@ -36,6 +35,8 @@ app.patch("/participant/:id", participantcontroller.updateParticipant);
 
 // Login user and Auth user
 app.post("/api/login", usercontroller.getUserDetailsByEmail);
+//Attendence
+app.get("/attendance", attendencecontroller.getAttendanceData);
 
 app.listen(process.env.PORT || 3001, () => {
   console.log(

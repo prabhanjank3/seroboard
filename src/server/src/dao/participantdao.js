@@ -9,8 +9,8 @@ const insertParticipant = async (partObj, resp) => {
     })
 };
 
-const getAllParticipants = async (resp) => {
-    await pool.query(`SELECT * from public."Participant"`,[], (err, result) =>{
+const getAllParticipants = async (query,resp) => {
+    await pool.query(`SELECT * from public."Participant" WHERE ${Utils.conditionObjToQuery(query)}`,[], (err, result) =>{
         resp.send((err)?err:result.rows);
     });
 };
