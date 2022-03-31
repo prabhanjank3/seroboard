@@ -1,32 +1,114 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { GoogleLogin } from "react-google-login";
 import Properties from "../../Properties";
+import AuthContext from "../../context/AuthProvider";
+import axios from "../../api/axios";
+
+const LOGIN_URL = "/users";
 
 function Login(props) {
-  console.log(props);
+  const { setAuth } = useContext(AuthContext);
+  const userRef = useRef(null);
+  const errRef = useRef(null);
+
+  const [user, setUser] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [errMgs, setErrMgs] = useState("");
+  const [success, setSuccess] = useState("");
+
+  // useEffect(() => {
+  //   userRef.current.focus();
+  // }, []);
+
+  useEffect(() => {
+    setErrMgs("");
+  }, [user, pwd]);
+
+  const navigate = useNavigate();
+
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
 
   const clientId = Properties.REACT_APP_SERO_BOARD_CLIENT_ID;
 
   const [email, setEmail] = useState("");
 
+  async function handleLoginByGoogle(googleResponse) {
+    console.log(googleResponse);
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ token: googleResponse?.tokenId }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+      setLoginData(data);
+      localStorage.setItem("loginData", JSON.stringify(data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function handleLoginByForm(e) {
+    e.PreventDefault();
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ user, pwd }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response));
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+      setAuth({ user, pwd, roles, accessToken });
+      setUser("");
+      setPwd("");
+      setSuccess(true);
+      navigate("/dashboard");
+    } catch (err) {
+      if (!err?.response) {
+        setErrMgs("No response from server");
+      } else if (err.response?.status === 400) {
+        setErrMgs("Missing username or password");
+      } else if (err.response?.status === 401) {
+        setErrMgs("Unauthorized User");
+      } else {
+        setErrMgs("Login Failed");
+      }
+      errRef.current.focus();
+    }
+  }
+  function handleLoginFailure(result) {
+    alert(result);
+  }
+
   const onLoginSuccess = (res) => {
     console.log("Login Success: Current User email => ", res.profileObj.email);
     setEmail(res.profileObj.email);
-    fetch(`http://localhost:4567/Users/${email}`)
-      .then((a) => a.json())
-      .then((result) => {
-        console.log("This is resule" + result);
-        if (result.length > 0) {
-          console.log(result);
-          props.isLoggedIn(true);
-        } else {
-          props.isLoggedIn(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    props.isLoggedIn(true);
+    // fetch(`http://localhost:4567/Users/${email}`)
+    //   .then((a) => a.json())
+    //   .then((result) => {
+    //     console.log("This is resule" + result);
+    //     if (result.length > 0) {
+    //       console.log(result);
+    //       props.isLoggedIn(true);
+    //     } else {
+    //       props.isLoggedIn(false);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const onLoginFailure = (res) => {
