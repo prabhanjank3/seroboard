@@ -5,6 +5,9 @@ const initialStore = {
     role: "COORDINATOR",
     userFirstName: "Raghu",
   },
+  requiredData:{
+    presentData:[]
+  }
 };
 const reducer = (state = initialStore, action) => {
   switch (action.type) {
@@ -13,10 +16,19 @@ const reducer = (state = initialStore, action) => {
         ...state,
         authData: {
           isUserLoggedIn: true,
-          userName: action.payLoad.userName,
+          userName: action.payLoad.userfirstame,
           email: action.payLoad.email,
+          role
         },
       };
+    case "SET_PRESENT_DATA":
+      state = {
+        ...state,
+        requiredData:{
+          ...state.requiredData,
+          presentData:action.payLoad
+        }
+      }
   }
   return state;
 };
