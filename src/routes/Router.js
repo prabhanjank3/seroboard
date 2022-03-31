@@ -1,7 +1,6 @@
 import { lazy } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Usertable from "../components/tables/usertable";
-
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -9,20 +8,15 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 /***** Pages ****/
 
 const Starter = lazy(() => import("../views/Starter.js"));
-const About = lazy(() => import("../views/About.js"));
-const Alerts = lazy(() => import("../views/ui/Alerts"));
-const Badges = lazy(() => import("../views/ui/Badges"));
-const Buttons = lazy(() => import("../views/ui/Buttons"));
-const Cards = lazy(() => import("../views/ui/Cards"));
-const Grid = lazy(() => import("../views/ui/Grid"));
-const Tables = lazy(() => import("../views/ui/Tables"));
-const Forms = lazy(() => import("../views/ui/Forms"));
-const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const Login = lazy(() => import("../components/Login/Login"));
+const ForgotPassword = lazy(() =>
+  import("../components/forgotpass/ForgotPassword")
+);
+const Signup = lazy(() => import("../components/signup/Signup"));
 const Batch = lazy(() => import("../views/Batch"));
 /*****Routes******/
 
-const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
+const ThemeRoutes = (isLoggedIn) => [
   {
     path: "/",
     element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
@@ -30,27 +24,17 @@ const ThemeRoutes = (isLoggedIn, setIsLoggedIn) => [
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/batch", exact: true, element: <Batch /> },
       { path: "/Usertable", exact: true, element: <Usertable /> },
-      { path: "/alerts", exact: true, element: <Batch /> },
-      // { path: "/badges", exact: true, element: <Badges /> },
-      // { path: "/buttons", exact: true, element: <Buttons /> },
-      // { path: "/cards", exact: true, element: <Cards /> },
-      // { path: "/grid", exact: true, element: <Grid /> },
-      // { path: "/table", exact: true, element: <Tables /> },
-      // { path: "/forms", exact: true, element: <Forms /> },
-      // { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
       { path: "/", element: <Navigate to="/starter" /> },
     ],
   },
   {
     path: "/",
-    element: !isLoggedIn ? (
-      <Login logging={isLoggedIn} isLoggedIn={setIsLoggedIn} />
-    ) : (
-      <Navigate to="/starter" />
-    ),
+    element: !isLoggedIn ? <Login /> : <Navigate to="/starter" />,
     children: [
-      { path: "login", element: <Login /> },
       { path: "/", element: <Navigate to="/login" /> },
+      { path: "/login", element: <Login /> },
+      { path: "/signup", exact: true, element: <Signup /> },
+      { path: "/forgot-password", exact: true, element: <ForgotPassword /> },
     ],
   },
 ];
