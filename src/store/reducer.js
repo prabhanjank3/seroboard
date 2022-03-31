@@ -6,6 +6,9 @@ const initialStore = {
     userFirstName: "",
     imageUrl: "",
   },
+  requiredData:{
+    presentData:[]
+  }
 };
 const reducer = (state = initialStore, action) => {
   const fullName =

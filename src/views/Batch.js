@@ -5,18 +5,19 @@ import { getAllParticipants } from "../services/apicalls/participantapicalls";
 import BatchDropdownInput from "../components/utils/BatchDropdownInput";
 import Participanttable from "../components/tables/participanttable";
 import MarkAttendanceModal from "../components/modals/markAttendanceModal";
+import PostAssessmentModal from "../components/modals/postAssessmentmodal";
+import AssignmentModal from "../components/modals/assignmentmodal";
 const About = () => {
-  const [batchDataState, setBatchDataState] = useState({currentBatchData:{}, partData:[], allBatchData:[]});
+  const [batchDataState, setBatchDataState] = useState({currentBatchData:{}, partData:[], allBatchData:[],showPtTable:false,arrReportToday:[]});
   const setBatchDetails = (batchid) => {
-      
     getBatchDetails(batchid).then(resp => {
-        setBatchDataState({...batchDataState,currentBatchData:resp.data[0]});
+        batchDataState['currentBatchData']=resp.data[0];
+        setBatchDataState(batchDataState)
     }).then(() => {
         getAllParticipants(batchid).then(resp => {
-            console.log(resp.data)
             setBatchDataState({...batchDataState,partData:resp.data})
         });
-    });
+    })
   };
   useEffect(() => {
     getAllBatchs().then(resp => {
@@ -31,7 +32,13 @@ const About = () => {
         <BatchDropdownInput options={batchDataState.allBatchData} title='Select Batch' onChange={(e) => setBatchDetails(e.target.value)} />
         </CardTitle>
         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-        <MarkAttendanceModal partData={batchDataState.partData} />
+        {(batchDataState.partData.length !=0 ) && 
+        <div>
+        <MarkAttendanceModal partData={batchDataState.partData} arrReportToday={batchDataState.arrReportToday} />
+        <PostAssessmentModal partData={batchDataState.partData} batchid={batchDataState.currentBatchData.batchid} />
+        <AssignmentModal partData={batchDataState.partData} batchid={batchDataState.currentBatchData.batchid} />
+        
+        </div>}
         </CardTitle>
         <CardBody className="p-4">
           <Row justify-content>
