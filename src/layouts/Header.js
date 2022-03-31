@@ -92,7 +92,7 @@ const Header = (props) => {
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="transparent">
             <img
-              src={user1}
+              src={props.userData.imageUrl ? props.userData.imageUrl : user1}
               alt="profile"
               className="rounded-circle"
               width="30"
@@ -102,11 +102,9 @@ const Header = (props) => {
           <DropdownMenu>
             <DropdownItem>Edit Profile</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>
-              {props.userData.isLoggedIn ? (
-                <span onClick={handleLogout}>Logout</span>
-              ) : null}
-            </DropdownItem>
+            {props.userData.isLoggedIn ? (
+              <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+            ) : null}
           </DropdownMenu>
         </Dropdown>
       </Collapse>
@@ -119,6 +117,7 @@ const mapStateToProps = (state) => {
       role: state.authData.role,
       userFirstName: state.authData.userFirstName,
       isLoggedIn: state.authData.isUserLoggedIn,
+      imageUrl: state.authData.imageUrl,
     },
   };
 };

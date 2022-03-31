@@ -105,7 +105,12 @@ const Sidebar = (props) => {
         style={{ background: `url(${probg}) no-repeat` }}
       >
         <div className="p-3 d-flex">
-          <img src={user1} alt="user" width="50" className="rounded-circle" />
+          <img
+            src={props.userData.imageUrl ? props.userData.imageUrl : user1}
+            alt="user"
+            width="50"
+            className="rounded-circle"
+          />
           <Button
             color="white"
             className="ms-auto text-white d-lg-none"
@@ -147,6 +152,7 @@ const mapStateToProps = (state) => {
       role: state.authData.role,
       userFirstName: state.authData.userFirstName,
       isLoggedIn: state.authData.isUserLoggedIn,
+      imageUrl: state.authData.imageUrl,
     },
   };
 };
