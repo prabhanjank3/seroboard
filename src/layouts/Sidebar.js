@@ -18,7 +18,7 @@ const adminNav = [
   },
   {
     title: "Batches",
-    href: "/",
+    href: "/batch",
     icon: "bi bi-card-text",
   },
   {
@@ -28,7 +28,7 @@ const adminNav = [
   },
   {
     title: "Batch",
-    href: "/",
+    href: "/batch",
     icon: "bi bi-layout-split",
   },
 ];
@@ -45,7 +45,7 @@ const coordinatorNav = [
   },
   {
     title: "Batches",
-    href: "/",
+    href: "/batch",
     icon: "bi bi-card-text",
   },
 ];
@@ -62,12 +62,12 @@ const instructorNav = [
   },
   {
     title: "Batches",
-    href: "/",
+    href: "/batch",
     icon: "bi bi-card-text",
   },
   {
     title: "Batch",
-    href: "/",
+    href: "/batch",
     icon: "bi bi-layout-split",
   },
   {

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var express = require('express');
 var bodyParser = require('body-parser');
 var usercontroller = require('./controller/usercontroller');
@@ -11,15 +10,6 @@ var assignmentcontroller = require('./controller/assignmentcontroller');
 var assignmentreccontroller = require('./controller/assignmentrecordcontroller');
 var axios = require('axios');
 var cors = require('cors');
-=======
-var express = require("express");
-var bodyParser = require("body-parser");
-var usercontroller = require("./controller/usercontroller");
-var batchcontroller = require("./controller/batchcontroller");
-var participantcontroller = require("./controller/participantscontroller");
-var attendencecontroller = require("./controller/attendancecontroller");
-var cors = require("cors");
->>>>>>> fc5970e8f41e66689bc08dcc05faade138dd91e2
 const app = express();
 
 app.use(bodyParser.json());
