@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Table,
+  Button,
+} from "reactstrap";
 import { getAllUsers, deleteUser } from "../../services/apicalls/apicall";
 import { connect } from "react-redux";
 import "./tables.css";
@@ -9,7 +16,6 @@ const NewUserTable = (props) => {
   const [userDataState, setUserData] = useState({ userData: [] });
   const setData = () => {
     getAllUsers().then((resp) => {
-      console.log(resp);
       setUserData({ userData: resp.data });
     });
   };

@@ -1,33 +1,44 @@
 const initialStore = {
   authData: {
-    isUserLoggedIn: true,
+    isUserLoggedIn: false,
     email: "",
-    role: "COORDINATOR",
-    userFirstName: "Raghu",
+    role: "",
+    userFirstName: "",
+    imageUrl: "",
   },
   requiredData:{
     presentData:[]
   }
 };
 const reducer = (state = initialStore, action) => {
+  const fullName =
+    action.payLoad?.userfirstname + " " + action.payLoad?.userlastname;
   switch (action.type) {
     case "LOG_IN":
       state = {
         ...state,
         authData: {
           isUserLoggedIn: true,
-          userName: action.payLoad.userfirstame,
-          email: action.payLoad.email,
+          userFirstName: fullName,
+          email: action.payLoad.useremail,
+          role: action.payLoad.userrole,
+          imageUrl: action.payLoad.imageUrl,
         },
       };
-    case "SET_PRESENT_DATA":
+      break;
+    case "LOG_OUT":
       state = {
         ...state,
-        requiredData:{
-          ...state.requiredData,
-          presentData:action.payLoad
-        }
-      }
+        authData: {
+          isUserLoggedIn: false,
+          userFirstName: "",
+          email: "",
+          role: "",
+        },
+      };
+      break;
+    default:
+      break;
   }
   return state;
 };

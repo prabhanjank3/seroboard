@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -19,7 +19,10 @@ import user1 from "../assets/images/users/user4.jpg";
 import { connect } from "react-redux";
 import AddUserModal from "../components/modals/addUserModal";
 import AddBatchModal from "../components/modals/addBatchModal";
+import Themeroutes from "../routes/Router";
+
 const Header = (props) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -31,6 +34,10 @@ const Header = (props) => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
+
+  function handleLogout() {
+    props.setUserLoggedOut();
+  }
   return (
     <Navbar color="dark" dark expand="md" className="fix-header">
       <div className="d-flex align-items-center">
@@ -65,16 +72,6 @@ const Header = (props) => {
 
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
-          <NavItem>
-            <Link to="/starter" className="nav-link">
-              Starter
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/about" className="nav-link">
-              About
-            </Link>
-          </NavItem>
           <UncontrolledDropdown inNavbar nav>
             <DropdownToggle caret nav>
               Actions
@@ -89,11 +86,13 @@ const Header = (props) => {
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
-        {`Hello ${props.userData.userFirstName} (${props.userData.role})`}
+        <p className="mt-3">
+          {`Hello ${props.userData.userFirstName} (${props.userData.role})`}
+        </p>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="transparent">
             <img
-              src={user1}
+              src={props.userData.imageUrl ? props.userData.imageUrl : user1}
               alt="profile"
               className="rounded-circle"
               width="30"
@@ -101,12 +100,11 @@ const Header = (props) => {
           </DropdownToggle>
 
           <DropdownMenu>
-            <DropdownItem header>{props.userData.userFirstName}</DropdownItem>
-            <DropdownItem>My Account</DropdownItem>
             <DropdownItem>Edit Profile</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>My Balance</DropdownItem>
-            <DropdownItem>Inbox</DropdownItem>
+            {props.userData.isLoggedIn ? (
+              <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+            ) : null}
           </DropdownMenu>
         </Dropdown>
       </Collapse>
@@ -118,6 +116,8 @@ const mapStateToProps = (state) => {
     userData: {
       role: state.authData.role,
       userFirstName: state.authData.userFirstName,
+      isLoggedIn: state.authData.isUserLoggedIn,
+      imageUrl: state.authData.imageUrl,
     },
   };
 };
@@ -125,6 +125,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUserLoggedIn: (actionType, payLoad) => {
       dispatch({ type: actionType, payLoad: payLoad });
+    },
+    setUserLoggedOut: () => {
+      dispatch({ type: "LOG_OUT" });
     },
   };
 };
