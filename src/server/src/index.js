@@ -4,6 +4,10 @@ var usercontroller = require('./controller/usercontroller');
 var batchcontroller = require('./controller/batchcontroller');
 var participantcontroller = require('./controller/participantscontroller');
 var attendencecontroller = require('./controller/attendancecontroller');
+var postassreccontroller = require('./controller/postassrecordcontroller');
+var postasscontroller = require('./controller/postasscontroller');
+var assignmentcontroller = require('./controller/assignmentcontroller');
+var assignmentreccontroller = require('./controller/assignmentrecordcontroller');
 var axios = require('axios');
 var cors = require('cors');
 const app = express();
@@ -35,8 +39,28 @@ app.patch('/participant/:id', participantcontroller.updateParticipant);
 
 //Attendence
 app.get('/attendance', attendencecontroller.getAttendanceData);
+app.post('/attendance',attendencecontroller.submitAttendanceReport)
+app.delete('/attendance', attendencecontroller.deleteAttReportByCondition);
 
+//Post Assessment
+app.get('/postass',postasscontroller.getAllPostass);
+app.post('/postass', postasscontroller.insertPostass);
+app.delete('/postass/:id', postasscontroller.deletePostass);
+app.patch('/postass', postasscontroller.updatePostass);
 
+//Post Assessment Records
+app.get('/postassrec', postassreccontroller.getPostAssessmentRecord);
+app.post('/postassrec', postassreccontroller.markPostAssessmentScore);
+
+//Assignment
+app.get('/assignment',assignmentcontroller.getAllAssignment);
+app.post('/assignment', assignmentcontroller.insertAssignment);
+app.delete('/assignment/:id', assignmentcontroller.deleteAssignment);
+app.patch('/assignment', assignmentcontroller.updateAssignment);
+
+//Assignment Record
+app.get('/assignmentrec', assignmentreccontroller.getAssignmentRecord);
+app.post('/assignmentrec', assignmentreccontroller.markAssignmentScore);
 
 app.listen(3001, () => {
     console.log('Node Server listening..');

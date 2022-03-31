@@ -1,17 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { getAttendanceData } from "../../services/apicalls/attendanceapicalls";
 import "./tables.css";
-const NewUserTable = (props) => {
+const NewPostAssTable = (props) => {
+    console.log(props);
     let data = {};
-    const checkboxInput = useRef(null);
-    const [presentState,setPresentState] = useState({data:{},attReportData:[]});
-    const makeAbsent = [];
+    const [presentState,setPresentState] = useState({data:{}});
     const submitReport = () => {
         let dummy = {...presentState.data};
-        // presentState.attReportData.forEach(key => delete dummy[key]);
-        // Object.keys(dummy).filter(key => dummy[key]['ispresent']===false).forEach(key => delete dummy[key]);
         props.action(dummy);
     }
     useEffect(() => {
@@ -19,23 +15,23 @@ const NewUserTable = (props) => {
         {
             data[props.partData[t]['participantid']]={
                 participantid:props.partData[t]['participantid'],
-                ispresent:false,
-                date:props.date
+                score:0,
+                postassid:props.postassid
             };
         }
-        for(let t in props.attReportData)
+        for(let t in props.scores)
         {
-            if(props.attReportData.length>0)
+            if(props.scores.length>0)
             {
-                data[props.attReportData[t]]['ispresent'] = true
+                data[props.scores[t]['participantid']]['score'] = props.scores[t]['score'];
             }
         }
-        setPresentState({...presentState,data:data,attReportData:props.attReportData});
+        setPresentState({...presentState,data:data});
     },[props]);
-    const onPresentMark = (prid,mark) => {
-            var dummy = presentState;
-            dummy.data[prid]['ispresent'] = mark;
-            setPresentState(dummy);
+    const onMarkChange = (prid,mark) => {
+        var dummy = presentState;
+        dummy.data[prid]['score'] = mark;
+        setPresentState(dummy);
     }
   return (
     <div>
@@ -45,7 +41,7 @@ const NewUserTable = (props) => {
             <th>#</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Present/Absent</th>
+            <th>Score</th>
             {/* {props.role === "ADMIN" && <th>Actions</th>} */}
           </tr>
         </thead>
@@ -56,7 +52,7 @@ const NewUserTable = (props) => {
                 <td>{user.participantid}</td>
                 <td>{user.participantfirstname}</td>
                 <td>{user.participantlastname}</td>
-                <td><input type="checkbox" ref={checkboxInput} key={Math.random()} defaultChecked={((presentState.attReportData.length==0)?false:(Object.keys(presentState.data).length != 0) && presentState.data[user.participantid]['ispresent'])}  onChange={e => {onPresentMark(user.participantid,e.target.checked)}} /></td>
+                <td><input type="text" class="score-input" key={Math.random()} defaultValue={ (Object.keys(presentState.data).length>0) && presentState.data[user.participantid]['score'] } onChange={e => {onMarkChange(user.participantid,e.target.value)}} /></td>
               </tr>
             );
           })}
@@ -78,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewUserTable);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPostAssTable);

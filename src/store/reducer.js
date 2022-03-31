@@ -18,7 +18,6 @@ const reducer = (state = initialStore, action) => {
           isUserLoggedIn: true,
           userName: action.payLoad.userfirstame,
           email: action.payLoad.email,
-          role
         },
       };
     case "SET_PRESENT_DATA":
