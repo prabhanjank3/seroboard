@@ -8,10 +8,15 @@ import {
 } from "../../services/apicalls/batchapicalls";
 import "./tables.css";
 import EditBatchModal from "../modals/editBatchModal";
+import MarkAttendanceModal from "../modals/markAttendanceModal";
 import AddParticipantsModal from "../modals/addParticipantsModal";
+import PostAssessmentModal from "../modals/postAssessmentmodal";
 import { BsUiChecks } from "react-icons/bs";
+import {BiCodeAlt, BiTask} from 'react-icons/bi'
+import {FaUserPlus} from 'react-icons/fa'
 import { HiDocumentReport } from "react-icons/hi";
 import BatchDurationForm from "../forms/batchDuration";
+import AssignmentModal from "../modals/assignmentmodal";
 const BatchTable = (props) => {
   const [batchDataState, setBatchData] = useState({ batchData: [] });
   const initialDuration = { from: "2022-01-01", to: "2023-01-01" };
@@ -64,7 +69,9 @@ const BatchTable = (props) => {
                 <td>{batch.instructorname}</td>
                 {props.role === "ADMIN" && (
                   <td>
-                    <EditBatchModal id={batch.batchid} action={setData} />
+                    <EditBatchModal batchid={batch.batchid} action={setData} >
+                      <Button className="btn btn-primary">Edit</Button>
+                    </EditBatchModal>
                     <Button
                       className="table-item-action-btn"
                       onClick={() => {
@@ -77,11 +84,34 @@ const BatchTable = (props) => {
                 )}
                 {props.role === "COORDINATOR" && (
                   <td>
-                    <AddParticipantsModal id={batch.batchid} action={setData} />
-                    <Button className="table-item-action-btn">
+                    <AddParticipantsModal id={batch.batchid} action={setData} >
+                      <Button className="btn btn-primary table-item-action-btn">
+                        <FaUserPlus />
+                      </Button>
+                    </AddParticipantsModal>
+                    <MarkAttendanceModal batchid={batch.batchid}>
+                    <Button className="btn-primary table-item-action-btn">
                       <BsUiChecks />
                     </Button>
-                    <Button className="table-item-action-btn">
+                    </MarkAttendanceModal>
+                    <Button className="btn-primary table-item-action-btn">
+                      <HiDocumentReport />
+                    </Button>
+                  </td>
+                )}
+                {props.role === "INSTRUCTOR" && (
+                  <td>
+                    <PostAssessmentModal batchid={batch.batchid} >
+                      <Button className="btn btn-primary table-item-action-btn">
+                        <BiCodeAlt />
+                      </Button>
+                    </PostAssessmentModal>
+                    <AssignmentModal batchid={batch.batchid}>
+                    <Button className="btn-primary table-item-action-btn">
+                      <BiTask />
+                    </Button>
+                    </AssignmentModal>
+                    <Button className="btn-primary table-item-action-btn">
                       <HiDocumentReport />
                     </Button>
                   </td>

@@ -26,7 +26,6 @@ export default (props) => {
   };
   const navigate = useNavigate();
   const sendForInsert = () => {
-    console.log(formState);
     return props.action(formState);
   };
   const [formState, setState] = useState(initialState);

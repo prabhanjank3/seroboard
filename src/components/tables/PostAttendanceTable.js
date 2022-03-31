@@ -3,7 +3,6 @@ import { Table, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import "./tables.css";
 const NewPostAssTable = (props) => {
-    console.log(props);
     let data = {};
     const [presentState,setPresentState] = useState({data:{}});
     const submitReport = () => {
