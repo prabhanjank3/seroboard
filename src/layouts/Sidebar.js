@@ -27,8 +27,8 @@ const adminNav = [
     icon: "bi bi-columns",
   },
   {
-    title: "Batch",
-    href: "/",
+    title: "Profile",
+    href: "/editprofile",
     icon: "bi bi-layout-split",
   },
 ];
@@ -40,6 +40,11 @@ const coordinatorNav = [
   },
   {
     title: "Profile",
+    href: "/",
+    icon: "bi bi-layout-split",
+  },
+  {
+    title: "Instructor",
     href: "/",
     icon: "bi bi-layout-split",
   },

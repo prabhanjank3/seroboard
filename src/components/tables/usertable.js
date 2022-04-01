@@ -34,7 +34,13 @@ const NewUserTable = (props) => {
     <div>
       <Card className="mt-3">
         <CardBody>
+          <CardTitle tag="h5">Users Listing</CardTitle>
+          <CardSubtitle className="mb-2 text-muted" tag="h6">
+            Details of users
+          </CardSubtitle>
+          <div className="border-top my-3" />
           <SearchUserForm />
+          <div className="border-top my-3" />
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
@@ -57,7 +63,7 @@ const NewUserTable = (props) => {
                       <td>
                         <EditUserModal id={user.userid} action={onEdit} />
                         <Button
-                          className="table-item-action-btn"
+                          className="btn btn-danger table-item-action-btn "
                           onClick={() => {
                             onDeleteClick(user.userid);
                           }}

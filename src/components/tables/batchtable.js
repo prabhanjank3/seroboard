@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Table,
+  Button,
+} from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
@@ -37,60 +44,70 @@ const BatchTable = (props) => {
     <div>
       <Card className="mt-5">
         <CardBody>
-        <BatchDurationForm
-        from={initialDuration.from}
-        to={initialDuration.to}
-        action={(newDuration) => {
-          setDuration(newDuration);
-        }}
-      />
-      <Table className="no-wrap mt-3 align-middle" responsive borderless>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Batch Name</th>
-            <th>Instructor</th>
-            {(props.role === "ADMIN" || props.role === "INSTRUCTOR") && (
-              <th>Actions</th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {batchDataState.batchData.map((batch) => {
-            return (
-              <tr key={batch.batchid} className="border-top">
-                <td>{batch.batchid}</td>
-                <td>{batch.batchname}</td>
-                <td>{batch.instructorname}</td>
-                {props.role === "ADMIN" && (
-                  <td>
-                    <EditBatchModal id={batch.batchid} action={setData} />
-                    <Button
-                      className="table-item-action-btn"
-                      onClick={() => {
-                        onDeleteClick(batch.batchid);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                )}
-                {props.role === "COORDINATOR" && (
-                  <td>
-                    <AddParticipantsModal id={batch.batchid} action={setData} />
-                    <Button className="table-item-action-btn">
-                      <BsUiChecks />
-                    </Button>
-                    <Button className="table-item-action-btn">
-                      <HiDocumentReport />
-                    </Button>
-                  </td>
+          <CardTitle tag="h5">Batches Listing</CardTitle>
+          <CardSubtitle className="mb-2 text-muted" tag="h6">
+            Details of all batches
+          </CardSubtitle>
+          <div className="border-top my-3" />
+          <BatchDurationForm
+            from={initialDuration.from}
+            to={initialDuration.to}
+            action={(newDuration) => {
+              setDuration(newDuration);
+            }}
+          />
+          <div className="border-top my-3" />
+          <Table className="no-wrap mt-3 align-middle" responsive borderless>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Batch Name</th>
+                <th>Instructor</th>
+                {(props.role === "ADMIN" || props.role === "INSTRUCTOR") && (
+                  <th>Actions</th>
                 )}
               </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+            </thead>
+            <tbody>
+              {batchDataState.batchData.map((batch) => {
+                return (
+                  <tr key={batch.batchid} className="border-top">
+                    <td>{batch.batchid}</td>
+                    <td>{batch.batchname}</td>
+                    <td>{batch.instructorname}</td>
+                    {props.role === "ADMIN" && (
+                      <td>
+                        <EditBatchModal id={batch.batchid} action={setData} />
+                        <Button
+                          className="btn btn-danger"
+                          style={{ "margin-left": "10px" }}
+                          onClick={() => {
+                            onDeleteClick(batch.batchid);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    )}
+                    {props.role === "COORDINATOR" && (
+                      <td>
+                        <AddParticipantsModal
+                          id={batch.batchid}
+                          action={setData}
+                        />
+                        <Button className="btn btn-warning table-item-action-btn">
+                          <BsUiChecks />
+                        </Button>
+                        <Button className="btn btn-success table-item-action-btn">
+                          <HiDocumentReport />
+                        </Button>
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         </CardBody>
       </Card>
     </div>

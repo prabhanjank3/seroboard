@@ -18,25 +18,27 @@ export default (props) => {
     <div>
       <Container className="px-0">
         <Row>
-          <Col lg={10}>
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              From
-            </label>
+          <Col lg={1} className="text-center pt-2">
+            <label htmlFor="From">From</label>
+          </Col>
+          <Col lg={3}>
             <input
               type="date"
-              className="batch-duration-input"
+              className="form-control"
               placeholder="yyyy-mm-dd"
               value={formState.from}
               onChange={(e) => {
                 setState({ to: formState.to, from: e.target.value });
               }}
             />
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              To
-            </label>
+          </Col>
+          <Col lg={1} className="text-center pt-2">
+            <label htmlFor="To">To</label>
+          </Col>
+          <Col lg={3}>
             <input
               type="date"
-              className="batch-duration-input"
+              className="form-control"
               placeholder="yyyy-mm-dd"
               value={formState.to}
               onChange={(e) => {
@@ -44,10 +46,9 @@ export default (props) => {
               }}
             />
           </Col>
-
-          <Col lg={2}>
+          <Col lg={4}>
             <Button
-              className="batch-duration-input-btn"
+              className="btn btn-primary batch-duration-input-btn"
               onClick={() => {
                 updateBatchDuration();
               }}
