@@ -14,6 +14,8 @@ const ForgotPassword = lazy(() =>
 );
 const Signup = lazy(() => import("../components/signup/Signup"));
 const Batch = lazy(() => import("../views/Batch"));
+const EditProfile = lazy(() => import("../components/EditProfile/EditProfile"));
+
 /*****Routes******/
 
 const ThemeRoutes = (isLoggedIn) => [
@@ -24,6 +26,7 @@ const ThemeRoutes = (isLoggedIn) => [
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/batch", exact: true, element: <Batch /> },
       { path: "/Usertable", exact: true, element: <Usertable /> },
+      { path: "/editprofile", exact: true, element: <EditProfile /> },
       { path: "/", element: <Navigate to="/starter" /> },
     ],
   },

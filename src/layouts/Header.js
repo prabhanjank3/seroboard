@@ -38,6 +38,10 @@ const Header = (props) => {
   function handleLogout() {
     props.setUserLoggedOut();
   }
+
+  const editUserProfile = () => {
+    navigate("/editprofile");
+  };
   return (
     <Navbar color="dark" dark expand="md" className="fix-header">
       <div className="d-flex align-items-center">
@@ -100,7 +104,7 @@ const Header = (props) => {
           </DropdownToggle>
 
           <DropdownMenu>
-            <DropdownItem>Edit Profile</DropdownItem>
+            <DropdownItem onClick={editUserProfile}>Edit Profile</DropdownItem>
             <DropdownItem divider />
             {props.userData.isLoggedIn ? (
               <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
