@@ -11,6 +11,7 @@ import AddParticipantModal from '../components/modals/addParticipantsModal';
 import AddBatchModal from '../components/modals/addBatchModal';
 import EditBatchModal from '../components/modals/editBatchModal';
 import { connect } from "react-redux";
+import Batchinfo from "../components/display/batchinfo";
 const About = (props) => {
   const [batchDataState, setBatchDataState] = useState({currentBatchData:{}, partData:[], allBatchData:[],showPtTable:false,arrReportToday:[]});
   const setBatchDetails = (batchid) => {
@@ -35,6 +36,10 @@ const About = (props) => {
         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
         <BatchDropdownInput options={batchDataState.allBatchData} title='Select Batch' onChange={(e) => setBatchDetails(e.target.value)} />
         </CardTitle>
+        {/* <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+        {(batchDataState.partData.length !=0 ) && 
+        <Batchinfo batchinfo={batchDataState.currentBatchData} />}
+        </CardTitle> */}
         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
         {(batchDataState.partData.length !=0 ) && 
         <div>

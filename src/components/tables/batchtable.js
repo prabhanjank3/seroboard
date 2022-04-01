@@ -84,7 +84,7 @@ const BatchTable = (props) => {
                 )}
                 {props.role === "COORDINATOR" && (
                   <td>
-                    <AddParticipantsModal id={batch.batchid} action={setData} >
+                    <AddParticipantsModal batchid={batch.batchid} action={setData} >
                       <Button className="btn btn-primary table-item-action-btn">
                         <FaUserPlus />
                       </Button>
