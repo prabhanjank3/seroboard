@@ -19,9 +19,9 @@ const AddUserModal = (props) => {
    }
     return (
       <>
-        <p onClick={handleShow}>
-            Add Batch
-        </p>
+        <span className="batch-action-btn" onClick={handleShow}>
+            {props.children}
+        </span>
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

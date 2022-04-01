@@ -19,9 +19,9 @@ const AddUserModal = (props) => {
    }
     return (
       <>
-        <p onClick={handleShow}>
-            Add User
-        </p>
+        <span onClick={handleShow}>
+            {props.children}
+        </span>
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

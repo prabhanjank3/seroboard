@@ -7,7 +7,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import AddUserModal from "../modals/addUserModal";
 function Login(props) {
   const formik = useFormik({
     initialValues: {
@@ -167,11 +167,14 @@ function Login(props) {
                         <div className="row remember-row">
                           <div className="col-xs-6 col-sm-6">
                             <label className="checkbox text-left">
-                              <input
+                              {/* <input
                                 type="checkbox"
                                 defaultValue="remember-me"
                               />
-                              <span className="label-text">Remember me</span>
+                              <span className="label-text">Remember me</span> */}
+                              <AddUserModal>
+                              <span className="label-text">Create Account</span>
+                              </AddUserModal>
                             </label>
                           </div>
                           <div className="col-xs-6 col-sm-6">

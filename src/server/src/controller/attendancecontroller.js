@@ -4,7 +4,7 @@ const getAttendanceData = (req, resp) => {
     attdao.getAttendanceData(req.query, resp);
 }
 const submitAttendanceReport = (req, resp) => {
-    attdao.markAttendance(req.body, resp);
+    attdao.markAttendance(req.params.batchid,req.body, resp);
 }
 const deleteAttReportByCondition = async (req, resp) => {
     attdao.deleteAttReportByCondition(req.query,resp);
