@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Table,
-  Button,
-} from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
@@ -25,12 +18,12 @@ import { HiDocumentReport } from "react-icons/hi";
 import BatchDurationForm from "../forms/batchDuration";
 import AssignmentModal from "../modals/assignmentmodal";
 const BatchTable = (props) => {
-  const [batchDataState, setBatchData] = useState({ batchData: [] });
   const initialDuration = { from: "2022-01-01", to: "2023-01-01" };
+  const [batchDataState, setBatchData] = useState({ batchData: [], duration:initialDuration });
   const setData = (duration) => {
     getBatchInDuration({ from: duration.from, to: duration.to }).then(
       (resp) => {
-        setBatchData({ batchData: resp.data });
+        setBatchData({ batchData: resp.data, duration:duration });
       }
     );
   };
@@ -76,7 +69,7 @@ const BatchTable = (props) => {
                 <td>{batch.instructorname}</td>
                 {props.role === "ADMIN" && (
                   <td>
-                    <EditBatchModal batchid={batch.batchid} action={setData} >
+                    <EditBatchModal batchid={batch.batchid} action={setData(batchDataState.duration)} >
                       <Button className="btn btn-primary">Edit</Button>
                     </EditBatchModal>
                     <Button
@@ -124,47 +117,10 @@ const BatchTable = (props) => {
                   </td>
                 )}
               </tr>
-            </thead>
-            <tbody>
-              {batchDataState.batchData.map((batch) => {
-                return (
-                  <tr key={batch.batchid} className="border-top">
-                    <td>{batch.batchid}</td>
-                    <td>{batch.batchname}</td>
-                    <td>{batch.instructorname}</td>
-                    {props.role === "ADMIN" && (
-                      <td>
-                        <EditBatchModal id={batch.batchid} action={setData} />
-                        <Button
-                          className="btn btn-danger"
-                          style={{ "margin-left": "10px" }}
-                          onClick={() => {
-                            onDeleteClick(batch.batchid);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </td>
-                    )}
-                    {props.role === "COORDINATOR" && (
-                      <td>
-                        <AddParticipantsModal
-                          id={batch.batchid}
-                          action={setData}
-                        />
-                        <Button className="btn btn-warning table-item-action-btn">
-                          <BsUiChecks />
-                        </Button>
-                        <Button className="btn btn-success table-item-action-btn">
-                          <HiDocumentReport />
-                        </Button>
-                      </td>
-                    )}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+            );
+          })}
+        </tbody>
+      </Table>
         </CardBody>
       </Card>
     </div>
