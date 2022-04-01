@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Table,
+  Button,
+} from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
@@ -117,10 +124,47 @@ const BatchTable = (props) => {
                   </td>
                 )}
               </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+            </thead>
+            <tbody>
+              {batchDataState.batchData.map((batch) => {
+                return (
+                  <tr key={batch.batchid} className="border-top">
+                    <td>{batch.batchid}</td>
+                    <td>{batch.batchname}</td>
+                    <td>{batch.instructorname}</td>
+                    {props.role === "ADMIN" && (
+                      <td>
+                        <EditBatchModal id={batch.batchid} action={setData} />
+                        <Button
+                          className="btn btn-danger"
+                          style={{ "margin-left": "10px" }}
+                          onClick={() => {
+                            onDeleteClick(batch.batchid);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    )}
+                    {props.role === "COORDINATOR" && (
+                      <td>
+                        <AddParticipantsModal
+                          id={batch.batchid}
+                          action={setData}
+                        />
+                        <Button className="btn btn-warning table-item-action-btn">
+                          <BsUiChecks />
+                        </Button>
+                        <Button className="btn btn-success table-item-action-btn">
+                          <HiDocumentReport />
+                        </Button>
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         </CardBody>
       </Card>
     </div>

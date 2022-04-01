@@ -1,28 +1,22 @@
-.new-user-insert-btn
-{
-    margin: 20px auto;
-    width: 95%;
+.new-user-insert-btn {
+  margin: 20px auto;
+  width: 95%;
 }
-.batch-duration-input
-{
-    display: inline;
-    border-color: 1px solid grey;
-    height: 32px;
-    margin-left: 10px;
-    margin-right: 10px;
+.batch-duration-input {
+  display: inline;
+  border-color: 1px solid grey;
+  height: 32px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-.batch-duration-input-btn
-{
-    padding: 4px 14px;
-    position: relative;
-    bottom: 5px;
-    float: right;
+.batch-duration-input-btn {
+  float: right;
 }
-.form-label{
-    margin-top: 17px !important;
-    margin-bottom: 3px !important;
-    padding-left: 0px;
+.form-label {
+  margin-top: 17px !important;
+  margin-bottom: 3px !important;
+  padding-left: 0px;
 }
-.modal-dialog{
-    margin: 6.75rem auto !important;
+.modal-dialog {
+  margin: 6.75rem auto !important;
 }

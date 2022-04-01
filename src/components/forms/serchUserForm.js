@@ -3,22 +3,25 @@ import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
 import "./forms.css";
 import "../component.css";
 import { getDateInputFormat } from "../../services/commonFunctions";
+
 export default (props) => {
   const initialState = {
     key: "",
   };
+
   const updateSearchKeyword = () => {
+    console.log(formState);
     // return props.action(formState);
   };
   const [formState, setState] = useState(initialState);
   return (
     <div>
-      <Container className="px-0">
+      <Container className="px-1">
         <Row>
-          <Col lg={8}>
+          <Col lg={6}>
             <input
               type="text"
-              className="batch-duration-input"
+              className="form-control "
               value={formState.key}
               placeholder="Enter keywords"
               onChange={(e) => {
@@ -26,9 +29,9 @@ export default (props) => {
               }}
             />
           </Col>
-          <Col lg={4}>
+          <Col lg={6}>
             <Button
-              className="batch-duration-input-btn pull-right"
+              className=" btn batch-duration-input-btn pull-right"
               onClick={() => {
                 updateSearchKeyword();
               }}

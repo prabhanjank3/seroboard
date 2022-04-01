@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Modal, Button} from 'react-bootstrap';
-import EditBatchForm from '../forms/editBatchForm';
-import {updateBatch} from '../../services/apicalls/batchapicalls';
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import EditBatchForm from "../forms/editBatchForm";
+import { updateBatch } from "../../services/apicalls/batchapicalls";
 const EditUserModal = (props) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -31,4 +31,3 @@ const EditUserModal = (props) => {
     );
   }
 export default EditUserModal;
- 
