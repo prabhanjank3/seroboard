@@ -75,24 +75,32 @@ const Header = (props) => {
       </div>
 
       <Collapse navbar isOpen={isOpen}>
-        <Nav className="me-auto" navbar>
-          <UncontrolledDropdown inNavbar nav>
-            <DropdownToggle caret nav>
-              Actions
-            </DropdownToggle>
-            <DropdownMenu end>
-              <DropdownItem>
-                <AddUserModal />
-              </DropdownItem>
-              <DropdownItem>
-                <AddBatchModal />
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </Nav>
-        <p className="mt-3">
-          {`Hello ${props.userData.userFirstName} (${props.userData.role})`}
-        </p>
+        {props.userData.role === "ADMIN" && (
+          <Nav className="me-auto" navbar>
+            <UncontrolledDropdown inNavbar nav>
+              <DropdownToggle caret nav>
+                Actions
+              </DropdownToggle>
+              <DropdownMenu end>
+                <DropdownItem>
+                  <AddUserModal>
+                    <Button>Add User</Button>
+                  </AddUserModal>
+                </DropdownItem>
+                <DropdownItem>
+                  <AddBatchModal>
+                    <Button>Add Batch</Button>
+                  </AddBatchModal>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        )}
+        <div className="d-flex">
+          <p className="mt-3 float-right">
+            {`Hello ${props.userData.userFirstName} (${props.userData.role})`}
+          </p>
+        </div>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="transparent">
             <img
