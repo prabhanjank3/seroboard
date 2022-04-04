@@ -10,6 +10,7 @@ import bg2 from "../assets/images/bg/bg2.jpg";
 import bg3 from "../assets/images/bg/bg3.jpg";
 import bg4 from "../assets/images/bg/bg4.jpg";
 import AddUser from "../components/modals/addUserModal";
+import { connect } from "react-redux";
 
 const BlogData = [
   {
@@ -46,7 +47,7 @@ const BlogData = [
   },
 ];
 
-const Starter = () => {
+const Starter = (props) => {
   return (
     <div>
       {/***Top Cards***/}
@@ -54,10 +55,10 @@ const Starter = () => {
       {/***Sales & Feed***/}
       <Row>
         <Col sm="12" lg="12" xl="12" xxl="12">
-          <Usertable />
+          {props.role === "ADMIN" && <Usertable />}
         </Col>
-        </Row>
-        <Row>
+      </Row>
+      <Row>
         <Col sm="12" lg="12" xl="12" xxl="12">
           <Batchtable />
         </Col>
@@ -85,5 +86,10 @@ const Starter = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    role: state.authData.role,
+  };
+};
 
-export default Starter;
+export default connect(mapStateToProps)(Starter);
