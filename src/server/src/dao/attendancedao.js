@@ -8,8 +8,8 @@ const getAttendanceData = (query, resp) => {
         resp.send(result.rows);
     })
 }
-const markAttendance = (data, resp) => {
-    pool.query('DELETE FROM public."attendance"',[],(err, result) => {
+const markAttendance = (batchid, data, resp) => {
+    pool.query(`DELETE FROM public."attendance" WHERE date='${data[Object.keys(data)[0]]['date']}' AND participantid IN (SELECT participantid from public."Participant" WHERE batchid='${batchid}')`,[],(err, result) => {
         const qry = `INSERT INTO public."attendance" (attid,participantid,ispresent,date) VALUES ${Utils.insertMultipleRows(data)}`;
         pool.query(qry,[], (err, result) => {
             resp.send({status:'Success', code:200});

@@ -22,11 +22,6 @@ const adminNav = [
     icon: "bi bi-card-text",
   },
   {
-    title: "Attendance",
-    href: "/",
-    icon: "bi bi-columns",
-  },
-  {
     title: "Profile",
     href: "/editprofile",
     icon: "bi bi-layout-split",
@@ -40,14 +35,10 @@ const coordinatorNav = [
   },
   {
     title: "Profile",
-    href: "/",
+    href: "/editprofile",
     icon: "bi bi-layout-split",
   },
-  {
-    title: "Instructor",
-    href: "/",
-    icon: "bi bi-layout-split",
-  },
+
   {
     title: "Batches",
     href: "/batch",
@@ -62,23 +53,13 @@ const instructorNav = [
   },
   {
     title: "Profile",
-    href: "/",
+    href: "/editprofile",
     icon: "bi bi-layout-split",
   },
   {
     title: "Batches",
     href: "/batch",
     icon: "bi bi-card-text",
-  },
-  {
-    title: "Batch",
-    href: "/batch",
-    icon: "bi bi-layout-split",
-  },
-  {
-    title: "Scores",
-    href: "/",
-    icon: "bi bi-layout-split",
   },
 ];
 

@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {Modal, Button} from 'react-bootstrap';
 import AddParticipantsForm from '../forms/addParticipants';
 import {insertNewParticipant} from '../../services/apicalls/participantapicalls';
-import {FaUserPlus, BsUiChecks} from 'react-icons/fa'
 const EditUserModal = (props) => {
     const [show, setShow] = useState(false);
   
@@ -28,15 +27,15 @@ const EditUserModal = (props) => {
     }
     return (
       <>
-        <Button variant="primary" onClick={handleShow}>
-            <FaUserPlus />
-        </Button>
+        <span className="batch-action-btn" onClick={handleShow}>
+            {props.children}
+        </span>
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add Participants</Modal.Title>
           </Modal.Header>
-          <Modal.Body><AddParticipantsForm id={props.id} action={(data) => sendForInsert(data)} /></Modal.Body>
+          <Modal.Body><AddParticipantsForm id={props.batchid} action={(data) => sendForInsert(data)} /></Modal.Body>
         </Modal>
       </>
     );

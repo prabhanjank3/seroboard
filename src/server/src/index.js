@@ -42,7 +42,7 @@ app.patch("/participant/:id", participantcontroller.updateParticipant);
 app.post("/api/login", usercontroller.getUserDetailsByEmail);
 //Attendence
 app.get('/attendance', attendencecontroller.getAttendanceData);
-app.post('/attendance',attendencecontroller.submitAttendanceReport)
+app.post('/attendance/:batchid',attendencecontroller.submitAttendanceReport)
 app.delete('/attendance', attendencecontroller.deleteAttReportByCondition);
 
 //Post Assessment
