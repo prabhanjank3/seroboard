@@ -10,6 +10,7 @@ import bg2 from "../assets/images/bg/bg2.jpg";
 import bg3 from "../assets/images/bg/bg3.jpg";
 import bg4 from "../assets/images/bg/bg4.jpg";
 import AddUser from "../components/modals/addUserModal";
+import DoughnutChart from "../components/dashboard/PieChart";
 
 const BlogData = [
   {
@@ -53,7 +54,16 @@ const Starter = () => {
 
       {/***Sales & Feed***/}
       <Row>
+        <Col sm="6" lg="6" xl="6" xxl="6">
+        <DoughnutChart />
+        </Col>
+        <Col sm="6" lg="6" xl="6" xxl="6">
+        <DoughnutChart />
+        </Col>
+      </Row>
+      <Row>
         <Col sm="12" lg="12" xl="12" xxl="12">
+          
           <Usertable />
         </Col>
         </Row>
