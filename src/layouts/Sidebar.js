@@ -110,7 +110,7 @@ const Sidebar = (props) => {
             <i className="bi bi-x"></i>
           </Button>
         </div>
-        <div className="bg-dark text-white p-2 opacity-75">
+        <div className="bg-light text-dark p-2 opacity-75">
           {props.userData.userFirstName}
         </div>
       </div>
