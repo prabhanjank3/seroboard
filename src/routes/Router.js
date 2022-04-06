@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import Usertable from "../components/tables/usertable";
+import Alerts from "../views/ui/Alerts"
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -28,6 +29,7 @@ const ThemeRoutes = (isLoggedIn) => [
       { path: "/Usertable", exact: true, element: <Usertable /> },
       { path: "/editprofile", exact: true, element: <EditProfile /> },
       { path: "/", element: <Navigate to="/starter" /> },
+      { path: "/alerts", exact: true, element: <Alerts /> },
     ],
   },
   {
