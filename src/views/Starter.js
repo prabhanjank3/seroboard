@@ -74,7 +74,7 @@ const Starter = (props) => {
         <DashedLineChart />
         </Col>
       </Row>
-      <Row>
+      {/* <Row>
         <Col sm="12" lg="12" xl="12" xxl="12">
           {props.role === "ADMIN" && <Usertable />}
         </Col>
@@ -83,7 +83,7 @@ const Starter = (props) => {
         <Col sm="12" lg="12" xl="12" xxl="12">
           <Batchtable />
         </Col>
-      </Row>
+      </Row> */}
       {/***Table ***/}
       {/* <Row>
         <Col lg="12">

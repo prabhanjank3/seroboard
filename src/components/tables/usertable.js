@@ -205,8 +205,8 @@ const NewUserTable = (props) => {
   return (
     <div>
       <AddUserModal>
-                    <Button>Add User</Button>
-                  </AddUserModal>
+        <Button className="btn-primary">Add User</Button>
+      </AddUserModal>
       <Card className="mt-3">
         <CardBody>
           <CardTitle tag="h5">Users Listing</CardTitle>
