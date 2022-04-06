@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Table,
+  Button,
+} from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
@@ -47,20 +54,19 @@ const BatchTable = (props) => {
       </AddBatchModal>
       <Card className="mt-5">
         <CardBody>
-          <BatchDurationForm
+          {/* <BatchDurationForm
             from={initialDuration.from}
             to={initialDuration.to}
             action={(newDuration) => {
               setDuration(newDuration);
             }}
-          />
+          /> */}
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Batch Name</th>
                 <th>Instructor</th>
-                <th>Coordinator</th>
                 {(props.role === "ADMIN" || props.role === "INSTRUCTOR") && (
                   <th>Actions</th>
                 )}
@@ -73,10 +79,12 @@ const BatchTable = (props) => {
                     <td>{batch.batchid}</td>
                     <td>{batch.batchname}</td>
                     <td>{batch.instructorname}</td>
-                    <td>{batch.coordinatorname}</td>
                     {props.role === "ADMIN" && (
                       <td>
-                        <EditBatchModal batchid={batch.batchid} action={setData(batchDataState.duration)} >
+                        <EditBatchModal
+                          batchid={batch.batchid}
+                          action={setData(batchDataState.duration)}
+                        >
                           <Button className="btn btn-primary">Edit</Button>
                         </EditBatchModal>
                         <Button
@@ -87,13 +95,14 @@ const BatchTable = (props) => {
                         >
                           Delete
                         </Button>
-                        <ViewBatchModal batchid={batch.batchid}>
-                          </ViewBatchModal>
                       </td>
                     )}
                     {props.role === "COORDINATOR" && (
                       <td>
-                        <AddParticipantsModal batchid={batch.batchid} action={setData} >
+                        <AddParticipantsModal
+                          batchid={batch.batchid}
+                          action={setData}
+                        >
                           <Button className="btn btn-primary table-item-action-btn">
                             <FaUserPlus />
                           </Button>
@@ -110,7 +119,7 @@ const BatchTable = (props) => {
                     )}
                     {props.role === "INSTRUCTOR" && (
                       <td>
-                        <PostAssessmentModal batchid={batch.batchid} >
+                        <PostAssessmentModal batchid={batch.batchid}>
                           <Button className="btn btn-primary table-item-action-btn">
                             <BiCodeAlt />
                           </Button>

@@ -113,6 +113,7 @@ import 'antd/dist/antd.css';
 import { Table, Popconfirm, message } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 const NewUserTable = (props) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [userDataState, setUserData] = useState({ userData: [] });
   const setData = () => {
     getAllUsers().then((resp) => {
