@@ -14,8 +14,10 @@ $warning: #ffbc34;
 $dark: #343a40;
 $light: #eaf2fb;
 $secondary: #35363b;
+$header-color: #000080;
 
 $theme-colors: (
+  "header-color": $header-color,
   "primary": $primary,
   "secondary": $secondary,
   "success": $success,
