@@ -43,7 +43,7 @@ const Header = (props) => {
     navigate("/editprofile");
   };
   return (
-    <Navbar color="dark" dark expand="md" className="fix-header">
+    <Navbar color="header-color" dark expand="md" className="fix-header">
       <div className="d-flex align-items-center">
         <div className="d-lg-block d-none me-5 pe-3">
           <Logo />
