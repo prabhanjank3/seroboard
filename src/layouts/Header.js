@@ -83,14 +83,10 @@ const Header = (props) => {
               </DropdownToggle>
               <DropdownMenu end>
                 <DropdownItem>
-                  <AddUserModal>
-                    <Button>Add User</Button>
-                  </AddUserModal>
+                  <AddUserModal>Add User</AddUserModal>
                 </DropdownItem>
                 <DropdownItem>
-                  <AddBatchModal>
-                    <Button>Add Batch</Button>
-                  </AddBatchModal>
+                  <AddBatchModal>Add Batch</AddBatchModal>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

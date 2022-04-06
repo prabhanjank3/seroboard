@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import user1 from "../../assets/images/users/user4.jpg";
 
 function EditProfile(props) {
   const formik = useFormik({
@@ -34,7 +35,9 @@ function EditProfile(props) {
             <div className="card-body">
               <center className="mt-1">
                 <img
-                  src={props.userData.imageUrl}
+                  src={
+                    props.userData.imageUrl ? props.userData.imageUrl : user1
+                  }
                   className="rounded-circle"
                   width={130}
                   alt="User Profile"

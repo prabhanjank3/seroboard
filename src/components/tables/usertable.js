@@ -13,6 +13,7 @@ import "./tables.css";
 import EditUserModal from "../modals/editUserModal";
 import SearchUserForm from "../forms/serchUserForm";
 const NewUserTable = (props) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [userDataState, setUserData] = useState({ userData: [] });
   const setData = () => {
     getAllUsers().then((resp) => {
@@ -23,9 +24,11 @@ const NewUserTable = (props) => {
     setData();
   }, []);
   const onDeleteClick = (id) => {
-    deleteUser(id).then((resp) => {
-      setData();
-    });
+    setModalOpen(true);
+    console.log(id, modalOpen);
+    // deleteUser(id).then((resp) => {
+    //   setData();
+    // });
   };
   const onEdit = () => {
     setData();
