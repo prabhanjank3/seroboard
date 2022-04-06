@@ -1,7 +1,7 @@
 import { Button, Nav, NavItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 import user1 from "../assets/images/users/user4.jpg";
-import probg from "../assets/images/bg/download.jpg";
+import probg from "../assets/images/bg/user-bg.jpg";
 import { connect } from "react-redux";
 
 let navigation = [];
@@ -9,62 +9,57 @@ const adminNav = [
   {
     title: "Dashboard",
     href: "/starter",
-    icon: "bi bi-speedometer2",
+    icon: "bi bi-speedometer",
   },
   {
     title: "User",
     href: "/Usertable",
-    icon: "bi bi-bell",
+    icon: "bi bi-people-fill",
   },
   {
     title: "Batches",
     href: "/batch",
-    icon: "bi bi-card-text",
+    icon: "bi bi-person-lines-fill",
   },
   {
     title: "Profile",
     href: "/editprofile",
-    icon: "bi bi-layout-split",
-  },
-  {
-    title: "Alerts",
-    href: "/alerts",
-    icon: "bi bi-layout-split",
+    icon: "bi bi-person-badge",
   },
 ];
 const coordinatorNav = [
   {
     title: "Dashboard",
     href: "/starter",
-    icon: "bi bi-speedometer2",
+    icon: "bi bi-speedometer",
   },
   {
     title: "Profile",
     href: "/editprofile",
-    icon: "bi bi-layout-split",
+    icon: "bi bi-person-badge",
   },
 
   {
     title: "Batches",
     href: "/batch",
-    icon: "bi bi-card-text",
+    icon: "bi bi-person-lines-fill",
   },
 ];
 const instructorNav = [
   {
     title: "Dashboard",
     href: "/starter",
-    icon: "bi bi-speedometer2",
+    icon: "bi bi-speedometer",
   },
   {
     title: "Profile",
     href: "/editprofile",
-    icon: "bi bi-layout-split",
+    icon: "bi bi-person-badge",
   },
   {
     title: "Batches",
     href: "/batch",
-    icon: "bi bi-card-text",
+    icon: "bi bi-person-lines-fill",
   },
 ];
 
@@ -95,7 +90,7 @@ const Sidebar = (props) => {
         className="profilebg"
         style={{ background: `url(${probg}) no-repeat` }}
       >
-        <div className="p-3 d-flex">
+        <div className="container p-3 d-flex">
           <img
             src={props.userData.imageUrl ? props.userData.imageUrl : user1}
             alt="user"
@@ -110,7 +105,7 @@ const Sidebar = (props) => {
             <i className="bi bi-x"></i>
           </Button>
         </div>
-        <div className="bg-light text-dark p-2 opacity-75">
+        <div className="container bg-light text-dark p-2 opacity-75">
           {props.userData.userFirstName}
         </div>
       </div>

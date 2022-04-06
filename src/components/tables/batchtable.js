@@ -53,13 +53,13 @@ const BatchTable = (props) => {
     <div>
       <Card className="mt-5">
         <CardBody>
-          <BatchDurationForm
+          {/* <BatchDurationForm
             from={initialDuration.from}
             to={initialDuration.to}
             action={(newDuration) => {
               setDuration(newDuration);
             }}
-          />
+          /> */}
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
