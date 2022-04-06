@@ -17,6 +17,9 @@ import {FaUserPlus} from 'react-icons/fa'
 import { HiDocumentReport } from "react-icons/hi";
 import BatchDurationForm from "../forms/batchDuration";
 import AssignmentModal from "../modals/assignmentmodal";
+import Batch from "../../views/Batch";
+import { Link } from "react-router-dom";
+
 const BatchTable = (props) => {
   const initialDuration = { from: "2022-01-01", to: "2023-01-01" };
   const [batchDataState, setBatchData] = useState({ batchData: [], duration:initialDuration });
@@ -55,6 +58,7 @@ const BatchTable = (props) => {
             <th>ID</th>
             <th>Batch Name</th>
             <th>Instructor</th>
+            <th>Coordinator</th>
             {(props.role === "ADMIN" || props.role === "INSTRUCTOR") && (
               <th>Actions</th>
             )}
@@ -67,6 +71,7 @@ const BatchTable = (props) => {
                 <td>{batch.batchid}</td>
                 <td>{batch.batchname}</td>
                 <td>{batch.instructorname}</td>
+                <td>{batch.coordinatorname}</td>
                 {props.role === "ADMIN" && (
                   <td>
                     <EditBatchModal batchid={batch.batchid} action={setData(batchDataState.duration)} >
@@ -80,6 +85,9 @@ const BatchTable = (props) => {
                     >
                       Delete
                     </Button>
+                    <Link to={<Batch />}>
+                    <Button className="table-item-action-btn">View</Button>
+                    </Link>
                   </td>
                 )}
                 {props.role === "COORDINATOR" && (
