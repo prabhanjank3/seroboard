@@ -26,11 +26,6 @@ const adminNav = [
     href: "/editprofile",
     icon: "bi bi-layout-split",
   },
-  {
-    title: "Alerts",
-    href: "/alerts",
-    icon: "bi bi-layout-split",
-  },
 ];
 const coordinatorNav = [
   {
