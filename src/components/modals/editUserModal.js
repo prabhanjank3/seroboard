@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import EditUserForm from "../forms/editUserForm";
 import { updateUser } from "../../services/apicalls/apicall";
+import {EditOutlined} from "@ant-design/icons"
 const EditUserModal = (props) => {
   const [show, setShow] = useState(false);
 
@@ -20,9 +21,10 @@ const EditUserModal = (props) => {
   };
   return (
     <>
-      <Button variant="success" onClick={handleShow}>
+      {/* <Button variant="success" onClick={handleShow}>
         Edit
-      </Button>
+      </Button> */}
+      <EditOutlined onClick={handleShow}/>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
