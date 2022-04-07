@@ -173,7 +173,9 @@ function Login(props) {
                               />
                               <span className="label-text">Remember me</span> */}
                               <AddUserModal>
-                              <span className="label-text">Create Account</span>
+                                <span className="label-text">
+                                  Create Account
+                                </span>
                               </AddUserModal>
                             </label>
                           </div>
