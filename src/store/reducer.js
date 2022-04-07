@@ -14,7 +14,6 @@ const initialStore = {
   },
 };
 const reducer = (state = initialStore, action) => {
-  console.log(action);
   const fullName =
     action.payLoad?.userfirstname + " " + action.payLoad?.userlastname;
   switch (action.type) {

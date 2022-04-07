@@ -30,15 +30,14 @@ const SalesChart = () => {
     colors: ["#0d6efd", "#009efb", "#6771dc"],
     xaxis: {
       categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
+        "Batch 1",
+        "Batch 2",
+        "Batch 3",
+        "Batch 4",
+        "Batch 5",
+        "Batch 6",
+        "Batch 7",
+        "Batch 8",
       ],
     },
     responsive: [
@@ -57,12 +56,8 @@ const SalesChart = () => {
   };
   const series = [
     {
-      name: "2020",
+      name: "React",
       data: [20, 40, 50, 30, 40, 50, 30, 30, 40],
-    },
-    {
-      name: "2022",
-      data: [10, 20, 40, 60, 20, 40, 60, 60, 20],
     },
   ];
 

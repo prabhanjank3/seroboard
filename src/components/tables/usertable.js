@@ -96,24 +96,33 @@
 
 // export default connect(mapStateToProps, mapDispatchToProps)(NewUserTable);
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button,
-} from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 import { getAllUsers, deleteUser } from "../../services/apicalls/apicall";
 import { connect } from "react-redux";
 import "./tables.css";
 import EditUserModal from "../modals/editUserModal";
 import SearchUserForm from "../forms/serchUserForm";
 import AddUserModal from "../modals/addUserModal";
-import 'antd/dist/antd.css';
-import { Table, Popconfirm, message } from 'antd';
+import "antd/dist/antd.css";
+import { Table, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const NewUserTable = (props) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const success = () => {
+    toast.configure();
+    toast.success(" User Deleted SuccessFully!", {
+      position: "top-right",
+      color: "red",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
   const [userDataState, setUserData] = useState({ userData: [] });
   const setData = () => {
     getAllUsers().then((resp) => {
@@ -123,7 +132,7 @@ const NewUserTable = (props) => {
   useEffect(() => {
     setData();
   }, []);
-  const onDeleteClick = (id,e) => {
+  const onDeleteClick = (id, e) => {
     deleteUser(id).then((resp) => {
       setData();
     });
@@ -133,76 +142,76 @@ const NewUserTable = (props) => {
   };
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'userid',
-      sorter: (a, b) =>a.userid.localeCompare(b.userid),
+      title: "ID",
+      dataIndex: "userid",
+      sorter: (a, b) => a.userid.localeCompare(b.userid),
       // sortDirections: ['descend'],
     },
     {
-      title: 'First Name',
-      dataIndex: 'userfirstname',
+      title: "First Name",
+      dataIndex: "userfirstname",
       // defaultSortOrder: 'descend',
-      sorter: (a, b) =>a.userfirstname.localeCompare(b.userfirstname),
+      sorter: (a, b) => a.userfirstname.localeCompare(b.userfirstname),
     },
     {
-      title: 'Last Name',
-      dataIndex: 'userlastname',
-      sorter: (a, b) =>a.userlastname.localeCompare(b.userlastname),
+      title: "Last Name",
+      dataIndex: "userlastname",
+      sorter: (a, b) => a.userlastname.localeCompare(b.userlastname),
     },
     {
-      title: 'Role',
-      dataIndex: 'userrole',
-      sorter: (a, b) =>a.userrole.localeCompare(b.userrole),
+      title: "Role",
+      dataIndex: "userrole",
+      sorter: (a, b) => a.userrole.localeCompare(b.userrole),
       filters: [
         {
-          text: 'ADMIN',
-          value: 'ADMIN',
+          text: "ADMIN",
+          value: "ADMIN",
         },
         {
-          text: 'INSTRUCTOR',
-          value: 'INSTRUCTOR',
+          text: "INSTRUCTOR",
+          value: "INSTRUCTOR",
         },
         {
-          text: 'COORDINATOR',
-          value: 'COORDINATOR',
+          text: "COORDINATOR",
+          value: "COORDINATOR",
         },
       ],
       onFilter: (value, record) => record.userrole.includes(value),
     },
     {
-      title: 'Edit',
-      dataIndex: '',
-      key: 'userid',
+      title: "Edit",
+      dataIndex: "",
+      key: "userid",
       render: (text, record) => (
         <div>
-        <EditUserModal id={record.userid} action={onEdit} />
-                        </div>
+          <EditUserModal id={record.userid} action={onEdit} />
+        </div>
       ),
     },
     {
-      title: 'Delete',
-      dataIndex: '',
-      key: 'userid',
+      title: "Delete",
+      dataIndex: "",
+      key: "userid",
       render: (text, record) => (
         <Popconfirm
-      title="Are you sure to delete this task?"
-      onConfirm={(e) => {
-        onDeleteClick(record.userid,e);
-      }}
-      okText="Yes"
-      cancelText="No"
-    >
-      
-      <DeleteOutlined  />
-    </Popconfirm>
+          title="Are you sure to delete this task?"
+          onConfirm={(e) => {
+            onDeleteClick(record.userid, e);
+            success();
+          }}
+          okText="Yes"
+          cancelText="No"
+        >
+          <DeleteOutlined />
+        </Popconfirm>
       ),
     },
   ];
-  
+
   function onChange(pagination, filters, sorter, extra) {
-    console.log('params', pagination, filters, sorter, extra);
+    console.log("params", pagination, filters, sorter, extra);
   }
-  
+
   return (
     <div>
       <AddUserModal>
@@ -253,7 +262,11 @@ const NewUserTable = (props) => {
               })}
             </tbody>
           </Table> */}
-          <Table columns={columns} dataSource={userDataState.userData} onChange={onChange} />
+          <Table
+            columns={columns}
+            dataSource={userDataState.userData}
+            onChange={onChange}
+          />
         </CardBody>
       </Card>
     </div>
@@ -272,4 +285,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewUserTable);
-
