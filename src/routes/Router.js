@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import Usertable from "../components/tables/usertable";
-import Alerts from "../views/ui/Alerts"
+import BatchTable from "../components/tables/batchtable";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -25,11 +25,11 @@ const ThemeRoutes = (isLoggedIn) => [
     element: isLoggedIn ? <FullLayout /> : <Navigate to="/login" />,
     children: [
       { path: "/starter", exact: true, element: <Starter /> },
-      { path: "/batch", exact: true, element: <Batch /> },
+      // { path: "/batch", exact: true, element: <Batch /> },
+      { path: "/batch", exact: true, element: <BatchTable /> },
       { path: "/Usertable", exact: true, element: <Usertable /> },
       { path: "/editprofile", exact: true, element: <EditProfile /> },
       { path: "/", element: <Navigate to="/starter" /> },
-      { path: "/alerts", exact: true, element: <Alerts /> },
     ],
   },
   {

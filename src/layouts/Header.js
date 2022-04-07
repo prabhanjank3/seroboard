@@ -14,6 +14,7 @@ import {
   Button,
 } from "reactstrap";
 import Logo from "./Logo";
+import seroBoardlogo from "../assets/images/logos/Seroboard_Logo.png";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/APISERO-logo.svg";
 import user1 from "../assets/images/users/user4.jpg";
 import { connect } from "react-redux";
@@ -45,12 +46,6 @@ const Header = (props) => {
   return (
     <Navbar color="header-color" dark expand="md" className="fix-header">
       <div className="d-flex align-items-center">
-        <div className="d-lg-block d-none me-5 pe-3">
-          <Logo />
-        </div>
-        <NavbarBrand href="/">
-          <LogoWhite className=" d-lg-none" />
-        </NavbarBrand>
         <Button
           color="primary"
           className=" d-lg-none"
@@ -58,6 +53,9 @@ const Header = (props) => {
         >
           <i className="bi bi-list"></i>
         </Button>
+        <div className="px-3">
+          <img src={seroBoardlogo} alt="SeroBoard" />
+        </div>
       </div>
       <div className="hstack gap-2">
         <Button
@@ -75,31 +73,9 @@ const Header = (props) => {
       </div>
 
       <Collapse navbar isOpen={isOpen}>
-        {props.userData.role === "ADMIN" && (
-          <Nav className="me-auto" navbar>
-            <UncontrolledDropdown inNavbar nav>
-              <DropdownToggle caret nav>
-                Actions
-              </DropdownToggle>
-              <DropdownMenu end>
-                <DropdownItem>
-                  <AddUserModal>
-                    <Button>Add User</Button>
-                  </AddUserModal>
-                </DropdownItem>
-                <DropdownItem>
-                  <AddBatchModal>
-                    <Button>Add Batch</Button>
-                  </AddBatchModal>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
-        )}
+        <div className="me-auto navbar-nav"></div>
         <div className="d-flex">
-          <p className="mt-3 float-right">
-            {`Hello ${props.userData.userFirstName} (${props.userData.role})`}
-          </p>
+          <p className="mt-3">{`Hello ${props.userData.role}`}</p>
         </div>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="transparent">

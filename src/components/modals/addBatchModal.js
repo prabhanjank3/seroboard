@@ -25,7 +25,7 @@ const AddUserModal = (props) => {
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add User</Modal.Title>
+            <Modal.Title>Add Batch</Modal.Title>
           </Modal.Header>
           <Modal.Body><AddBatch action={(data) => insertAction(data).then(() => navigate('/'))} /></Modal.Body>
         </Modal>
