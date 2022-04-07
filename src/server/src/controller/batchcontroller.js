@@ -5,6 +5,9 @@ const insertBatch = (req, resp) => {
 const getAllBatchs = (req,resp) => {
     batchdao.getAllBatchs(resp);
 };
+const getAllBatchsByInstructor = (req,resp) => {
+    batchdao.getAllBatchsByInstructor(req.params.name,resp);
+};
 const getBatchDetails = async (req,resp) => {
     batchdao.getBatchByCondition({batchid: req.params.id}, resp)
 };
@@ -19,6 +22,7 @@ const updateBatch = async (req, resp) => {
 }
 module.exports.insertBatch = insertBatch;
 module.exports.getAllBatchs = getAllBatchs;
+module.exports.getAllBatchsByInstructor = getAllBatchsByInstructor;
 module.exports.deleteBatch = deleteBatch;
 module.exports.updateBatch = updateBatch;
 module.exports.getBatchDetails = getBatchDetails;

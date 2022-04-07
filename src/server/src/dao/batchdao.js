@@ -13,6 +13,12 @@ const getAllBatchs = async (resp) => {
         resp.send((err)?err:result.rows);
     });
 };
+const getAllBatchsByInstructor = async (name, resp) => {
+    await pool.query(`SELECT * from public."Batch" WHERE instructorname = '${name}'`,[], (err, result) =>{
+        console.log(err);
+        resp.send((err)?err:result.rows);
+    });
+};
 const getBatchByCondition = (condition, resp) => {
     const whereQuery = Utils.conditionObjToQuery(condition);
     pool.query(`SELECT * FROM public."Batch" WHERE `+whereQuery, [], (err,result) => {
@@ -38,6 +44,7 @@ const updateBatch = (identifier, newValues, resp) => {
 }
 module.exports.insertBatch = insertBatch;
 module.exports.getAllBatchs = getAllBatchs;
+module.exports.getAllBatchsByInstructor = getAllBatchsByInstructor;
 module.exports.getBatchByCondition = getBatchByCondition;
 module.exports.deleteBatch = deleteBatch;
 module.exports.updateBatch = updateBatch;

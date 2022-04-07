@@ -19,7 +19,7 @@ const reducer = (state = initialStore, action) => {
         ...state,
         authData: {
           isUserLoggedIn: true,
-          userFirstName: fullName,
+          userFirstName: action.payLoad?.userfirstname,
           email: action.payLoad.useremail,
           role: action.payLoad.userrole,
           imageUrl: action.payLoad.imageUrl,

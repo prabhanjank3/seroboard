@@ -5,6 +5,7 @@ import {
   deleteBatch,
   getAllBatchs,
   getBatchInDuration,
+  getAllBatchsByInstructor
 } from "../../services/apicalls/batchapicalls";
 import "./tables.css";
 import EditBatchModal from "../modals/editBatchModal";
@@ -22,12 +23,23 @@ import AddBatchModal from "../modals/addBatchModal";
 const BatchTable = (props) => {
   const initialDuration = { from: "2022-01-01", to: "2023-01-01" };
   const [batchDataState, setBatchData] = useState({ batchData: [], duration: initialDuration });
+  console.log(props)
   const setData = (duration) => {
+    if(props.role === "ADMIN"){
     getBatchInDuration({ from: duration.from, to: duration.to }).then(
       (resp) => {
         setBatchData({ batchData: resp.data, duration: duration });
       }
     );
+    }
+    else if(props.role === "INSTRUCTOR"){
+      getAllBatchsByInstructor(props.userFirstName).then(
+        (resp) => {
+          setBatchData({ batchData: resp.data, duration: batchDataState.duration});
+          console.log(resp)
+        }
+      )
+    }
   };
   const setDuration = (newDuration) => {
     setData(newDuration);
@@ -40,6 +52,55 @@ const BatchTable = (props) => {
       setData();
     });
   };
+  
+  // const columns = [
+  //   {
+  //     title: 'ID',
+  //     dataIndex: 'batchid',
+  //     sorter: (a, b) =>a.batchid.localeCompare(b.batchid),
+  //     // sortDirections: ['descend'],
+  //   },
+  //   {
+  //     title: 'Batch Name',
+  //     dataIndex: 'batchname',
+  //     // defaultSortOrder: 'descend',
+  //     sorter: (a, b) =>a.batchname.localeCompare(b.batchname),
+  //   },
+  //   {
+  //     title: 'Instructor',
+  //     dataIndex: 'instructorname',
+  //     sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
+  //   },
+  //   {
+  //     title: 'Edit',
+  //     dataIndex: '',
+  //     key: 'userid',
+  //     render: (text, record) => (
+  //       <div>
+  //       <EditUserModal id={record.userid} action={onEdit} />
+  //                       </div>
+  //     ),
+  //   },
+  //   {
+  //     title: 'Delete',
+  //     dataIndex: '',
+  //     key: 'userid',
+  //     render: (text, record) => (
+  //       <Popconfirm
+  //     title="Are you sure to delete this task?"
+  //     onConfirm={(e) => {
+  //       onDeleteClick(record.userid,e);
+  //     }}
+  //     okText="Yes"
+  //     cancelText="No"
+  //   >
+      
+  //     <DeleteOutlined  />
+  //   </Popconfirm>
+  //     ),
+  //   },
+  // ];
+  // console.log(batchDataState.batchData);
   return (
     <div>
       <AddBatchModal>
@@ -47,13 +108,13 @@ const BatchTable = (props) => {
       </AddBatchModal>
       <Card className="mt-5">
         <CardBody>
-          <BatchDurationForm
+          {/* <BatchDurationForm
             from={initialDuration.from}
             to={initialDuration.to}
             action={(newDuration) => {
               setDuration(newDuration);
             }}
-          />
+          /> */}
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
@@ -134,7 +195,7 @@ const BatchTable = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  return { role: state.authData.role };
+  return { role: state.authData.role , userFirstName:state.authData.userFirstName};
 };
 const mapDispatchToProps = (dispatch) => {
   return {

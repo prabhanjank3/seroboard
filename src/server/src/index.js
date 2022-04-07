@@ -25,6 +25,7 @@ app.patch("/user/:id", usercontroller.updateUser);
 
 // //Batch
 app.get("/batch", batchcontroller.getAllBatchs);
+app.get("/batchByInstructor/:name", batchcontroller.getAllBatchsByInstructor);
 app.get("/batch/:id", batchcontroller.getBatchDetails);
 app.get("/batchduration", batchcontroller.getBatchInDuration);
 app.post("/batch", batchcontroller.insertBatch);
