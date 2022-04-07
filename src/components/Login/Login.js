@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddUserModal from "../modals/addUserModal";
+import seroBoardlogo from "../../assets/images/logos/Seroboard_Logo.png";
 function Login(props) {
   const formik = useFormik({
     initialValues: {
@@ -81,33 +82,21 @@ function Login(props) {
 
   return (
     <section id="login">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="authfy-container col-xs-12 col-sm-10 col-md-8 col-lg-6 col-sm-offset-1 col-md-offset-2 col-lg-offset-3">
             <div className="col-sm-5 authfy-panel-left">
               <div className="brand-col">
                 <div className="headline">
                   <div className="brand-logo">
-                    <img
-                      src="https://apisero.com/wp-content/uploads/2021/01/APISERO-logo.svg"
-                      width={150}
-                      alt="brand-logo"
+                    <img src={seroBoardlogo} alt="SeroBoard"
+                      width={240}
                     />
                   </div>
 
                   <p>Login using social media to get quick access</p>
 
-                  <div className="row social-buttons">
-                    <div className="col-xs-4 col-sm-4 col-md-12">
-                      <GoogleLogin
-                        clientId={clientId}
-                        buttonText="Login With Google"
-                        onSuccess={handleLoginByGoogle}
-                        onFailure={handleLoginFailure}
-                        cookiePolicy={"single_host_origin"}
-                      ></GoogleLogin>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -116,10 +105,7 @@ function Login(props) {
                 <div className="authfy-panel panel-login text-center active">
                   <div className="authfy-heading">
                     <h3 className="auth-title">Login to your account</h3>
-                    <p>
-                      Don’t have an account?
-                      <Link to="signup"> Sign Up!</Link>
-                    </p>
+                    
                   </div>
                   <div className="row">
                     <div className="col-xs-12 col-sm-12">
@@ -167,13 +153,8 @@ function Login(props) {
                         <div className="row remember-row">
                           <div className="col-xs-6 col-sm-6">
                             <label className="checkbox text-left">
-                              {/* <input
-                                type="checkbox"
-                                defaultValue="remember-me"
-                              />
-                              <span className="label-text">Remember me</span> */}
                               <AddUserModal>
-                              <span className="label-text">Create Account</span>
+                                <span className="label-text">Create Account</span>
                               </AddUserModal>
                             </label>
                           </div>
@@ -187,10 +168,22 @@ function Login(props) {
                           <div className="d-grid gap-2">
                             <button
                               type="submit"
-                              className="btn btn-lg btn-primary"
+                              className="btn btn-lg btn-dark"
                             >
-                              Login with email
+                              Login
                             </button>
+
+                          </div>
+                        </div>
+                        <div className="row social-buttons my-4 ">
+                          <div className="col-xs-4 col-sm-4 col-md-12">
+                            <GoogleLogin
+                              clientId={clientId}
+                              buttonText="Login With Google"
+                              onSuccess={handleLoginByGoogle}
+                              onFailure={handleLoginFailure}
+                              cookiePolicy={"single_host_origin"}
+                            ></GoogleLogin>
                           </div>
                         </div>
                       </form>
