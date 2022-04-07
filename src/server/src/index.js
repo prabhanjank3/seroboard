@@ -8,6 +8,7 @@ var postassreccontroller = require("./controller/postassrecordcontroller");
 var postasscontroller = require("./controller/postasscontroller");
 var assignmentcontroller = require("./controller/assignmentcontroller");
 var assignmentreccontroller = require("./controller/assignmentrecordcontroller");
+var batchdao = require("./dao/batchdao");
 var axios = require("axios");
 var cors = require("cors");
 const app = express();
@@ -31,6 +32,7 @@ app.get("/batchduration", batchcontroller.getBatchInDuration);
 app.post("/batch", batchcontroller.insertBatch);
 app.delete("/batch/:id", batchcontroller.deleteBatch);
 app.patch("/batch/:id", batchcontroller.updateBatch);
+app.get("/batchparticipantoverview",batchdao.getBatchParticipantOverview);
 
 //Participants
 app.get("/participant", participantcontroller.getAllParticipants);

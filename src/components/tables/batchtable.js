@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle,  Button } from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
@@ -20,12 +20,14 @@ import { HiDocumentReport } from "react-icons/hi";
 import BatchDurationForm from "../forms/batchDuration";
 import AssignmentModal from "../modals/assignmentmodal";
 import AddBatchModal from "../modals/addBatchModal";
+import { Table, Popconfirm, message } from 'antd';
+import { DeleteOutlined, EditOutlined ,CheckSquareOutlined, UserAddOutlined, DownloadOutlined, FileAddOutlined, FileMarkdownOutlined} from "@ant-design/icons";
 const BatchTable = (props) => {
   const initialDuration = { from: "2022-01-01", to: "2023-01-01" };
   const [batchDataState, setBatchData] = useState({ batchData: [], duration: initialDuration });
   console.log(props)
   const setData = (duration) => {
-    if(props.role === "ADMIN"){
+    if(props.role === "ADMIN" || props.role === "COORDINATOR" ){
     getBatchInDuration({ from: duration.from, to: duration.to }).then(
       (resp) => {
         setBatchData({ batchData: resp.data, duration: duration });
@@ -47,59 +49,169 @@ const BatchTable = (props) => {
   useEffect(() => {
     setData(initialDuration);
   }, []);
-  const onDeleteClick = (id) => {
+  const onDeleteClick = (id, e) => {
     deleteBatch(id).then((resp) => {
       setData();
     });
   };
   
-  // const columns = [
-  //   {
-  //     title: 'ID',
-  //     dataIndex: 'batchid',
-  //     sorter: (a, b) =>a.batchid.localeCompare(b.batchid),
-  //     // sortDirections: ['descend'],
-  //   },
-  //   {
-  //     title: 'Batch Name',
-  //     dataIndex: 'batchname',
-  //     // defaultSortOrder: 'descend',
-  //     sorter: (a, b) =>a.batchname.localeCompare(b.batchname),
-  //   },
-  //   {
-  //     title: 'Instructor',
-  //     dataIndex: 'instructorname',
-  //     sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
-  //   },
-  //   {
-  //     title: 'Edit',
-  //     dataIndex: '',
-  //     key: 'userid',
-  //     render: (text, record) => (
-  //       <div>
-  //       <EditUserModal id={record.userid} action={onEdit} />
-  //                       </div>
-  //     ),
-  //   },
-  //   {
-  //     title: 'Delete',
-  //     dataIndex: '',
-  //     key: 'userid',
-  //     render: (text, record) => (
-  //       <Popconfirm
-  //     title="Are you sure to delete this task?"
-  //     onConfirm={(e) => {
-  //       onDeleteClick(record.userid,e);
-  //     }}
-  //     okText="Yes"
-  //     cancelText="No"
-  //   >
+  const columnsAdmin = [
+    {
+      title: 'ID',
+      dataIndex: 'batchid',
+      sorter: (a, b) =>a.batchid.localeCompare(b.batchid),
+      // sortDirections: ['descend'],
+    },
+    {
+      title: 'Batch Name',
+      dataIndex: 'batchname',
+      // defaultSortOrder: 'descend',
+      sorter: (a, b) =>a.batchname.localeCompare(b.batchname),
+    },
+    {
+      title: 'Instructor',
+      dataIndex: 'instructorname',
+      sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
+    },
+    {
+      title: 'Edit',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <div>
+           <EditBatchModal batchid={record.batchid} action={setData(batchDataState.duration)} >
+                          <EditOutlined/>
+                        </EditBatchModal>
+                        </div>
+      ),
+    },
+    {
+      title: 'Delete',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <Popconfirm
+      title="Are you sure to delete this task?"
+      onConfirm={(e) => {
+        onDeleteClick(record.batchid,e);
+      }}
+      okText="Yes"
+      cancelText="No"
+    >
       
-  //     <DeleteOutlined  />
-  //   </Popconfirm>
-  //     ),
-  //   },
-  // ];
+      <DeleteOutlined  />
+    </Popconfirm>
+      ),
+    },
+    {
+      title: 'View',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <ViewBatchModal batchid={record.batchid}>
+                          </ViewBatchModal>
+      ),
+    },
+  ];
+  const columnsCoordinator = [
+    {
+      title: 'ID',
+      dataIndex: 'batchid',
+      sorter: (a, b) =>a.batchid.localeCompare(b.batchid),
+      // sortDirections: ['descend'],
+    },
+    {
+      title: 'Batch Name',
+      dataIndex: 'batchname',
+      // defaultSortOrder: 'descend',
+      sorter: (a, b) =>a.batchname.localeCompare(b.batchname),
+    },
+    {
+      title: 'Instructor',
+      dataIndex: 'instructorname',
+      sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
+    },
+    {
+      title: 'Add Participants',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <AddParticipantsModal batchid={record.batchid} action={setData} >
+                          <UserAddOutlined />
+                        </AddParticipantsModal>
+      ),
+    },
+    {
+      title: 'Attendance',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <MarkAttendanceModal batchid={record.batchid}>
+                          <CheckSquareOutlined />
+                        </MarkAttendanceModal>
+      ),
+    },
+    {
+      title: 'Report',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <DownloadOutlined />
+      ),
+    },
+  ];
+
+  const columnsInstructor = [
+    {
+      title: 'ID',
+      dataIndex: 'batchid',
+      sorter: (a, b) =>a.batchid.localeCompare(b.batchid),
+      // sortDirections: ['descend'],
+    },
+    {
+      title: 'Batch Name',
+      dataIndex: 'batchname',
+      // defaultSortOrder: 'descend',
+      sorter: (a, b) =>a.batchname.localeCompare(b.batchname),
+    },
+    {
+      title: 'Instructor',
+      dataIndex: 'instructorname',
+      sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
+    },
+    {
+      title: 'Post Assessment',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <PostAssessmentModal batchid={record.batchid} >
+                          <FileMarkdownOutlined />
+                        </PostAssessmentModal>
+      ),
+    },
+    {
+      title: 'Assignment',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <AssignmentModal batchid={record.batchid}>
+                          <FileAddOutlined />
+                        </AssignmentModal>
+      ),
+    },
+    {
+      title: 'Report',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <DownloadOutlined />
+      ),
+    },
+  ];
+  
+  function onChange(pagination, filters, sorter, extra) {
+    console.log('params', pagination, filters, sorter, extra);
+  }
   // console.log(batchDataState.batchData);
   return (
     <div>
@@ -115,7 +227,7 @@ const BatchTable = (props) => {
               setDuration(newDuration);
             }}
           /> */}
-          <Table className="no-wrap mt-3 align-middle" responsive borderless>
+          {/* <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
                 <th>ID</th>
@@ -188,7 +300,21 @@ const BatchTable = (props) => {
                 );
               })}
             </tbody>
-          </Table>
+          </Table> */}
+          {props.role === "ADMIN" && (
+            
+          <Table columns={columnsAdmin} dataSource={batchDataState.batchData} onChange={onChange} />
+          )}
+          {props.role === "COORDINATOR" && (
+            <div>
+          <Table columns={columnsCoordinator} dataSource={batchDataState.batchData} onChange={onChange} />
+          </div>
+          )}
+          {props.role === "INSTRUCTOR" && (
+            <div>
+          <Table columns={columnsInstructor} dataSource={batchDataState.batchData} onChange={onChange} />
+          </div>
+          )}
         </CardBody>
       </Card>
     </div>
