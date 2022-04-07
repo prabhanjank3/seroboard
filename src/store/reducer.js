@@ -5,10 +5,13 @@ const initialStore = {
     role: "",
     userFirstName: "",
     imageUrl: "",
+    fName: "",
+    lName: "",
+    userId: "",
   },
-  requiredData:{
-    presentData:[]
-  }
+  requiredData: {
+    presentData: [],
+  },
 };
 const reducer = (state = initialStore, action) => {
   const fullName =
@@ -19,10 +22,13 @@ const reducer = (state = initialStore, action) => {
         ...state,
         authData: {
           isUserLoggedIn: true,
-          userFirstName: fullName,
+          userFirstName: action.payLoad?.userfirstname,
           email: action.payLoad.useremail,
           role: action.payLoad.userrole,
           imageUrl: action.payLoad.imageUrl,
+          fName: action.payLoad.userfirstname,
+          lName: action.payLoad.userlastname,
+          userId: action.payLoad.userid,
         },
       };
       break;
