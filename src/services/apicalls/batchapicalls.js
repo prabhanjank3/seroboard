@@ -7,6 +7,11 @@ const getAllBatchs = () => {
 const getBatchDetails = (id) => {
   return axios.get(Properties.SERVER_URL + "/batch/" + id);
 };
+
+const getAllBatchsByInstructor = (name) => {
+  return axios.get(Properties.SERVER_URL + "/batchByInstructor/" + name);
+};
+
 const getBatchInDuration = (duration) => {
   return axios.get(
     Properties.SERVER_URL +
@@ -40,4 +45,5 @@ export {
   getAllBatchs,
   getBatchDetails,
   getBatchInDuration,
+  getAllBatchsByInstructor
 };

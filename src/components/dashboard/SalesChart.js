@@ -1,5 +1,6 @@
 import { Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
 import Chart from "react-apexcharts";
+import { useEffect } from "react";
 
 const SalesChart = () => {
   const options = {
