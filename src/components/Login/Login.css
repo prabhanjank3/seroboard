@@ -7,7 +7,7 @@
 
 #login {
   background-color: #f0f2f5;
-  background-image: url("https://1.bp.blogspot.com/-fd1WXKk-TAc/XyqfngP4PiI/AAAAAAAAVMw/umQz3tkxtg43uPIy8W5og6gAkpCfjaTvACLcBGAsYHQ/w1563-h1563/bg-snell.png");
+  background-image: url("https://mcdn.wallpapersafari.com/medium/21/43/q9bLkp.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 100%;
@@ -95,7 +95,7 @@ a:focus {
 }
 
 .authfy-panel-left {
-  background-color: rgb(12 14 33 / 92%);
+  background-color: rgb(0, 0, 0);
   color: #ffffff;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -205,9 +205,8 @@ a:focus {
   position: relative;
   cursor: pointer;
   color: #666;
-  padding-left: 24px;
+  /*padding-left: 24px;*/
 }
-
 .authfy-login .forgotPwd {
   text-align: right;
 }
