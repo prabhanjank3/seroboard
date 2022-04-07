@@ -42,6 +42,7 @@ function Login(props) {
         }
       );
       const data = response.data;
+      console.log(data);
       if (data.length > 0) {
         props.setUserLoggedIn("LOG_IN", {
           ...data[0],
@@ -173,7 +174,9 @@ function Login(props) {
                               />
                               <span className="label-text">Remember me</span> */}
                               <AddUserModal>
-                              <span className="label-text">Create Account</span>
+                                <span className="label-text">
+                                  Create Account
+                                </span>
                               </AddUserModal>
                             </label>
                           </div>
