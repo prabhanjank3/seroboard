@@ -104,7 +104,7 @@ const BatchTable = (props) => {
       ),
     },
     {
-      title: 'View',
+      title: 'View Participants',
       dataIndex: '',
       key: 'batchid',
       render: (text, record) => (
@@ -139,6 +139,15 @@ const BatchTable = (props) => {
         <AddParticipantsModal batchid={record.batchid} action={setData} >
                           <UserAddOutlined />
                         </AddParticipantsModal>
+      ),
+    },
+    {
+      title: 'View Participants',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <ViewBatchModal batchid={record.batchid}>
+                          </ViewBatchModal>
       ),
     },
     {
@@ -187,6 +196,15 @@ const BatchTable = (props) => {
         <PostAssessmentModal batchid={record.batchid} >
                           <FileMarkdownOutlined />
                         </PostAssessmentModal>
+      ),
+    },
+     {
+      title: 'View Participants',
+      dataIndex: '',
+      key: 'batchid',
+      render: (text, record) => (
+        <ViewBatchModal batchid={record.batchid}>
+                          </ViewBatchModal>
       ),
     },
     {
