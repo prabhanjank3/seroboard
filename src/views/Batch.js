@@ -1,21 +1,13 @@
 import { Row, Col, Card, CardBody, CardTitle, Button } from "reactstrap";
 import { useEffect, useState } from "react";
 import {
-  getBatchDetails,
-  getAllBatchs,
+  getBatchDetails
 } from "../services/apicalls/batchapicalls";
 import { getAllParticipants } from "../services/apicalls/participantapicalls";
-import BatchDropdownInput from "../components/utils/BatchDropdownInput";
 import Participanttable from "../components/tables/participanttable";
-import MarkAttendanceModal from "../components/modals/markAttendanceModal";
-import PostAssessmentModal from "../components/modals/postAssessmentmodal";
-import AssignmentModal from "../components/modals/assignmentmodal";
-import AddParticipantModal from "../components/modals/addParticipantsModal";
-import AddBatchModal from "../components/modals/addBatchModal";
-import EditBatchModal from "../components/modals/editBatchModal";
-import { connect } from "react-redux";
 import Batchinfo from "../components/display/batchinfo";
-const About = (props) => {
+const Batch = (props) => {
+  const{ batchid } = props
   const [batchDataState, setBatchDataState] = useState({
     currentBatchData: {},
     partData: [],
@@ -36,74 +28,16 @@ const About = (props) => {
       });
   };
   useEffect(() => {
-    getAllBatchs().then((resp) => {
-      setBatchDataState({ ...batchDataState, allBatchData: resp.data });
-    });
+    setBatchDetails(batchid)
   }, []);
   return (
     <Row>
       <Col>
         <Card>
           <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-            <BatchDropdownInput
-              options={batchDataState.allBatchData}
-              title="Select Batch"
-              onChange={(e) => setBatchDetails(e.target.value)}
-            />
-          </CardTitle>
-          {/* <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-        {(batchDataState.partData.length !=0 ) && 
+        {(batchDataState.partData.length !=0 ) &&
         <Batchinfo batchinfo={batchDataState.currentBatchData} />}
-        </CardTitle> */}
-          <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-            {batchDataState.partData.length != 0 && (
-              <div>
-                {props.role === "ADMIN" && (
-                  <span>
-                    <AddBatchModal>
-                      <Button className="btn-primary">Add Batch</Button>
-                    </AddBatchModal>
-                    <EditBatchModal
-                      batchid={batchDataState.currentBatchData.batchid}
-                    >
-                      <Button className="btn-primary">Edit Batch</Button>
-                    </EditBatchModal>
-                  </span>
-                )}
-                {props.role == "COORDINATOR" && (
-                  <span>
-                    <AddParticipantModal
-                      batchid={batchDataState.currentBatchData.batchid}
-                    >
-                      <Button className="btn-primary">Add Participant</Button>
-                    </AddParticipantModal>
-                    <MarkAttendanceModal
-                      batchid={batchDataState.currentBatchData.batchid}
-                    >
-                      <Button className="btn-primary">Mark Attendance</Button>
-                    </MarkAttendanceModal>
-                  </span>
-                )}
-                {props.role == "INSTRUCTOR" && (
-                  <span>
-                    <PostAssessmentModal
-                      batchid={batchDataState.currentBatchData.batchid}
-                    >
-                      <Button className="btn-primary">Post Assessment</Button>
-                    </PostAssessmentModal>
-                    <AssignmentModal
-                      batchid={batchDataState.currentBatchData.batchid}
-                    >
-                      <Button className="btn-primary">Assignments</Button>
-                    </AssignmentModal>
-                    <AddParticipantModal
-                      id={batchDataState.currentBatchData.batchid}
-                    />
-                  </span>
-                )}
-              </div>
-            )}
-          </CardTitle>
+        </CardTitle>
           {batchDataState.partData.length != 0 && (
             <CardBody className="p-4">
               <Row justify-content>
@@ -119,10 +53,4 @@ const About = (props) => {
     </Row>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    role: state.authData.role,
-  };
-};
-
-export default connect(mapStateToProps)(About);
+export default Batch;
