@@ -5,26 +5,25 @@ import * as Yup from "yup";
 import user1 from "../../assets/images/users/user4.jpg";
 
 function EditProfile(props) {
+  console.log(props);
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      phoneNo: "",
-      message: "",
-      country: "",
+      userfirstname: "",
+      userlastname: "",
+      useremail: "",
     },
     validationSchema: Yup.object({
-      firstName: Yup.string()
+      userfirstname: Yup.string()
         .required("Required")
         .max(15, "Must be 15 characters or less"),
-      lastName: Yup.string()
+      userlastname: Yup.string()
         .required("Required")
         .max(15, "Must be 15 characters or less"),
-      email: Yup.string().email("Invalid Email").required("Required"),
+      useremail: Yup.string().email("Invalid Email").required("Required"),
     }),
     onSubmit: (values) => {
       console.log(values);
+      console.log(props);
     },
   });
   return (
@@ -66,18 +65,19 @@ function EditProfile(props) {
                   <div className="col-md-12">
                     <input
                       type="text"
-                      id="firstName"
+                      id="userfirstname"
                       placeholder="Johnathan"
                       className="form-control form-control-line"
                       onChange={formik.handleChange}
-                      value={formik.values.firstName}
+                      value={formik.values.userfirstname}
                       autoComplete="off"
                       onBlur={formik.handleBlur}
                     />
                   </div>
-                  {formik.touched.firstName && formik.errors.firstName ? (
+                  {formik.touched.userfirstname &&
+                  formik.errors.userfirstname ? (
                     <span id="fullNameError" className="text-danger">
-                      {formik.errors.firstName}
+                      {formik.errors.userfirstname}
                     </span>
                   ) : null}
                 </div>
@@ -86,18 +86,18 @@ function EditProfile(props) {
                   <div className="col-md-12">
                     <input
                       type="text"
-                      id="lastName"
+                      id="userlastname"
                       placeholder="Doe"
                       className="form-control form-control-line"
                       onChange={formik.handleChange}
-                      value={formik.values.lastName}
+                      value={formik.values.userlastname}
                       autoComplete="off"
                       onBlur={formik.handleBlur}
                     />
                   </div>
-                  {formik.touched.lastName && formik.errors.lastName ? (
+                  {formik.touched.userlastname && formik.errors.userlastname ? (
                     <span id="fullNameError" className="text-danger">
-                      {formik.errors.lastName}
+                      {formik.errors.userlastname}
                     </span>
                   ) : null}
                 </div>
@@ -110,17 +110,17 @@ function EditProfile(props) {
                       type="email"
                       placeholder="johnathan@admin.com"
                       className="form-control form-control-line"
-                      name="email"
-                      id="email"
+                      name="useremail"
+                      id="useremail"
                       onChange={formik.handleChange}
-                      value={formik.values.email}
+                      value={formik.values.useremail}
                       autoComplete="off"
                       onBlur={formik.handleBlur}
                     />
                   </div>
-                  {formik.touched.email && formik.errors.email ? (
+                  {formik.touched.useremail && formik.errors.useremail ? (
                     <span id="emailError" className="text-danger">
-                      {formik.errors.email}
+                      {formik.errors.useremail}
                     </span>
                   ) : null}
                 </div>
@@ -152,6 +152,9 @@ const mapStateToProps = (state) => {
       userFirstName: state.authData.userFirstName,
       imageUrl: state.authData.imageUrl,
       email: state.authData.email,
+      fName: state.authData.userfirstname,
+      lName: state.authData.userlastname,
+      userId: state.authData.userid,
     },
   };
 };

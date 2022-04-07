@@ -11,7 +11,6 @@ import { getUserDetails } from "../../services/apicalls/apicall";
 const NewUserForm = (props) => {
   useEffect(() => {
     getUserDetails(props.id).then((resp) => {
-      console.log(resp.data);
       setState(resp.data[0]);
     });
   }, []);
