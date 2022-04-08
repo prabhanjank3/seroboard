@@ -47,10 +47,25 @@ const getBatchParticipantOverview = (req, resp) => {
     let qry = `SELECT batchname, count(participantid) FROM public."Batch" INNER JOIN public."Participant" 
     ON public."Batch".batchid = public."Participant".participantbatchid GROUP BY batchname`;
     pool.query(qry, [], (err,result) => {
-        console.log(err)
         resp.send((err)?err:result.rows);
     })
 }
+const getBatchCount = (req, resp) => {
+    
+    const qry = `SELECT count(batchid) FROM public."Batch"`;
+    const activeBatchqry = 
+    pool.query(qry, [], (err,result) => {
+        resp.send((err)?err:result.rows);
+    })
+}
+const getActiveBatchCount = (req, resp) => {
+    const qry = `SELECT count(batchid) as active FROM public."Batch" WHERE batchstartdate <= '${req.query.date}' AND batchenddate >= '${req.query.date}'`;
+    pool.query(qry, [], (err, result) => {
+        resp.send(result.rows);
+    })
+}
+module.exports.getActiveBatchCount = getActiveBatchCount;
+module.exports.getBatchCount = getBatchCount;
 module.exports.insertBatch = insertBatch;
 module.exports.getAllBatchs = getAllBatchs;
 module.exports.getAllBatchsByInstructor = getAllBatchsByInstructor;

@@ -25,7 +25,6 @@ import { DeleteOutlined, EditOutlined ,CheckSquareOutlined, UserAddOutlined, Dow
 const BatchTable = (props) => {
   const initialDuration = { from: "2022-01-01", to: "2023-01-01" };
   const [batchDataState, setBatchData] = useState({ batchData: [], duration: initialDuration });
-  console.log(props)
   const setData = (duration) => {
     if(props.role === "ADMIN" || props.role === "COORDINATOR" ){
     getBatchInDuration({ from: duration.from, to: duration.to }).then(
@@ -79,7 +78,7 @@ const BatchTable = (props) => {
       key: 'batchid',
       render: (text, record) => (
         <div>
-           <EditBatchModal batchid={record.batchid} action={setData(batchDataState.duration)} >
+           <EditBatchModal batchid={record.batchid} action={() => setData(batchDataState.duration)} >
                           <EditOutlined/>
                         </EditBatchModal>
                         </div>
@@ -136,7 +135,7 @@ const BatchTable = (props) => {
       dataIndex: '',
       key: 'batchid',
       render: (text, record) => (
-        <AddParticipantsModal batchid={record.batchid} action={setData} >
+        <AddParticipantsModal batchid={record.batchid} action={() => setData()} >
                           <UserAddOutlined />
                         </AddParticipantsModal>
       ),
@@ -238,13 +237,13 @@ const BatchTable = (props) => {
       </AddBatchModal>
       <Card className="mt-5">
         <CardBody>
-          {/* <BatchDurationForm
+          <BatchDurationForm
             from={initialDuration.from}
             to={initialDuration.to}
             action={(newDuration) => {
               setDuration(newDuration);
             }}
-          /> */}
+          />
           {/* <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
