@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import user1 from "../assets/images/users/user4.jpg";
 import probg from "../assets/images/bg/user-bg.jpg";
 import { connect } from "react-redux";
+import apiserologo from "../assets/images/logos/APISERO-logo.svg";
 
 let navigation = [];
 const adminNav = [
@@ -24,6 +25,16 @@ const adminNav = [
   {
     title: "Profile",
     href: "/editprofile",
+    icon: "bi bi-person-badge",
+  },
+  {
+    title: "Batch Details",
+    href: "/batch-details",
+    icon: "bi bi-person-badge",
+  },
+  {
+    title: "Instructor Details",
+    href: "/user-details",
     icon: "bi bi-person-badge",
   },
 ];
@@ -64,6 +75,7 @@ const instructorNav = [
 ];
 
 const Sidebar = (props) => {
+  const fullname = props.userData.fName + " " + props.userData.lName;
   switch (props.userData.role) {
     case "ADMIN":
       navigation = adminNav;
@@ -86,10 +98,7 @@ const Sidebar = (props) => {
   return (
     <div>
       <div className="d-flex align-items-center"></div>
-      <div
-        className="profilebg"
-        style={{ background: `url(${probg}) no-repeat` }}
-      >
+      <div className="" style={{ background: `url(${probg}) no-repeat` }}>
         <div className="container p-3 d-flex">
           <img
             src={props.userData.imageUrl ? props.userData.imageUrl : user1}
@@ -106,7 +115,7 @@ const Sidebar = (props) => {
           </Button>
         </div>
         <div className="container bg-light text-dark p-2 opacity-75">
-          {props.userData.userFirstName}
+          {fullname}
         </div>
       </div>
       <div className="p-3 mt-2">
@@ -126,6 +135,10 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
           ))}
+          <div className="container mt-5 pt-5">
+            <p>Powered By</p>
+            <img src={apiserologo} alt="Apisero Logo" />
+          </div>
         </Nav>
       </div>
     </div>
@@ -136,9 +149,10 @@ const mapStateToProps = (state) => {
   return {
     userData: {
       role: state.authData.role,
-      userFirstName: state.authData.userFirstName,
       isLoggedIn: state.authData.isUserLoggedIn,
       imageUrl: state.authData.imageUrl,
+      fName: state.authData.fName,
+      lName: state.authData.lName,
     },
   };
 };

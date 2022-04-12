@@ -1,26 +1,19 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
-  Nav,
-  NavItem,
-  NavbarBrand,
-  UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Dropdown,
   Button,
 } from "reactstrap";
-import Logo from "./Logo";
+
 import seroBoardlogo from "../assets/images/logos/Seroboard_Logo.png";
-import { ReactComponent as LogoWhite } from "../assets/images/logos/APISERO-logo.svg";
+
 import user1 from "../assets/images/users/user4.jpg";
 import { connect } from "react-redux";
-import AddUserModal from "../components/modals/addUserModal";
-import AddBatchModal from "../components/modals/addBatchModal";
-import Themeroutes from "../routes/Router";
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -75,7 +68,7 @@ const Header = (props) => {
       <Collapse navbar isOpen={isOpen}>
         <div className="me-auto navbar-nav"></div>
         <div className="d-flex">
-          <p className="mt-3">{`Hello ${props.userData.role}`}</p>
+          <p className="text-white mt-3">{`Hello ${props.userData.role}`}</p>
         </div>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="transparent">
