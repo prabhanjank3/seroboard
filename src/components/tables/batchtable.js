@@ -13,35 +13,30 @@ import ViewBatchModal from '../modals/viewBatchModal';
 import MarkAttendanceModal from "../modals/markAttendanceModal";
 import AddParticipantsModal from "../modals/addParticipantsModal";
 import PostAssessmentModal from "../modals/postAssessmentmodal";
-import { BsUiChecks } from "react-icons/bs";
-import { BiCodeAlt, BiTask } from 'react-icons/bi'
-import { FaUserPlus } from 'react-icons/fa'
-import { HiDocumentReport } from "react-icons/hi";
+import AddPostAssessmentModal from "../modals/addPostAssessmentModal"
 import BatchDurationForm from "../forms/batchDuration";
 import AssignmentModal from "../modals/assignmentmodal";
 import AddBatchModal from "../modals/addBatchModal";
 import { Table, Popconfirm, message } from 'antd';
+import BatchDropdownInput from "../utils/BatchDropdownInput";
 import { DeleteOutlined, EditOutlined ,CheckSquareOutlined, UserAddOutlined, DownloadOutlined, FileAddOutlined, FileMarkdownOutlined} from "@ant-design/icons";
 const BatchTable = (props) => {
   const initialDuration = { from: "2022-01-01", to: "2023-01-01" };
   const [batchDataState, setBatchData] = useState({ batchData: [], duration: initialDuration });
-  console.log(props)
   const setData = (duration) => {
-    if(props.role === "ADMIN" || props.role === "COORDINATOR" ){
-    getBatchInDuration({ from: duration.from, to: duration.to }).then(
+    duration = { from: duration.from, to: duration.to };
+    if(props.role === "INSTRUCTOR"){
+      duration = { from: duration.from, to: duration.to, instructorname: props.userFirstName };
+    }
+    if(props.role === 'COORDINATOR')
+    {
+      duration = { from: duration.from, to: duration.to, coordinatorname: props.userFirstName }
+    }
+    getBatchInDuration(duration).then(
       (resp) => {
         setBatchData({ batchData: resp.data, duration: duration });
       }
     );
-    }
-    else if(props.role === "INSTRUCTOR"){
-      getAllBatchsByInstructor(props.userFirstName).then(
-        (resp) => {
-          setBatchData({ batchData: resp.data, duration: batchDataState.duration});
-          console.log(resp)
-        }
-      )
-    }
   };
   const setDuration = (newDuration) => {
     setData(newDuration);
@@ -74,12 +69,17 @@ const BatchTable = (props) => {
       sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
     },
     {
+      title: 'Coordinator',
+      dataIndex: 'coordinatorname',
+      sorter: (a, b) =>a.coordinatorname.localeCompare(b.coordinatorname),
+    },
+    {
       title: 'Edit',
       dataIndex: '',
       key: 'batchid',
       render: (text, record) => (
         <div>
-           <EditBatchModal batchid={record.batchid} action={setData(batchDataState.duration)} >
+           <EditBatchModal batchid={record.batchid} action={() => setData(batchDataState.duration)} >
                           <EditOutlined/>
                         </EditBatchModal>
                         </div>
@@ -132,11 +132,16 @@ const BatchTable = (props) => {
       sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
     },
     {
+      title: 'Coordinator',
+      dataIndex: 'coordinatorname',
+      sorter: (a, b) =>a.coordinatorname.localeCompare(b.coordinatorname),
+    },
+    {
       title: 'Add Participants',
       dataIndex: '',
       key: 'batchid',
       render: (text, record) => (
-        <AddParticipantsModal batchid={record.batchid} action={setData} >
+        <AddParticipantsModal batchid={record.batchid} action={() => setData()} >
                           <UserAddOutlined />
                         </AddParticipantsModal>
       ),
@@ -189,6 +194,11 @@ const BatchTable = (props) => {
       sorter: (a, b) =>a.instructorname.localeCompare(b.instructorname),
     },
     {
+      title: 'Coordinator',
+      dataIndex: 'coordinatorname',
+      sorter: (a, b) =>a.coordinatorname.localeCompare(b.coordinatorname),
+    },
+    {
       title: 'Post Assessment',
       dataIndex: '',
       key: 'batchid',
@@ -236,89 +246,19 @@ const BatchTable = (props) => {
       <AddBatchModal>
         <Button className="btn-primary">Add Batch</Button>
       </AddBatchModal>
+      <AddPostAssessmentModal>
+        <Button className="btn-primary">Add Post Assessment</Button>
+      </AddPostAssessmentModal>
       <Card className="mt-5">
         <CardBody>
-          {/* <BatchDurationForm
+          <BatchDurationForm
             from={initialDuration.from}
             to={initialDuration.to}
             action={(newDuration) => {
               setDuration(newDuration);
             }}
-          /> */}
-          {/* <Table className="no-wrap mt-3 align-middle" responsive borderless>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Batch Name</th>
-                <th>Instructor</th>
-                {(props.role === "ADMIN" || props.role === "INSTRUCTOR") && (
-                  <th>Actions</th>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {batchDataState.batchData.map((batch) => {
-                return (
-                  <tr key={batch.batchid} className="border-top">
-                    <td>{batch.batchid}</td>
-                    <td>{batch.batchname}</td>
-                    <td>{batch.instructorname}</td>
-                    {props.role === "ADMIN" && (
-                      <td>
-                        <EditBatchModal batchid={batch.batchid} action={setData(batchDataState.duration)} >
-                          <Button className="btn btn-primary">Edit</Button>
-                        </EditBatchModal>
-                        <Button
-                          className="table-item-action-btn"
-                          onClick={() => {
-                            onDeleteClick(batch.batchid);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                        <ViewBatchModal batchid={batch.batchid}>
-                          </ViewBatchModal>
-                      </td>
-                    )}
-                    {props.role === "COORDINATOR" && (
-                      <td>
-                        <AddParticipantsModal batchid={batch.batchid} action={setData} >
-                          <Button className="btn btn-primary table-item-action-btn">
-                            <FaUserPlus />
-                          </Button>
-                        </AddParticipantsModal>
-                        <MarkAttendanceModal batchid={batch.batchid}>
-                          <Button className="btn-primary table-item-action-btn">
-                            <BsUiChecks />
-                          </Button>
-                        </MarkAttendanceModal>
-                        <Button className="btn-primary table-item-action-btn">
-                          <HiDocumentReport />
-                        </Button>
-                      </td>
-                    )}
-                    {props.role === "INSTRUCTOR" && (
-                      <td>
-                        <PostAssessmentModal batchid={batch.batchid} >
-                          <Button className="btn btn-primary table-item-action-btn">
-                            <BiCodeAlt />
-                          </Button>
-                        </PostAssessmentModal>
-                        <AssignmentModal batchid={batch.batchid}>
-                          <Button className="btn-primary table-item-action-btn">
-                            <BiTask />
-                          </Button>
-                        </AssignmentModal>
-                        <Button className="btn-primary table-item-action-btn">
-                          <HiDocumentReport />
-                        </Button>
-                      </td>
-                    )}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table> */}
+          />
+
           {props.role === "ADMIN" && (
             
           <Table columns={columnsAdmin} dataSource={batchDataState.batchData} onChange={onChange} />

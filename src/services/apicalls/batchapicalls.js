@@ -13,12 +13,22 @@ const getAllBatchsByInstructor = (name) => {
 };
 
 const getBatchInDuration = (duration) => {
+  
+  let qry = '';
+  if('instructorname' in duration)
+  {
+    qry = "&instructorname="+ duration.instructorname
+  }
+  if('coordinatorname' in duration)
+  {
+    qry = "&coordinatorname="+ duration.coordinatorname
+  }
   return axios.get(
     Properties.SERVER_URL +
       "/batchduration?from=" +
       duration.from +
       "&to=" +
-      duration.to
+      duration.to + qry
   );
 };
 const insertNewBatch = (BatchData) => {

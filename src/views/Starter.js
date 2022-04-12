@@ -15,6 +15,7 @@ import PieChart from "../components/dashboard/PieChart";
 import DashboardCards from "../components/dashboard/DashboardCards";
 import ProgressCircle from "../components/dashboard/ProgressCircle";
 import DashedLineChart from "../components/dashboard/DashedLineChart";
+import BatchVisual from "../components/display/BatchVisual";
 
 const Starter = (props) => {
   return (
@@ -31,24 +32,16 @@ const Starter = (props) => {
           <PieChart />
         </Col>
       </Row>
-      <Row>
+      {/* <Row>
         <Col sm="6" lg="6" xl="6" xxl="6">
           <ProgressCircle />
         </Col>
         <Col sm="6" lg="6" xl="6" xxl="6">
           <DashedLineChart />
         </Col>
-      </Row>
-      {/* <Row>
-        <Col sm="12" lg="12" xl="12" xxl="12">
-          {props.role === "ADMIN" && <Usertable />}
-        </Col>
-      </Row>
-      <Row>
-        <Col sm="12" lg="12" xl="12" xxl="12">
-          <Batchtable />
-        </Col>
       </Row> */}
+      <BatchVisual />
+      
     </div>
   );
 };
