@@ -1,4 +1,5 @@
 const pool = require('./configuration/postgresconfig').pool;
+const { default: axios } = require('axios');
 const Utils = require('../utils/utils');
 
 const insertBatch = async (batchObj, resp) => {
@@ -8,14 +9,22 @@ const insertBatch = async (batchObj, resp) => {
     resp.send((err)?err:result.rows);
     })
 };
-const getAllBatchs = async (resp) => {
-    await pool.query(`SELECT * from public."Batch"`,[], (err, result) =>{
+const getAllBatchs = async (req,resp) => {
+    let qry = `SELECT * from public."Batch"`;
+    if(req.query.instructorname !== undefined)
+    {
+        qry = `SELECT batchid, batchname from public."Batch" WHERE instructorname = '${req.query.instructorname}'`
+    }
+    if(req.query.coordinatorname !== undefined)
+    {
+        qry = `SELECT batchid, batchname from public."Batch" WHERE coordinatorname = '${req.query.coordinatorname}'`
+    }
+    await pool.query(qry,[], (err, result) =>{
         resp.send((err)?err:result.rows);
     });
 };
 const getAllBatchsByInstructor = async (name, resp) => {
     await pool.query(`SELECT * from public."Batch" WHERE instructorname = '${name}'`,[], (err, result) =>{
-        console.log(err);
         resp.send((err)?err:result.rows);
     });
 };
@@ -26,7 +35,19 @@ const getBatchByCondition = (condition, resp) => {
     })
 };
 const getBatchInDuration = (condition, resp) => {
-    const qry = `SELECT * FROM public."Batch" WHERE batchstartdate <= '${condition.to}' AND batchenddate >= '${condition.from}'`;
+    let qry = '';
+    if(condition.instructorname !== undefined)
+    {
+        qry = `SELECT * FROM public."Batch" WHERE instructorname='${condition.instructorname}' AND batchstartdate <= '${condition.to}' AND batchenddate >= '${condition.from}'`;
+    }
+    else if(condition.coordinatorname !== undefined)
+    {
+        qry = `SELECT * FROM public."Batch" WHERE coordinatorname='${condition.coordinatorname}' AND batchstartdate <= '${condition.to}' AND batchenddate >= '${condition.from}'`;
+    }
+    else
+    {
+        qry = `SELECT * FROM public."Batch" WHERE batchstartdate <= '${condition.to}' AND batchenddate >= '${condition.from}'`;
+    }
     pool.query(qry, [], (err, result) => {
         resp.send(result.rows);
     })
@@ -44,8 +65,17 @@ const updateBatch = (identifier, newValues, resp) => {
 }
 
 const getBatchParticipantOverview = (req, resp) => {
+    let filter = ''
+    if(req.query.instructorname !==undefined)
+    {
+        filter = `WHERE public."Batch".instructorname='${req.query.instructorname}'`
+    }
+    else if(req.query.coordinatorname !==undefined)
+    {
+        filter = `WHERE public."Batch".coordinatorname='${req.query.coordinatorname}'`
+    }
     let qry = `SELECT batchname, count(participantid) FROM public."Batch" INNER JOIN public."Participant" 
-    ON public."Batch".batchid = public."Participant".participantbatchid GROUP BY batchname`;
+    ON public."Batch".batchid = public."Participant".participantbatchid ${filter} GROUP BY batchname`;
     pool.query(qry, [], (err,result) => {
         resp.send((err)?err:result.rows);
     })
@@ -64,6 +94,7 @@ const getActiveBatchCount = (req, resp) => {
         resp.send(result.rows);
     })
 }
+
 module.exports.getActiveBatchCount = getActiveBatchCount;
 module.exports.getBatchCount = getBatchCount;
 module.exports.insertBatch = insertBatch;

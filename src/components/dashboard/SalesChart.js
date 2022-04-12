@@ -5,14 +5,24 @@ import { useEffect } from "react";
 import axios from 'axios';
 import Properties from '../../Properties';
 import properties from '../../Properties';
-const SalesChart = () => {
+import { connect } from 'react-redux';
+const SalesChart = (props) => {
   useEffect(() => {
-    axios.get(properties.SERVER_URL+'/batchparticipantoverview').then(resp => {
+    let qry = '/batchparticipantoverview';
+    if(props.role === 'COORDINATOR')
+    {
+      qry = '/batchparticipantoverview?coordinatorname='+props.userFirstName
+    }
+    if(props.role === 'INSTRUCTOR')
+    {
+      qry = '/batchparticipantoverview?instructorname='+props.userFirstName
+    }
+    axios.get(properties.SERVER_URL+qry).then(resp => {
       let catagories = resp.data.map(obj => obj.batchname);
       let data = resp.data.map(obj => obj.count);
       setChartState({catagories:catagories,data:data});
     })
-  })
+  }, [])
   const [chartState, setChartState] = useState({catagories: [
    
   ],data:[]})
@@ -77,5 +87,14 @@ const SalesChart = () => {
     </Card>
   );
 };
-
-export default SalesChart;
+const mapStateToProps = (state) => {
+  return { role: state.authData.role , userFirstName:state.authData.userFirstName};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserLoggedIn: (actionType, payLoad) => {
+      dispatch({ type: actionType, payLoad: payLoad });
+    },
+  };
+};
+export default connect(mapStateToProps)(SalesChart);

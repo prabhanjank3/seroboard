@@ -2,8 +2,8 @@ const pool = require('./configuration/postgresconfig').pool;
 const Utils = require('../utils/utils');
 
 const insertPostass = async (postassObj, resp) => {
-    const {postassid, postassname, postassdate, batchid} = {...postassObj, postassid:'PA'+Math.floor(Math.random()*1000+1)};
-    const qry = `INSERT INTO public."postassessment" (postassid,postassname,postassdate,batchid) values('${postassid}','${postassname}', '${postassdate}', '${batchid}' ) RETURNING postassid,postassname, postassdate, batchid`;
+    const {postassid, postassname, postassdate, batchid,maxscore,passingpercentage} = {...postassObj, postassid:'PA'+Math.floor(Math.random()*1000+1)};
+    const qry = `INSERT INTO public."postassessment" (postassid,postassname,postassdate,batchid,maxscore,passingpercentage) values('${postassid}','${postassname}', '${postassdate}', '${batchid}', ${maxscore}, ${passingpercentage} ) RETURNING postassid,postassname, postassdate, batchid`;
     await pool.query(qry, [], (err, result) => {
     resp.send((err)?err:result.rows);
     })
