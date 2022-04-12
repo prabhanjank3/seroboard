@@ -7,7 +7,7 @@ class ProgressCircle extends React.Component {
         super(props);
 
         this.state = {
-            series: [70],
+            series: [props.progress],
             options: {
                 chart: {
                     height: 350,
@@ -24,19 +24,15 @@ class ProgressCircle extends React.Component {
             },
         };
     }
-
     render() {
         return (
             <Card>
                 <CardBody>
                     <CardTitle tag="h5">Batch Progress</CardTitle>
-                    <CardSubtitle className="text-muted" tag="h6">
-                        Monthly batch Progress
-                    </CardSubtitle>
 
                     <ReactApexChart
                         options={this.state.options}
-                        series={this.state.series}
+                        series={[this.props.progress]}
                         type="radialBar"
                         height={350}
                     />

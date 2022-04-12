@@ -1,8 +1,31 @@
+import {useState} from 'react';
 import { Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
 import Chart from "react-apexcharts";
 import { useEffect } from "react";
-
-const SalesChart = () => {
+import axios from 'axios';
+import Properties from '../../Properties';
+import properties from '../../Properties';
+import { connect } from 'react-redux';
+const SalesChart = (props) => {
+  useEffect(() => {
+    let qry = '/batchparticipantoverview';
+    if(props.role === 'COORDINATOR')
+    {
+      qry = '/batchparticipantoverview?coordinatorname='+props.userFirstName
+    }
+    if(props.role === 'INSTRUCTOR')
+    {
+      qry = '/batchparticipantoverview?instructorname='+props.userFirstName
+    }
+    axios.get(properties.SERVER_URL+qry).then(resp => {
+      let catagories = resp.data.map(obj => obj.batchname);
+      let data = resp.data.map(obj => obj.count);
+      setChartState({catagories:catagories,data:data});
+    })
+  }, [])
+  const [chartState, setChartState] = useState({catagories: [
+   
+  ],data:[]})
   const options = {
     chart: {
       toolbar: {
@@ -30,16 +53,7 @@ const SalesChart = () => {
     },
     colors: ["#0d6efd", "#009efb", "#6771dc"],
     xaxis: {
-      categories: [
-        "Batch 1",
-        "Batch 2",
-        "Batch 3",
-        "Batch 4",
-        "Batch 5",
-        "Batch 6",
-        "Batch 7",
-        "Batch 8",
-      ],
+      categories:chartState.catagories,
     },
     responsive: [
       {
@@ -57,22 +71,30 @@ const SalesChart = () => {
   };
   const series = [
     {
-      name: "React",
-      data: [20, 40, 50, 30, 40, 50, 30, 30, 40],
+      data:chartState.data ,
     },
   ];
 
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">Attendance Overview</CardTitle>
+        <CardTitle tag="h5">Batch Strength Overview</CardTitle>
         <CardSubtitle className="text-muted" tag="h6">
-          Monthly Attendance Report
+          Batchwise Participant Count
         </CardSubtitle>
         <Chart options={options} series={series} type="bar" height="379" />
       </CardBody>
     </Card>
   );
 };
-
-export default SalesChart;
+const mapStateToProps = (state) => {
+  return { role: state.authData.role , userFirstName:state.authData.userFirstName};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserLoggedIn: (actionType, payLoad) => {
+      dispatch({ type: actionType, payLoad: payLoad });
+    },
+  };
+};
+export default connect(mapStateToProps)(SalesChart);

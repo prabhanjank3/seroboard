@@ -3,7 +3,7 @@ const insertBatch = (req, resp) => {
     batchdao.insertBatch(req.body,resp);
 };
 const getAllBatchs = (req,resp) => {
-    batchdao.getAllBatchs(resp);
+    batchdao.getAllBatchs(req,resp);
 };
 const getAllBatchsByInstructor = (req,resp) => {
     batchdao.getAllBatchsByInstructor(req.params.name,resp);

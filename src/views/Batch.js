@@ -34,10 +34,6 @@ const Batch = (props) => {
     <Row>
       <Col>
         <Card>
-          <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-        {(batchDataState.partData.length !=0 ) &&
-        <Batchinfo batchinfo={batchDataState.currentBatchData} />}
-        </CardTitle>
           {batchDataState.partData.length != 0 && (
             <CardBody className="p-4">
               <Row justify-content>

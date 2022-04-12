@@ -4,6 +4,7 @@ import PostAssessmentContainer from '../../container/PostAssessmentContainer';
 import {markPostAssessmentScore} from '../../services/apicalls/postassrecapicalls';
 import { getAllParticipants } from "../../services/apicalls/participantapicalls";
 import {Link, useNavigate} from 'react-router-dom';
+import AddPostAssessmentModal from './addPostAssessmentModal'
 import './modal.css'
 const PostAssessmentModal = (props) => {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ const PostAssessmentModal = (props) => {
   },[]) 
     return (
       <>
+        
         <span className="batch-action-btn" onClick={handleShow}>
             {props.children}
         </span>
@@ -34,7 +36,9 @@ const PostAssessmentModal = (props) => {
           <Modal.Header closeButton>
             <Modal.Title>Post Assessment</Modal.Title>
           </Modal.Header>
-          <Modal.Body><PostAssessmentContainer partData={partData} batchid={props.batchid} action={insertAction} /></Modal.Body>
+          <Modal.Body>
+            <PostAssessmentContainer partData={partData} batchid={props.batchid} action={insertAction} />
+          </Modal.Body>
         </Modal>
       </>
     );

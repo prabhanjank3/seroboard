@@ -33,6 +33,8 @@ app.post("/batch", batchcontroller.insertBatch);
 app.delete("/batch/:id", batchcontroller.deleteBatch);
 app.patch("/batch/:id", batchcontroller.updateBatch);
 app.get("/batchparticipantoverview",batchdao.getBatchParticipantOverview);
+app.get("/totalbatchcount", batchdao.getBatchCount);
+app.get("/activebatchcounton", batchdao.getActiveBatchCount);
 
 //Participants
 app.get("/participant", participantcontroller.getAllParticipants);
