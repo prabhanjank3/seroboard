@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 import { connect } from "react-redux";
 import {
@@ -129,6 +130,12 @@ const BatchTable = (props) => {
         <ViewBatchModal batchid={record.batchid}></ViewBatchModal>
       ),
     },
+    {
+      title: "Batch Details",
+      dataIndex: "",
+      key: "batchid",
+      render: (text, record) => navigateToPage(record),
+    },
   ];
   const columnsCoordinator = [
     {
@@ -251,7 +258,15 @@ const BatchTable = (props) => {
   function onChange(pagination, filters, sorter, extra) {
     console.log("params", pagination, filters, sorter, extra);
   }
-  // console.log(batchDataState.batchData);
+
+  function navigateToPage(record) {
+    return (
+      <Link to="/batch-details" state={{ batch: record }}>
+        <i className="bi bi-bar-chart-line"></i>
+        <span className="ms-1 d-inline-block">Details</span>
+      </Link>
+    );
+  }
   return (
     <div>
       <AddBatchModal>

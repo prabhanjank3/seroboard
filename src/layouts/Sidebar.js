@@ -135,11 +135,11 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
           ))}
-          <div className="container mt-5 pt-5">
-            <p>Powered By</p>
-            <img src={apiserologo} alt="Apisero Logo" />
-          </div>
         </Nav>
+        <div className="container mt-5 pt-5">
+          <p>Powered By</p>
+          <img src={apiserologo} alt="Apisero Logo" />
+        </div>
       </div>
     </div>
   );
