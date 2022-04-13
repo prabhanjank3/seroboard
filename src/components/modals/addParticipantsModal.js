@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Modal, Button} from 'react-bootstrap';
-import AddParticipantsForm from '../forms/addParticipants';
+import NewParticipantForm from '../forms/addParticipants';
 import {insertNewParticipant} from '../../services/apicalls/participantapicalls';
-const EditUserModal = (props) => {
+const AddParticipantModal = (props) => {
     const [show, setShow] = useState(false);
   
     const handleClose = () => setShow(false);
@@ -35,10 +35,10 @@ const EditUserModal = (props) => {
           <Modal.Header closeButton>
             <Modal.Title>Add Participants</Modal.Title>
           </Modal.Header>
-          <Modal.Body><AddParticipantsForm id={props.batchid} action={(data) => sendForInsert(data)} /></Modal.Body>
+          <Modal.Body><NewParticipantForm id={props.batchid} action={(data) => sendForInsert(data)} /></Modal.Body>
         </Modal>
       </>
     );
   }
-export default EditUserModal;
+export default AddParticipantModal;
  

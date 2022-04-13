@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Property from "../../Properties";
+import axios from "axios";
 import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import DropdownInput from "../utils/dropdownInput";
+import BatchDropdown from "../utils/BatchDropdownInput";
 import "./forms.css";
 import "../component.css";
-import { convertArrayToPgArray } from "../../services/commonFunctions";
-import BatchDropdown from "../utils/BatchDropdownInput"
+import { getUserDetails } from "../../services/apicalls/apicall";
+
 const NewParticipantForm = (props) => {
+  useEffect(() => {
+    getUserDetails(props.id).then((resp) => {
+      setState(resp.data[0]);
+    });
+  }, []);
   const initialState = {
-    participantfirstname: "",
-    participantlastname: "",
-    participantemail: "",
-    participantbatchid: props.id,
-    participantskills: "",
+    userfirstname: "",
+    userlastname: "",
+    useremail: "",
+    userrole: "",
   };
   const navigate = useNavigate();
-  const stringToPgArray = (str) => {
-    var starr = str.split(",");
-    return convertArrayToPgArray(starr);
-  };
   const sendForInsert = () => {
-    var ret = stringToPgArray(formState.participantskills);
-    var data = { ...formState, participantskills: ret };
-    props.action(data);
+    return props.action(formState);
   };
   const [formState, setState] = useState(initialState);
   return (
@@ -37,11 +37,9 @@ const NewParticipantForm = (props) => {
               type="text"
               className="form-control"
               id="exampleFormControlInput1"
+              value={formState.userfirstname}
               onChange={(e) => {
-                setState({
-                  ...formState,
-                  participantfirstname: e.target.value,
-                });
+                setState({ ...formState, userfirstname: e.target.value });
               }}
             />
             <label htmlFor="exampleFormControlInput1" className="form-label">
@@ -51,8 +49,9 @@ const NewParticipantForm = (props) => {
               type="email"
               className="form-control"
               id="exampleFormControlInput1"
+              value={formState.useremail}
               onChange={(e) => {
-                setState({ ...formState, participantemail: e.target.value });
+                setState({ ...formState, useremail: e.target.value });
               }}
             />
           </Col>
@@ -64,8 +63,9 @@ const NewParticipantForm = (props) => {
               type="text"
               className="form-control"
               id="exampleFormControlInput1"
+              value={formState.userlastname}
               onChange={(e) => {
-                setState({ ...formState, participantlastname: e.target.value });
+                setState({ ...formState, userlastname: e.target.value });
               }}
             />
             <label htmlFor="exampleFormControlInput1" className="form-label">
@@ -77,22 +77,6 @@ const NewParticipantForm = (props) => {
               value={formState.userrole}
               onChange={(e) => {
                 setState({ ...formState, userrole: e.target.value });
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              Skills (enter comma seperated values without space)
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="exampleFormControlInput1"
-              placeholder="E.g Java,Python"
-              onChange={(e) => {
-                setState({ ...formState, participantskills: e.target.value });
               }}
             />
           </Col>

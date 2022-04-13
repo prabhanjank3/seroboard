@@ -37,6 +37,7 @@ app.get("/totalbatchcount", batchdao.getBatchCount);
 app.get("/activebatchcounton", batchdao.getActiveBatchCount);
 
 //Participants
+app.get("/participants", participantcontroller.getAllParticipantswithoutid);
 app.get("/participant", participantcontroller.getAllParticipants);
 app.get("/participant/:id", participantcontroller.getParticipantDetails);
 app.post("/participant", participantcontroller.insertParticipant);

@@ -3,6 +3,9 @@ const partdao = require('../dao/participantdao');
 const insertParticipant = (req, resp) => {
     partdao.insertParticipant(req.body,resp);
 };
+const getAllParticipantswithoutid = (req,resp) => {
+    partdao.getAllParticipantswithoutid(req.query,resp);
+};
 const getAllParticipants = (req,resp) => {
     partdao.getAllParticipants(req.query,resp);
 };
@@ -21,6 +24,7 @@ module.exports.getAllParticipants = getAllParticipants;
 module.exports.getParticipantDetails = getParticipantDetails;
 module.exports.deleteParticipant = deleteParticipant;
 module.exports.updateParticipant = updateParticipant;
+module.exports.getAllParticipantswithoutid = getAllParticipantswithoutid;
 
 
 
