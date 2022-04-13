@@ -37,89 +37,33 @@ const DetailedParticipantTable = (props) => {
   const [participantDataState, setParticipantData] = useState({
     participantData: [],
   });
+
+  const [data, setData] = useState([]);
+
   const setparticipantData = () => {
     getAllParticipantswithoutid().then((resp) => {
       setParticipantData({ participantData: resp.data });
-      nobatch(resp.data)
+      setData(nobatch(resp.data));
     });
   };
 
-  // console.log(participantDataState)
-  let allParticipantArray = []
-  function nobatch(array){
-
-    array.forEach(element => {
+  function nobatch(array) {
+    let allParticipantArray = [];
+    array.forEach((element) => {
       if (element.batchname != null) {
-       allParticipantArray.push(element)
-      }
-      else{
-        element.batchname = "Batch not assigned"
-        allParticipantArray.push(element)
+        allParticipantArray.push(element);
+      } else {
+        element.batchname = "Not Assigned";
+        allParticipantArray.push(element);
       }
     });
-  //   setParticipantData({ participantData: allParticipantArray });
-  //   console.log(participantDataState)
-   }
-   console.log(allParticipantArray)
-
-  // let finalPartiDetail = []
-  // const setparticipantData = () => {
-  //   getAllParticipantswithoutid().then((resp) => {
-  //     setParticipantData({ participantData: resp.data });
-  //     finalPartiDetail = allParticipantDetails(resp.data);
-  //     mapParticipantDetails(finalPartiDetail, participantDataState.participantData)
-  //     // console.log(finalPartiDetail)
-
-  //   });
-  // };
-  // console.log(finalPartiDetail)
-  
-
-  // function allParticipantDetails(array) {
-  //   let batchDetails = {}
-  //   let participantObject = {};
-  //   let newarray = []
-  //   for (let index = 0; index < array.length; index++) {
-  //     const element = array[index];
-  //     getBatchDetails(element.participantbatchid).then((resp) => {
-  //       if (resp.data.length) {
-  //         participantObject = resp.data[0];
-  //         batchDetails = {
-  //           batchid: participantObject.batchid,
-  //           batchname: participantObject.batchname
-  //         }
-  //         newarray.push(batchDetails)
-  //       }
-  //     });
-  //   }
-
-  //   return(newarray)
-
-  // };
-
-  // console.log(participantDataState.participantData)
-  // console.log(finalPartiDetail)
-
-  // function matchBatchid(participantbatchid){
-  //   if (participantbatchid == batchid) {
-  //   }
-  // }
-
-  // function mapParticipantDetails(array1, array2){
-  //   console.log(array1, array2)
-  //   // console.log(array1[0].batchid, array2[0].participantbatchid)
-  //   let lastarray = []
-  //   let lastParticipantObject = {}
-  //   for (let index = 0; index < array2.length; index++) {
-  //     const element = array2[index];
-  //     console.log(element.participantbatchid)
-  //     array1.find()
-  //   }
-  // }
+    return allParticipantArray;
+  }
 
   useEffect(() => {
     setparticipantData();
   }, []);
+
   const onDeleteClickParticipant = (id, e) => {
     deleteParticipant(id).then((resp) => {
       setparticipantData();
@@ -220,11 +164,7 @@ const DetailedParticipantTable = (props) => {
           <SearchUserForm />
           <div className="border-top my-3" />
 
-          <Table
-            columns={columns}
-            dataSource={participantDataState.participantData}
-            onChange={onChange}
-          />
+          <Table columns={columns} dataSource={data} onChange={onChange} />
         </CardBody>
       </Card>
     </div>
