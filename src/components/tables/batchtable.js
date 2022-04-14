@@ -4,9 +4,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
-  getAllBatchs,
   getBatchInDuration,
-  getAllBatchsByInstructor,
 } from "../../services/apicalls/batchapicalls";
 import "./tables.css";
 import EditBatchModal from "../modals/editBatchModal";
@@ -20,7 +18,7 @@ import AssignmentModal from "../modals/assignmentmodal";
 import AddBatchModal from "../modals/addBatchModal";
 import AddAssignmentModal from "../modals/addAssignmentModal";
 import { Table, Popconfirm, message } from 'antd';
-import BatchDropdownInput from "../utils/BatchDropdownInput";
+
 import {
   DeleteOutlined,
   EditOutlined,

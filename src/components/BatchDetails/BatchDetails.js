@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import ProgressCircle from "../dashboard/ProgressCircle";
 import Chart from "react-apexcharts";
+import ParticipantBulkUpload from '../modals/participantBulkUploadModal';
 
 function BatchDetails() {
   const [chartState, setChartState] = useState({ catagories: [], data: [] });
@@ -196,9 +197,10 @@ function BatchDetails() {
                 <Button className="btn" color="success">
                   Add Participants
                 </Button>
-                <Button className="btn" color="info">
+                <ParticipantBulkUpload />
+                {/* <Button className="btn" color="info">
                   Participants Bulk Upload
-                </Button>
+                </Button> */}
                 <Button className="btn" color="warning">
                   Upload PPT's
                 </Button>
