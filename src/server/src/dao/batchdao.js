@@ -3,8 +3,8 @@ const { default: axios } = require('axios');
 const Utils = require('../utils/utils');
 
 const insertBatch = async (batchObj, resp) => {
-    const {batchid, batchname, batchstartdate, batchenddate, instructorname} = {...batchObj, batchid:'BT'+Math.floor(Math.random()*1000+1)};
-    const qry = `INSERT INTO public."Batch" values('${batchid}','${batchname}', '${batchstartdate}', '${batchenddate}', '${instructorname}' ) RETURNING batchid,batchname, batchstartdate, batchenddate, instructorname`;
+    const {batchid, batchname, batchstartdate, batchenddate, instructorname, coordinatorname} = {...batchObj, batchid:'BT'+Math.floor(Math.random()*1000+1)};
+    const qry = `INSERT INTO public."Batch" values('${batchid}','${batchname}', '${batchstartdate}', '${batchenddate}', '${instructorname}' ,'${coordinatorname}' ) RETURNING batchid,batchname, batchstartdate, batchenddate, instructorname`;
     await pool.query(qry, [], (err, result) => {
     resp.send((err)?err:result.rows);
     })
