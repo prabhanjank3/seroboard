@@ -28,6 +28,8 @@ const adminNav = [
     icon: "bi bi-person-badge",
   },
   {
+    title: "Participants",
+    href: "/participants",
     title: "Batch Details",
     href: "/batch-details",
     icon: "bi bi-person-badge",

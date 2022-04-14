@@ -42,6 +42,7 @@ app.get("/batchtopperformers/:batchid", assignmentdao.topFivePerformers)
 app.get("/avgscoreall", postassrecdao.getAvgScoreForAllBatches);
 
 //Participants
+app.get("/participants", participantcontroller.getAllParticipantswithoutid);
 app.get("/participant", participantcontroller.getAllParticipants);
 app.get("/participant/:id", participantcontroller.getParticipantDetails);
 app.post("/participant", participantcontroller.insertParticipant);

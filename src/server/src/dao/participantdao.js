@@ -9,6 +9,16 @@ const insertParticipant = async (partObj, resp) => {
     })
 };
 
+const getAllParticipantswithoutid = async (query,resp) => {
+    let qry = `SELECT participantid,participantfirstname,participantlastname, batchname FROM public."Batch" RIGHT OUTER JOIN public."Participant"
+    ON public."Batch".batchid = public."Participant".participantbatchid`;
+    await pool.query(qry,[], (err, result) =>{
+        resp.send((err)?err:result.rows);
+    });
+};
+
+
+
 const getAllParticipants = async (query,resp) => {
     await pool.query(`SELECT * from public."Participant" WHERE ${Utils.conditionObjToQuery(query)}`,[], (err, result) =>{
         resp.send((err)?err:result.rows);
@@ -39,4 +49,5 @@ module.exports.getAllParticipants = getAllParticipants;
 module.exports.getParticipantByCondition = getParticipantByCondition;
 module.exports.deleteParticipant = deleteParticipant;
 module.exports.updateParticipant = updateParticipant;
+module.exports.getAllParticipantswithoutid = getAllParticipantswithoutid;
 
