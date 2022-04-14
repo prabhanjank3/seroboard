@@ -6,19 +6,19 @@ import { useNavigate } from "react-router-dom";
 import BatchDropdown from "../utils/BatchDropdownInput";
 import "./forms.css";
 import "../component.css";
-import { getUserDetails } from "../../services/apicalls/apicall";
+import { getParticipantDetails } from "../../services/apicalls/participantapicalls";
 
-const NewParticipantForm = (props) => {
+const EditParticipantForm = (props) => {
   useEffect(() => {
-    getUserDetails(props.id).then((resp) => {
+    getParticipantDetails(props.id).then((resp) => {
       setState(resp.data[0]);
     });
   }, []);
   const initialState = {
-    userfirstname: "",
-    userlastname: "",
-    useremail: "",
-    userrole: "",
+    participantfirstname: "",
+    participantlastname: "",
+    participantemail: "",
+    batchname: "",
   };
   const navigate = useNavigate();
   const sendForInsert = () => {
@@ -37,9 +37,9 @@ const NewParticipantForm = (props) => {
               type="text"
               className="form-control"
               id="exampleFormControlInput1"
-              value={formState.userfirstname}
+              value={formState.participantfirstname}
               onChange={(e) => {
-                setState({ ...formState, userfirstname: e.target.value });
+                setState({ ...formState, participantfirstname: e.target.value });
               }}
             />
             <label htmlFor="exampleFormControlInput1" className="form-label">
@@ -49,9 +49,9 @@ const NewParticipantForm = (props) => {
               type="email"
               className="form-control"
               id="exampleFormControlInput1"
-              value={formState.useremail}
+              value={formState.participantemail}
               onChange={(e) => {
-                setState({ ...formState, useremail: e.target.value });
+                setState({ ...formState, participantemail: e.target.value });
               }}
             />
           </Col>
@@ -63,20 +63,20 @@ const NewParticipantForm = (props) => {
               type="text"
               className="form-control"
               id="exampleFormControlInput1"
-              value={formState.userlastname}
+              value={formState.participantlastname}
               onChange={(e) => {
-                setState({ ...formState, userlastname: e.target.value });
+                setState({ ...formState, participantlastname: e.target.value });
               }}
             />
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Batch
             </label>
             <BatchDropdown
-              title="Select Role"
-              options={["ADMIN", "INSTRUCTOR", "COORDINATOR"]}
-              value={formState.userrole}
+              // title="Select Role"
+              // options={["ADMIN", "INSTRUCTOR", "COORDINATOR"]}
+              value={formState.batchname}
               onChange={(e) => {
-                setState({ ...formState, userrole: e.target.value });
+                setState({ ...formState, batchname: e.target.value });
               }}
             />
           </Col>
@@ -97,4 +97,4 @@ const NewParticipantForm = (props) => {
   );
 };
 
-export default NewParticipantForm;
+export default EditParticipantForm;

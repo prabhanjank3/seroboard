@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import NewParticipantForm from "../forms/editParticipantForm";
+import EditParticipantForm from "../forms/editParticipantForm";
 import { insertNewParticipant } from "../../services/apicalls/participantapicalls";
 import { EditOutlined } from "@ant-design/icons";
 import { ToastContainer, toast } from "react-toastify";
@@ -58,7 +58,7 @@ const EditParticipant = (props) => {
           <Modal.Title>Update Participant</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewParticipantForm id={props.id} action={sendForUpdate} />
+          <EditParticipantForm id={props.id} action={sendForUpdate} />
         </Modal.Body>
       </Modal>
     </>

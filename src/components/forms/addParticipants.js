@@ -81,10 +81,10 @@ const NewParticipantForm = (props) => {
             />
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col>
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Skills (enter comma seperated values without space)
+              Skills1 (enter comma seperated values without space)
             </label>
             <input
               type="text"
@@ -96,7 +96,7 @@ const NewParticipantForm = (props) => {
               }}
             />
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Button
             type="button"

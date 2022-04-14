@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import Usertable from "../components/tables/usertable";
 import BatchTable from "../components/tables/batchtable";
 import DetailedParticipantTable from "../components/tables/DetailedParticipantTable"
+import ParticipantDetailsView from "../components/Participants/ParticipantDetailsView"
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -31,6 +32,7 @@ const ThemeRoutes = (isLoggedIn) => [
       { path: "/Usertable", exact: true, element: <Usertable /> },
       { path: "/editprofile", exact: true, element: <EditProfile /> },
       { path: "/participants", exact: true, element: <DetailedParticipantTable /> },
+      { path: "/participantdetail", exact: true, element: <ParticipantDetailsView /> },
       { path: "/", element: <Navigate to="/starter" /> },
     ],
   },

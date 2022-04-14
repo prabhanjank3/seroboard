@@ -17,9 +17,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditParticipant from "../modals/editParticipant";
 import AddParticipantModal from "../modals/addParticipantsModal";
+import ViewBatchModal from '../modals/viewBatchModal';
 import { getBatchDetails } from "../../services/apicalls/batchapicalls";
+import { EyeOutlined } from "@ant-design/icons";
+import { useNavigate, Link } from "react-router-dom";
+
+
 
 const DetailedParticipantTable = (props) => {
+  const navigate = useNavigate();
+  
+
   const success = () => {
     toast.configure();
     toast.success(" Participant Deleted SuccessFully!", {
@@ -143,11 +151,27 @@ const DetailedParticipantTable = (props) => {
         </Popconfirm>
       ),
     },
+    {
+      title: 'View',
+      dataIndex: '',
+      key: 'participantid',
+      render: (text, record) => (
+        <div>
+     <Link to="/participantdetail" state={{ batch: record }}>
+        <EyeOutlined />
+      </Link>
+        </div>
+      )
+    },
   ];
+
+
 
   function onChange(pagination, filters, sorter, extra) {
     console.log("params", pagination, filters, sorter, extra);
   }
+
+  
 
   return (
     <div>
