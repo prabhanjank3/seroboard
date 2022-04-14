@@ -103,7 +103,6 @@ import "./tables.css";
 import EditUserModal from "../modals/editUserModal";
 import SearchUserForm from "../forms/serchUserForm";
 import AddUserModal from "../modals/addUserModal";
-import "antd/dist/antd.css";
 import { Table, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { ToastContainer, toast } from "react-toastify";
@@ -194,7 +193,7 @@ const NewUserTable = (props) => {
       key: "userid",
       render: (text, record) => (
         <Popconfirm
-          title="Are you sure to delete this task?"
+          title="Are you sure to delete this user?"
           onConfirm={(e) => {
             onDeleteClick(record.userid, e);
             success();
