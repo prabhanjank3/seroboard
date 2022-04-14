@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
-import Usertable from "../components/tables/usertable";
-import BatchTable from "../components/tables/batchtable";
+// import Usertable from "../components/tables/usertable";
+// import BatchTable from "../components/tables/batchtable";
 import DetailedParticipantTable from "../components/tables/DetailedParticipantTable"
 import ParticipantDetailsView from "../components/Participants/ParticipantDetailsView"
 

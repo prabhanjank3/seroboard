@@ -23,6 +23,7 @@ app.use(express.json());
 app.get("/user", usercontroller.getAllUsers);
 app.get("/user/:id", usercontroller.getUserDetails);
 app.post("/user", usercontroller.insertUser);
+app.post("/users", usercontroller.insertUsers);
 app.delete("/user/:id", usercontroller.deleteUser);
 app.patch("/user/:id", usercontroller.updateUser);
 

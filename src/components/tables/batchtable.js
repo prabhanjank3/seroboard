@@ -80,6 +80,29 @@ const BatchTable = (props) => {
       dataIndex: "batchname",
       // defaultSortOrder: 'descend',
       sorter: (a, b) => a.batchname.localeCompare(b.batchname),
+      filters: [
+        {
+          text: "FAST",
+          value: "FAST",
+        },
+        {
+          text: "Python",
+          value: "Python",
+        },
+        {
+          text: "Java",
+          value: "Java",
+        },
+        {
+          text: "React",
+          value: "React",
+        },
+        {
+          text: "Salesforce",
+          value: "Salesforce",
+        },
+      ],
+      onFilter: (value, record) => record.batchname.includes(value),
     },
     {
       title: "Instructor",

@@ -107,6 +107,8 @@ import { Table, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {insertNewUsers} from '../../services/apicalls/apicall';
+import * as XLSX from 'xlsx'
 
 const NewUserTable = (props) => {
   const success = () => {
@@ -211,8 +213,56 @@ const NewUserTable = (props) => {
     console.log("params", pagination, filters, sorter, extra);
   }
 
+  const [excelData, setExcelData] = useState(null);
+  const[ excelFile, setExcelFile] = useState(null);
+  const handleFile = (e)=>{
+    let selectedFile = e.target.files[0];
+    if(selectedFile){
+      console.log(selectedFile.type)
+      let reader =  new FileReader();
+      reader.readAsArrayBuffer(selectedFile);
+      reader.onload = (e)=>{
+         setExcelFile(e.target.result);
+      }
+    }
+    else{
+      console.log("pls select the file")
+    }
+  }
+  
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () => setShow(false);
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    if(excelFile!=null){
+      const workbook = XLSX.read(excelFile,{type:'buffer'});
+      const worksheetName = workbook.SheetNames[0];
+      const workSheet = workbook.Sheets[worksheetName];
+      const data = XLSX.utils.sheet_to_json(workSheet);
+      setExcelData(data); 
+      return insertNewUsers(data).then(resp => {
+        handleClose();
+       alert(`User created successfully!`);
+    }).catch(err => {
+        alert('Something went wrong!');
+    });
+    }else{
+      setExcelData(null);
+    }
+  }
+  console.log(excelData);
   return (
     <div>
+      <div className="form">
+        <form className="form-group" autoComplete="off" onSubmit={handleSubmit}>
+          <br></br>
+          <input type='file' className='form-control ' required onChange={handleFile}></input>
+          <button type="submit" className="btn btn-success" style={{marginTop:5+'px', marginBottom:5}}>Upload Multiple Users</button>
+          <br></br>
+          </form>
+        </div>
       <AddUserModal>
         <Button className="btn-primary">Add User</Button>
       </AddUserModal>
