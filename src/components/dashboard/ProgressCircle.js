@@ -13,6 +13,7 @@ class ProgressCircle extends React.Component {
                     height: 350,
                     type: "radialBar",
                 },
+                
                 plotOptions: {
                     radialBar: {
                         hollow: {
@@ -20,7 +21,8 @@ class ProgressCircle extends React.Component {
                         },
                     },
                 },
-                labels: ["Batch Progress"],
+                labels: [this.props.title],
+                
             },
         };
     }
@@ -28,10 +30,9 @@ class ProgressCircle extends React.Component {
         return (
             <Card>
                 <CardBody>
-                    <CardTitle tag="h5">Batch Progress</CardTitle>
-
+                    <CardTitle tag="h5">{this.props.title}</CardTitle>
                     <ReactApexChart
-                        options={this.state.options}
+                        options={{...this.state.options, colors:('color' in this.props)?[this.props.color]:['green']}}
                         series={[this.props.progress]}
                         type="radialBar"
                         height={350}

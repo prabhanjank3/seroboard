@@ -5,7 +5,7 @@ const getAllAssignment = (id) => {
     return axios.get(Properties.SERVER_URL+'/assignment?batchid='+id);
 }
 const addAssignment = (data) => {
-    return axios.post(Properties.SERVER_URL+'/postass',data,{
+    return axios.post(Properties.SERVER_URL+'/assignment',data,{
         headers:{
             'Content-type':'application/json'
         }

@@ -17,6 +17,7 @@ import AddPostAssessmentModal from "../modals/addPostAssessmentModal"
 import BatchDurationForm from "../forms/batchDuration";
 import AssignmentModal from "../modals/assignmentmodal";
 import AddBatchModal from "../modals/addBatchModal";
+import AddAssignmentModal from "../modals/addAssignmentModal";
 import { Table, Popconfirm, message } from 'antd';
 import BatchDropdownInput from "../utils/BatchDropdownInput";
 import { DeleteOutlined, EditOutlined ,CheckSquareOutlined, UserAddOutlined, DownloadOutlined, FileAddOutlined, FileMarkdownOutlined} from "@ant-design/icons";
@@ -249,6 +250,9 @@ const BatchTable = (props) => {
       <AddPostAssessmentModal>
         <Button className="btn-primary">Add Post Assessment</Button>
       </AddPostAssessmentModal>
+      <AddAssignmentModal>
+        <Button className="btn-primary">Add Assignment</Button>
+      </AddAssignmentModal>
       <Card className="mt-5">
         <CardBody>
           <BatchDurationForm

@@ -23,6 +23,7 @@ export default (props) => {
     batchstartdate: "",
     batchenddate: "",
     instructorname: "",
+    coordinatorname:""
   };
   const navigate = useNavigate();
   const sendForInsert = () => {
@@ -79,6 +80,17 @@ export default (props) => {
             value={formState.instructorname}
             onChange={(e) => {
               setState({ ...formState, instructorname: e.target.value });
+            }}
+          />
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            Coordinator
+          </label>
+          <RoleInput
+            title="Select Coordinator"
+            options={["Pranita", "Mudita", "Anita"]}
+            value={formState.coordinatorname}
+            onChange={(e) => {
+              setState({ ...formState, coordinatorname: e.target.value });
             }}
           />
         </Row>
