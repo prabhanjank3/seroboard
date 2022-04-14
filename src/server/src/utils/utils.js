@@ -73,7 +73,7 @@ const insertMultipleUsers = (data) => {
     for(let key in data)
     {
         counter=counter+1;
-        qry = qry+`('"USR"${Math.floor(Math.random()*1000+1)}','${data[key][arr[0]]}','${data[key][arr[1]]}','${data[key][arr[2]]}','${data[key][arr[3]]}','${data[key][arr[4]]}')`;
+        qry = qry+`('USR${Math.floor(Math.random()*1000+1)}','${data[key][arr[0]]}','${data[key][arr[1]]}','${data[key][arr[2]]}','${data[key][arr[3]]}','${data[key][arr[4]]}')`;
         if(counter !== len)
         {
             qry = qry +' , ';
@@ -86,7 +86,4 @@ module.exports.conditionObjToQuery = conditionObjToQuery;
 module.exports.updateColumnsQuery = updateColumnsQuery;
 module.exports.insertMultipleRows = insertMultipleRows;
 module.exports.insertMultipleUsers = insertMultipleUsers;
-module.exports.conditionObjToQuery = conditionObjToQuery;
-module.exports.updateColumnsQuery = updateColumnsQuery;
-module.exports.insertMultipleRows = insertMultipleRows;
 module.exports.insertMultipleRows2 = insertMultipleRows2;

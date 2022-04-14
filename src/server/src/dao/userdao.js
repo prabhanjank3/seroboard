@@ -45,7 +45,7 @@ const insertUser = async (userObj, resp) => {
 //   });
 // }
 // };
-const insertUsers  = async(req, resp) => {
+const insertUsers  = async(req,resp) => {
   const qry = `INSERT INTO public."user" (userid,userfirstname,userlastname,useremail,userpassword,userrole) VALUES ${Utils.insertMultipleUsers(req.body)}`;
   pool.query(qry,[], (err, result) => {
       console.log(err);

@@ -48,7 +48,7 @@ app.get("/participants", participantcontroller.getAllParticipantswithoutid);
 app.get("/participant", participantcontroller.getAllParticipants);
 app.get("/participant/:id", participantcontroller.getParticipantDetails);
 app.post("/participant", participantcontroller.insertParticipant);
-app.post("/bulkparticipantinsert", participantdao.insertMultipleParticipants)
+// app.post("/bulkparticipantinsert", participantdao.insertMultipleParticipants)
 app.delete("/participant/:id", participantcontroller.deleteParticipant);
 app.patch("/participant/:id", participantcontroller.updateParticipant);
 
