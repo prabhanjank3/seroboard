@@ -5,42 +5,27 @@ import DropdownInput from "../utils/dropdownInput";
 import "./forms.css";
 import "../component.css";
 import { convertArrayToPgArray } from "../../services/commonFunctions";
-import ExcelFileInput from '../utils/excelfileinput';
-const NewParticipantForm = (props) => {
+import { number } from "yup";
+import BatchDropdownInput from "../utils/BatchDropdownInput";
+const NewPostAssessmentForm = (props) => {
   const initialState = {
-    participantfirstname: "",
-    participantlastname: "",
-    participantemail: "",
-    participantbatchid: props.id,
-    participantskills: "",
-  };
-  const navigate = useNavigate();
-  const stringToPgArray = (str) => {
-    var starr = str.split(",");
-    return convertArrayToPgArray(starr);
+    assignmentname: "",
+    assignmentdate: "",
+    batchid: "",
+    maxscore:0,
+    passingpercentage:0
   };
   const sendForInsert = () => {
-    var ret = stringToPgArray(formState.participantskills);
-    var data = { ...formState, participantskills: ret };
-    props.action(data);
+    props.action(formState);
   };
-  const onExcelUpload = (data) => {
-    console.log(data)
-  }
   const [formState, setState] = useState(initialState);
   return (
     <div>
       <Container>
         <Row>
-          <label htmlFor="exampleFormControlInput1" className="form-label">
-            Import from excel file
-          </label>
-          <ExcelFileInput action={(data) => onExcelUpload(data)} />
-        </Row>
-        <Row>
           <Col>
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              First Name
+              Assignment Name
             </label>
             <input
               type="text"
@@ -49,64 +34,56 @@ const NewParticipantForm = (props) => {
               onChange={(e) => {
                 setState({
                   ...formState,
-                  participantfirstname: e.target.value,
+                  assignmentname: e.target.value,
                 });
               }}
             />
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Email
+              Assignment Date
             </label>
             <input
-              type="email"
+              type="date"
               className="form-control"
               id="exampleFormControlInput1"
               onChange={(e) => {
-                setState({ ...formState, participantemail: e.target.value });
+                setState({ ...formState, assignmentdate: e.target.value });
               }}
             />
           </Col>
           <Col>
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Last Name
+              Batch Id
             </label>
-            <input
-              type="text"
-              className="form-control"
-              id="exampleFormControlInput1"
-              onChange={(e) => {
-                setState({ ...formState, participantlastname: e.target.value });
-              }}
-            />
+            <BatchDropdownInput onChange={(e) => {
+                setState({ ...formState, batchid: e.target.value });
+              }} />
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Batch
+              Maximum Score
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="exampleFormControlInput1"
-              value={props.id}
               onChange={(e) => {
-                setState({ ...formState, participantbatchid: e.target.value });
+                setState({ ...formState, maxscore: e.target.value });
               }}
-              disabled
             />
           </Col>
         </Row>
         <Row>
-          <Col>
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              Skills (enter comma seperated values without space)
+        <Col>
+        <label htmlFor="exampleFormControlInput1" className="form-label">
+              Passing Percentage
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="exampleFormControlInput1"
-              placeholder="E.g Java,Python"
               onChange={(e) => {
-                setState({ ...formState, participantskills: e.target.value });
+                setState({ ...formState, passingpercentage: e.target.value });
               }}
             />
-          </Col>
+        </Col>
         </Row>
         <Row>
           <Button
@@ -124,4 +101,4 @@ const NewParticipantForm = (props) => {
   );
 };
 
-export default NewParticipantForm;
+export default NewPostAssessmentForm;

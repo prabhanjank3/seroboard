@@ -8,6 +8,8 @@ var postassreccontroller = require("./controller/postassrecordcontroller");
 var postasscontroller = require("./controller/postasscontroller");
 var assignmentcontroller = require("./controller/assignmentcontroller");
 var assignmentreccontroller = require("./controller/assignmentrecordcontroller");
+var postassrecdao = require("./dao/postassrecorddao");
+var assignmentdao = require("./dao/assignmentdao")
 var batchdao = require("./dao/batchdao");
 var axios = require("axios");
 var cors = require("cors");
@@ -35,6 +37,9 @@ app.patch("/batch/:id", batchcontroller.updateBatch);
 app.get("/batchparticipantoverview",batchdao.getBatchParticipantOverview);
 app.get("/totalbatchcount", batchdao.getBatchCount);
 app.get("/activebatchcounton", batchdao.getActiveBatchCount);
+app.get("/batchavgscore/:batchid", postassrecdao.getBatchAvgScore);
+app.get("/batchtopperformers/:batchid", assignmentdao.topFivePerformers)
+app.get("/avgscoreall", postassrecdao.getAvgScoreForAllBatches);
 
 //Participants
 app.get("/participant", participantcontroller.getAllParticipants);
