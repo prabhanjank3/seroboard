@@ -6,6 +6,8 @@ import "./forms.css";
 import "../component.css";
 import { convertArrayToPgArray } from "../../services/commonFunctions";
 import ExcelFileInput from '../utils/excelfileinput';
+import axios from "axios";
+import properties from "../../Properties";
 const NewParticipantForm = (props) => {
   const initialState = {
     participantfirstname: "",
@@ -24,19 +26,11 @@ const NewParticipantForm = (props) => {
     var data = { ...formState, participantskills: ret };
     props.action(data);
   };
-  const onExcelUpload = (data) => {
-    console.log(data)
-  }
+  
   const [formState, setState] = useState(initialState);
   return (
     <div>
       <Container>
-        <Row>
-          <label htmlFor="exampleFormControlInput1" className="form-label">
-            Import from excel file
-          </label>
-          <ExcelFileInput action={(data) => onExcelUpload(data)} />
-        </Row>
         <Row>
           <Col>
             <label htmlFor="exampleFormControlInput1" className="form-label">

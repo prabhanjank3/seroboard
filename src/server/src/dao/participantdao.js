@@ -3,12 +3,16 @@ const Utils = require('../utils/utils');
 const insertParticipant = async (partObj, resp) => {
     const {participantid, participantfirstname, participantlastname, participantemail, participantskills, participantbatchid} = {...partObj, participantid:'PAR'+Math.floor(Math.random()*1000+1)};
     const qry = `INSERT INTO public."Participant" values('${participantid}','${participantfirstname}', '${participantlastname}', '${participantemail}', '${participantskills}' , '${participantbatchid}' ) RETURNING participantid,participantfirstname, participantlastname, participantemail,  participantskills`;
-    console.log(qry)
     await pool.query(qry, [], (err, result) => {
     resp.send((err)?err:result.rows);
     })
 };
-
+const insertMultipleParticipants  = async(req, resp) => {
+    const qry = `INSERT INTO public."Participant" (participantid,participantfirstname,participantlastname,participantemail,participantskills,participantbatchid) VALUES ${Utils.insertMultipleRows2(req.body)}`; 
+    pool.query(qry,[], (err, result) => {
+        resp.send({status:'Success', code:200});
+    })
+}
 const getAllParticipants = async (query,resp) => {
     await pool.query(`SELECT * from public."Participant" WHERE ${Utils.conditionObjToQuery(query)}`,[], (err, result) =>{
         resp.send((err)?err:result.rows);
@@ -39,4 +43,5 @@ module.exports.getAllParticipants = getAllParticipants;
 module.exports.getParticipantByCondition = getParticipantByCondition;
 module.exports.deleteParticipant = deleteParticipant;
 module.exports.updateParticipant = updateParticipant;
+module.exports.insertMultipleParticipants = insertMultipleParticipants;
 
