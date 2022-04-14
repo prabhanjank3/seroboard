@@ -13,6 +13,15 @@ const insertMultipleParticipants  = async(req, resp) => {
         resp.send({status:'Success', code:200});
     })
 }
+
+const getAllParticipantswithoutid = async (query,resp) => {
+    let qry = `SELECT participantid,participantfirstname,participantlastname, batchname FROM public."Batch" RIGHT OUTER JOIN public."Participant"
+    ON public."Batch".batchid = public."Participant".participantbatchid`;
+    await pool.query(qry,[], (err, result) =>{
+        resp.send((err)?err:result.rows);
+    });
+};
+
 const getAllParticipants = async (query,resp) => {
     await pool.query(`SELECT * from public."Participant" WHERE ${Utils.conditionObjToQuery(query)}`,[], (err, result) =>{
         resp.send((err)?err:result.rows);
@@ -43,5 +52,9 @@ module.exports.getAllParticipants = getAllParticipants;
 module.exports.getParticipantByCondition = getParticipantByCondition;
 module.exports.deleteParticipant = deleteParticipant;
 module.exports.updateParticipant = updateParticipant;
+<<<<<<< HEAD
 module.exports.insertMultipleParticipants = insertMultipleParticipants;
+=======
+module.exports.getAllParticipantswithoutid = getAllParticipantswithoutid;
+>>>>>>> 7c264c3b229f490925fbc9f559a0d52a33d7bd15
 
