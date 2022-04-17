@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import properties from "../../Properties";
 import { getAllBatchs } from "../../services/apicalls/batchapicalls";
 const BatchDropdown = (props) => {
+    console.log(props)
     let [drdata, setdrdata] = useState([]);
     useEffect(() => {
         let filter = '';
@@ -15,9 +16,9 @@ const BatchDropdown = (props) => {
         axios.get(properties.SERVER_URL+'/batch?'+filter).then(resp => {
             setdrdata(resp.data);
         })
-    },[])
+    },[props])
     return (
-    <Form.Select aria-label="Default select example" onChange={props.onChange} >
+    <Form.Select aria-label="Default select example" onChange={props.onChange} value={props.batchid} >
         <option>Select Batch</option>
         {drdata.map((option) => {
             return <option value={option.batchid}>{option.batchname}</option>;

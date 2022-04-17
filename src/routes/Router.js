@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
+import DetailedParticipantTable from "../components/tables/DetailedParticipantTable"
+import ParticipantDetailsView from "../components/Participants/ParticipantDetailsView"
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -32,6 +34,8 @@ const ThemeRoutes = (isLoggedIn) => [
       { path: "/batch", exact: true, element: <BatchTable /> },
       { path: "/Usertable", exact: true, element: <Usertable /> },
       { path: "/editprofile", exact: true, element: <EditProfile /> },
+      { path: "/participants", exact: true, element: <DetailedParticipantTable /> },
+      { path: "/participantdetail", exact: true, element: <ParticipantDetailsView /> },
       { path: "/batch-details", exact: true, element: <BatchDetails /> },
       {
         path: "/user-details",

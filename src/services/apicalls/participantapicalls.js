@@ -1,6 +1,10 @@
 import axios from "axios";
 import Properties from "../../Properties";
 
+const getAllParticipantswithoutid = () => {
+    return axios.get(Properties.SERVER_URL+'/participants');
+}
+
 const getAllParticipants = (batchid) => {
     return axios.get(Properties.SERVER_URL+'/participant?participantbatchid='+batchid);
 }
@@ -33,5 +37,6 @@ export {
     deleteParticipant,
     getAllParticipants,
     getParticipantDetails,
-    getParticipantInDuration
+    getParticipantInDuration,
+    getAllParticipantswithoutid
 };

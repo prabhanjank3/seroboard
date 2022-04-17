@@ -4,9 +4,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 import { connect } from "react-redux";
 import {
   deleteBatch,
-  getAllBatchs,
   getBatchInDuration,
-  getAllBatchsByInstructor,
 } from "../../services/apicalls/batchapicalls";
 import "./tables.css";
 import EditBatchModal from "../modals/editBatchModal";
@@ -18,8 +16,9 @@ import AddPostAssessmentModal from "../modals/addPostAssessmentModal";
 import BatchDurationForm from "../forms/batchDuration";
 import AssignmentModal from "../modals/assignmentmodal";
 import AddBatchModal from "../modals/addBatchModal";
-import { Table, Popconfirm, message } from "antd";
-import BatchDropdownInput from "../utils/BatchDropdownInput";
+import AddAssignmentModal from "../modals/addAssignmentModal";
+import { Table, Popconfirm, message } from 'antd';
+
 import {
   DeleteOutlined,
   EditOutlined,
@@ -275,6 +274,9 @@ const BatchTable = (props) => {
       <AddPostAssessmentModal>
         <Button className="btn-primary">Add Post Assessment</Button>
       </AddPostAssessmentModal>
+      <AddAssignmentModal>
+        <Button className="btn-primary">Add Assignment</Button>
+      </AddAssignmentModal>
       <Card className="mt-5">
         <CardBody>
           <BatchDurationForm

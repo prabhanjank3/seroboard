@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Card,
@@ -13,92 +13,48 @@ import {
   Col,
   Table,
 } from "reactstrap";
-import ProgressCircle from "../dashboard/ProgressCircle";
-import Chart from "react-apexcharts";
-import ParticipantBulkUpload from '../modals/participantBulkUploadModal';
-import BatchVisual from '../display/BatchVisual'
-function BatchDetails() {
-  const [chartState, setChartState] = useState({ catagories: [], data: [] });
-  const options = {
-    chart: {
-      toolbar: {
-        show: false,
-      },
-      stacked: false,
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      show: true,
-      width: 4,
-      colors: ["transparent"],
-    },
-    legend: {
-      show: true,
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: "30%",
-        borderRadius: 2,
-      },
-    },
-    colors: ["#0d6efd", "#009efb", "#6771dc"],
-    xaxis: {
-      categories: chartState.catagories,
-    },
-    responsive: [
-      {
-        breakpoint: 1024,
-        options: {
-          plotOptions: {
-            bar: {
-              columnWidth: "60%",
-              borderRadius: 7,
-            },
-          },
-        },
-      },
-    ],
-  };
-  const series = [
-    {
-      data: [20, 40, 50, 30, 40],
-    },
-  ];
+function ParticipantDetailsView() {
   const location = useLocation();
   const batchDetails = location.state.batch;
   console.log(batchDetails);
   return (
     <div>
-      <BatchVisual batchid={batchDetails.batchid}/>
       <div className="d-flex justify-content-between">
-        <h5>Batch Details</h5>
+        <h5>Participant Detail</h5>
         <Link to="/batch">
           <i className="bi bi-arrow-left"></i>
           <span className="ms-1 d-inline-block">Back</span>
         </Link>
       </div>
       <Row className="mt-3">
-        
-        <Col md="6" lg="6">
-          <ProgressCircle progress={20} />
-        </Col>
-        <Col md="6" lg="6">
-          <Card body color="light-success">
-            <CardTitle tag="h5">Batch Attendance</CardTitle>
+        <Col md="6" lg="3">
+          <Card body color="light-warning">
+            <CardTitle tag="h5">Batch Details</CardTitle>
             <CardText>
-              <Chart
-                options={options}
-                series={series}
-                type="bar"
-                height="379"
-              />
+              With supporting text below as a natural lead-in to additional
+              content.
             </CardText>
           </Card>
         </Col>
-        <Col md="6" lg="6">
+        <Col md="6" lg="3">
+          <Card body color="light-info">
+            <CardTitle tag="h5">Batch Status</CardTitle>
+            <CardText>
+              With supporting text below as a natural lead-in to additional
+              content.
+            </CardText>
+          </Card>
+        </Col>
+        <Col md="6" lg="3">
+          <Card body color="light-success">
+            <CardTitle tag="h5">Batch Attendance</CardTitle>
+            <CardText>
+              With supporting text below as a natural lead-in to additional
+              content.
+            </CardText>
+          </Card>
+        </Col>
+        <Col md="6" lg="3">
           <Card body color="light-danger">
             <CardTitle tag="h5">Top 5 Batch Performers </CardTitle>
             <CardText>
@@ -108,6 +64,29 @@ function BatchDetails() {
           </Card>
         </Col>
       </Row>
+      <Col xs="12" md="12">
+          <Card>
+            <CardBody className="">
+              <div className="d-flex justify-content-between button-group">
+                <Button className="btn" color="primary">
+                  Add Assignments
+                </Button>
+                <Button className="btn" color="success">
+                  Add Participants
+                </Button>
+                <Button className="btn" color="info">
+                  Participants Bulk Upload
+                </Button>
+                <Button className="btn" color="warning">
+                  Upload PPT's
+                </Button>
+                <Button className="btn" color="danger">
+                  Delete Batch
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
       <Row>
         <Col lg="12">
           <Card>
@@ -161,33 +140,9 @@ function BatchDetails() {
             </CardBody>
           </Card>
         </Col>
-        <Col xs="12" md="12">
-          <Card>
-            <CardBody className="">
-              <div className="d-flex justify-content-between button-group">
-                <Button className="btn" color="primary">
-                  Add Assignments
-                </Button>
-                <Button className="btn" color="success">
-                  Add Participants
-                </Button>
-                <ParticipantBulkUpload />
-                {/* <Button className="btn" color="info">
-                  Participants Bulk Upload
-                </Button> */}
-                <Button className="btn" color="warning">
-                  Upload PPT's
-                </Button>
-                <Button className="btn" color="danger">
-                  Delete Batch
-                </Button>
-              </div>
-            </CardBody>
-          </Card>
-        </Col>
+        
       </Row>
     </div>
   );
 }
-
-export default BatchDetails;
+export default ParticipantDetailsView;

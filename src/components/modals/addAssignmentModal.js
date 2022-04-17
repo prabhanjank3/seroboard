@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import {Modal, Button} from 'react-bootstrap';
-import NewParticipantForm from '../forms/addParticipants';
-import {insertNewParticipant} from '../../services/apicalls/participantapicalls';
-const AddParticipantModal = (props) => {
+import AddAssignmentForm from '../forms/addAssignmentForm';
+import {addAssignment} from '../../services/apicalls/assignmentapicalls';
+const AddAssignmentModal = (props) => {
     const [show, setShow] = useState(false);
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     
     const sendForInsert = (data) => {
-        insertNewParticipant(data).then(resp => {
+        addAssignment(data).then(resp => {
             handleClose();
             if('data' in resp)
             {
@@ -33,12 +33,12 @@ const AddParticipantModal = (props) => {
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Participants</Modal.Title>
+            <Modal.Title>Add Assignment</Modal.Title>
           </Modal.Header>
-          <Modal.Body><NewParticipantForm id={props.batchid} action={(data) => sendForInsert(data)} /></Modal.Body>
+          <Modal.Body><AddAssignmentForm batchid={props.batchid} action={(data) => sendForInsert(data)} /></Modal.Body>
         </Modal>
       </>
     );
   }
-export default AddParticipantModal;
+export default AddAssignmentModal;
  
