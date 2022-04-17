@@ -43,6 +43,7 @@ function Login(props) {
         }
       );
       const data = response.data;
+      console.log(data);
       if (data.length > 0) {
         props.setUserLoggedIn("LOG_IN", {
           ...data[0],
@@ -66,6 +67,8 @@ function Login(props) {
         }
       );
       const data = response.data;
+
+      console.log(data[0]);
       if (data.length > 0) {
         props.setUserLoggedIn("LOG_IN", data[0]);
       } else {
@@ -89,14 +92,10 @@ function Login(props) {
               <div className="brand-col">
                 <div className="headline">
                   <div className="brand-logo">
-                    <img src={seroBoardlogo} alt="SeroBoard"
-                      width={240}
-                    />
+                    <img src={seroBoardlogo} alt="SeroBoard" width={240} />
                   </div>
 
                   <p>Login using social media to get quick access</p>
-
-
                 </div>
               </div>
             </div>
@@ -105,7 +104,6 @@ function Login(props) {
                 <div className="authfy-panel panel-login text-center active">
                   <div className="authfy-heading">
                     <h3 className="auth-title">Login to your account</h3>
-                    
                   </div>
                   <div className="row">
                     <div className="col-xs-12 col-sm-12">
@@ -154,7 +152,9 @@ function Login(props) {
                           <div className="col-xs-6 col-sm-6">
                             <label className="checkbox text-left">
                               <AddUserModal>
-                                <span className="label-text">Create Account</span>
+                                <span className="label-text">
+                                  Create Account
+                                </span>
                               </AddUserModal>
                             </label>
                           </div>
@@ -172,7 +172,6 @@ function Login(props) {
                             >
                               Login
                             </button>
-
                           </div>
                         </div>
                         <div className="row social-buttons my-4 ">
@@ -183,6 +182,7 @@ function Login(props) {
                               onSuccess={handleLoginByGoogle}
                               onFailure={handleLoginFailure}
                               cookiePolicy={"single_host_origin"}
+                              // isSignedIn={true}
                             ></GoogleLogin>
                           </div>
                         </div>
