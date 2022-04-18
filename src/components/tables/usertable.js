@@ -103,10 +103,13 @@ import "./tables.css";
 import EditUserModal from "../modals/editUserModal";
 import SearchUserForm from "../forms/serchUserForm";
 import AddUserModal from "../modals/addUserModal";
+import AddMultipleUserModal from "../modals/addMultipleUserModal";
 import { Table, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import {insertNewUsers} from '../../services/apicalls/apicall';
+// import * as XLSX from 'xlsx'
 
 const NewUserTable = (props) => {
   const success = () => {
@@ -211,11 +214,55 @@ const NewUserTable = (props) => {
     console.log("params", pagination, filters, sorter, extra);
   }
 
+  // const [excelData, setExcelData] = useState(null);
+  // const[ excelFile, setExcelFile] = useState(null);
+  // const handleFile = (e)=>{
+  //   let selectedFile = e.target.files[0];
+  //   if(selectedFile){
+  //     console.log(selectedFile.type)
+  //     let reader =  new FileReader();
+  //     reader.readAsArrayBuffer(selectedFile);
+  //     reader.onload = (e)=>{
+  //        setExcelFile(e.target.result);
+  //     }
+  //   }
+  //   else{
+  //     console.log("pls select the file")
+  //   }
+  // }
+  
+  // const [show, setShow] = useState(false);
+  
+  // const handleClose = () => setShow(false);
+
+  // const handleSubmit = (e)=>{
+  //   e.preventDefault();
+  //   if(excelFile!=null){
+  //     const workbook = XLSX.read(excelFile,{type:'buffer'});
+  //     const worksheetName = workbook.SheetNames[0];
+  //     const workSheet = workbook.Sheets[worksheetName];
+  //     const data = XLSX.utils.sheet_to_json(workSheet);
+  //     setExcelData(data); 
+  //     return insertNewUsers(data).then(resp => {
+  //       handleClose();
+  //      alert(`User created successfully!`);
+  //   }).catch(err => {
+  //       alert('Something went wrong!');
+  //   });
+  //   }else{
+  //     setExcelData(null);
+  //   }
+  // }
+  // console.log(excelData);
   return (
     <div>
-      <AddUserModal>
-        <Button className="btn-primary">Add User</Button>
-      </AddUserModal>
+            <AddUserModal>
+          <Button className="btn-primary">Add User</Button>
+        </AddUserModal>
+          <AddMultipleUserModal >
+          <Button className="btn-primary" style={{marginLeft:10}}>Add Multiple Users</Button>
+          </AddMultipleUserModal>
+          
       <Card className="mt-3">
         <CardBody>
           <CardTitle tag="h5">Users Listing</CardTitle>

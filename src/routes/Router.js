@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import DetailedParticipantTable from "../components/tables/DetailedParticipantTable"
 import ParticipantDetailsView from "../components/Participants/ParticipantDetailsView"
+import Helpdesk from "../components/tables/Helpdesk";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -16,8 +17,8 @@ const ForgotPassword = lazy(() =>
 const Signup = lazy(() => import("../components/signup/Signup"));
 const Batch = lazy(() => import("../views/Batch"));
 const EditProfile = lazy(() => import("../components/EditProfile/EditProfile"));
-const Usertable = lazy(() => import("../components/tables/usertable"));
-const BatchTable = lazy(() => import("../components/tables/batchtable"));
+// const Usertable = lazy(() => import("../components/tables/usertable"));
+// const BatchTable = lazy(() => import("../components/tables/batchtable"));
 const BatchDetails = lazy(() =>
   import("../components/BatchDetails/BatchDetails")
 );
@@ -36,6 +37,7 @@ const ThemeRoutes = (isLoggedIn) => [
       { path: "/editprofile", exact: true, element: <EditProfile /> },
       { path: "/participants", exact: true, element: <DetailedParticipantTable /> },
       { path: "/participantdetail", exact: true, element: <ParticipantDetailsView /> },
+      { path: "/helpdesk", exact: true, element: <Helpdesk /> },
       { path: "/batch-details", exact: true, element: <BatchDetails /> },
       {
         path: "/user-details",

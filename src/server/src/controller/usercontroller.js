@@ -5,6 +5,9 @@ const client = new OAuth2Client(process.env.REACT_APP_SERO_BOARD_CLIENT_ID);
 const insertUser = (req, resp) => {
   userdao.insertUser(req.body, resp);
 };
+const insertUsers = (req, resp) => {
+  userdao.insertUsers(req, resp);
+};
 const getAllUsers = (req, resp) => {
   userdao.getAllUsers(resp);
 };
@@ -35,6 +38,7 @@ const updateUser = async (req, resp) => {
   userdao.updateUser({ userid: req.params.id }, req.body, resp);
 };
 module.exports.insertUser = insertUser;
+module.exports.insertUsers = insertUsers;
 module.exports.getAllUsers = getAllUsers;
 module.exports.deleteUser = deleteUser;
 module.exports.updateUser = updateUser;

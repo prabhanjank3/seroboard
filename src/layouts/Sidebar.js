@@ -32,6 +32,11 @@ const adminNav = [
     href: "/participants",
     icon: "bi bi-person-badge",
   },
+  {
+    title: "Helpdesk",
+    href: "/helpdesk",
+    icon: "bi bi-person-badge",
+  },
 ];
 const coordinatorNav = [
   {
