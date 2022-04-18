@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Container, Row, Col} from 'react-bootstrap'
 import { Card,CardBody } from 'reactstrap';
 import properties from '../../Properties';
@@ -8,8 +8,10 @@ import ProgressCircle from '../dashboard/ProgressCircle';
 import BatchDropdownInput from '../utils/BatchDropdownInput';
 import TopPerformerWidget from './TopPerformerWidget';
 import BatchAvgScoreChart from '../dashboard/BatchAvgScoreChart';
+import Batchdetailscard from './batchdetailscard';
+import { batch } from 'react-redux';
 export default (props) => {
-    let [visualstate, setvisualstate] = useState({progress:0, avgscore:0, batchid:''})
+    let [visualstate, setvisualstate] = useState({progress:0, avgscore:0, batchid:props.batchid})
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
     function dateDiffInDays(a, b) {
         const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
@@ -18,6 +20,7 @@ export default (props) => {
       }
     const setBatch = (batchid) =>
     {
+        console.log(batchid)
         Promise.all([getBatchDetails(batchid),axios.get(properties.SERVER_URL+'/batchavgscore/'+batchid)]).then(resp => {
             console.log(resp)
             let st = new Date(resp[0].data[0]['batchstartdate']);
@@ -31,11 +34,14 @@ export default (props) => {
             })
         })
     }
-    return (<Card>
-        <CardBody>
+    useEffect(() => {
+        setBatch(props.batchid)
+    },[])
+    return (
+        
     <Container>
         <Row>
-            <BatchDropdownInput onChange={(e) => setBatch(e.target.value)} />
+            <BatchDropdownInput onChange={(e) => setBatch(e.target.value)} batchid={visualstate.batchid} />
         </Row>
         <br></br>
         <Row>
@@ -44,8 +50,8 @@ export default (props) => {
         </Row>
         <Row>
             <Col lg={6}><TopPerformerWidget batchid={visualstate.batchid}/></Col>
+            <Col lg={6}><Batchdetailscard batchid={visualstate.batchid}/></Col>
         </Row>
     </Container>
-    </CardBody>
-    </Card>);
+    );
 }

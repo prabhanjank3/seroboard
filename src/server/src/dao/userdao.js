@@ -59,6 +59,7 @@ const getAllUsers = async (resp) => {
 };
 const getUserByCondition = (condition, resp) => {
   const whereQuery = Utils.conditionObjToQuery(condition);
+
   pool.query(
     `SELECT * FROM public."user" WHERE ` + whereQuery,
     [],
@@ -66,6 +67,34 @@ const getUserByCondition = (condition, resp) => {
       resp.send(err ? err : result.rows);
     }
   );
+};
+
+const getAllUsersEmail = (email, resp) => {
+  let userData = [];
+  let user = [];
+  let whereQuery = "";
+  let query = `SELECT participantemail, participantid from public."Participant" WHERE participantemail='${email}' UNION SELECT useremail, userid from public."user" WHERE useremail='${email}'`;
+  pool.query(query, [], (err, result) => {
+    if (result.rows.length <= 1) {
+      userData = result.rows[0];
+      whereQuery = userData.participantemail;
+      if (userData.participantid.includes("USR")) {
+        query = `SELECT * FROM public."user" WHERE useremail = '${whereQuery}'`;
+        pool.query(query, [], (err, result) => {
+          console.log(result.rows);
+          resp.send(err ? err : result.rows);
+        });
+      } else {
+        console.log(userData);
+        query = `SELECT * from public."Participant" WHERE participantemail='${email}'`;
+        pool.query(query, [], (err, result) => {
+          console.log(result.rows);
+          resp.send(err ? err : result.rows);
+        });
+      }
+    }
+    // resp.send(err ? err : result.rows);
+  });
 };
 
 const verifyUser = (condition, resp) => {
@@ -105,3 +134,4 @@ module.exports.getAllUsers = getAllUsers;
 module.exports.getUserByCondition = getUserByCondition;
 module.exports.deleteUser = deleteUser;
 module.exports.updateUser = updateUser;
+module.exports.getAllUsersEmail = getAllUsersEmail;

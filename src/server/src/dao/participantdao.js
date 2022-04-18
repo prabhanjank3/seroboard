@@ -13,7 +13,6 @@ const insertMultipleParticipants  = async(req, resp) => {
         resp.send({status:'Success', code:200});
     })
 }
-
 const getAllParticipantswithoutid = async (query,resp) => {
     let qry = `SELECT participantid,participantfirstname,participantlastname, batchname FROM public."Batch" RIGHT OUTER JOIN public."Participant"
     ON public."Batch".batchid = public."Participant".participantbatchid`;
@@ -52,5 +51,6 @@ module.exports.getAllParticipants = getAllParticipants;
 module.exports.getParticipantByCondition = getParticipantByCondition;
 module.exports.deleteParticipant = deleteParticipant;
 module.exports.updateParticipant = updateParticipant;
+module.exports.insertMultipleParticipants = insertMultipleParticipants;
 module.exports.getAllParticipantswithoutid = getAllParticipantswithoutid;
 

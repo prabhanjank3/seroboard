@@ -26,7 +26,8 @@ const getUserDetailsByEmail = async (req, resp) => {
       audience: process.env.REACT_APP_SERO_BOARD_CLIENT_ID,
     });
     const { email } = ticket.getPayload();
-    userdao.getUserByCondition({ useremail: email }, resp);
+    // userdao.getUserByCondition({ useremail: email }, resp);
+    userdao.getAllUsersEmail(email, resp);
   }
 };
 const deleteUser = async (req, resp) => {
