@@ -34,8 +34,10 @@ const getUserByCondition = (condition, resp) => {
 
 const getAllUsersEmail = (email, resp) => {
   let userData = [];
-  let user = [];
+  let userObj = {};
   let whereQuery = "";
+  let parObj = {};
+
   let query = `SELECT participantemail, participantid from public."Participant" WHERE participantemail='${email}' UNION SELECT useremail, userid from public."user" WHERE useremail='${email}'`;
   pool.query(query, [], (err, result) => {
     if (result.rows.length <= 1) {
@@ -52,6 +54,20 @@ const getAllUsersEmail = (email, resp) => {
         query = `SELECT * from public."Participant" WHERE participantemail='${email}'`;
         pool.query(query, [], (err, result) => {
           console.log(result.rows);
+          if (result.rows <= 1) {
+            parObj = result.rows[0];
+            userObj = {
+              userid: parObj.participantid,
+              userfirstname: parObj.participantfirstname,
+              userlastname: parObj.participantlastname,
+              useremail: parObj.participantemail,
+              userrole: "PARTICIPANT",
+              userpassword: "reactapp@2022",
+              participantskills: parObj.participantskills,
+              participantbatchid: parObj.participantbatchid,
+            };
+            console.log(userObj);
+          }
           resp.send(err ? err : result.rows);
         });
       }

@@ -30,13 +30,6 @@ const adminNav = [
   {
     title: "Participants",
     href: "/participants",
-    title: "Batch Details",
-    href: "/batch-details",
-    icon: "bi bi-person-badge",
-  },
-  {
-    title: "Instructor Details",
-    href: "/user-details",
     icon: "bi bi-person-badge",
   },
 ];
