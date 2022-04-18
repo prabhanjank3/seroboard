@@ -11,14 +11,20 @@ import { getParticipantDetails } from "../../services/apicalls/participantapical
 const EditParticipantForm = (props) => {
   useEffect(() => {
     getParticipantDetails(props.id).then((resp) => {
-      setState(resp.data[0]);
+      let  temp = {
+        participantfirstname: resp.data[0]['participantfirstname'],
+        participantlastname: resp.data[0]['participantlastname'],
+        participantemail: resp.data[0]['participantemail'],
+        participantbatchid: resp.data[0]['participantbatchid'],
+      }
+      setState(temp);
     });
   }, []);
   const initialState = {
     participantfirstname: "",
     participantlastname: "",
     participantemail: "",
-    batchname: "",
+    participantbatchid: "",
   };
   const navigate = useNavigate();
   const sendForInsert = () => {
@@ -74,9 +80,9 @@ const EditParticipantForm = (props) => {
             <BatchDropdown
               // title="Select Role"
               // options={["ADMIN", "INSTRUCTOR", "COORDINATOR"]}
-              value={formState.batchname}
+              batchid={formState.participantbatchid}
               onChange={(e) => {
-                setState({ ...formState, batchname: e.target.value });
+                setState({ ...formState, participantbatchid: e.target.value });
               }}
             />
           </Col>

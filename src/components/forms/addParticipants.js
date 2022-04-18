@@ -76,19 +76,17 @@ const NewParticipantForm = (props) => {
               Batch
             </label>
             <BatchDropdown
-              title="Select Role"
-              options={["ADMIN", "INSTRUCTOR", "COORDINATOR"]}
-              value={formState.userrole}
+              value={formState.participantbatchid}
               onChange={(e) => {
-                setState({ ...formState, userrole: e.target.value });
+                setState({ ...formState, participantbatchid: e.target.value });
               }}
             />
           </Col>
         </Row>
-        {/* <Row>
+        <Row>
           <Col>
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Skills1 (enter comma seperated values without space)
+              Skills (enter comma seperated values without space)
             </label>
             <input
               type="text"
@@ -100,7 +98,7 @@ const NewParticipantForm = (props) => {
               }}
             />
           </Col>
-        </Row> */}
+        </Row>
         <Row>
           <Button
             type="button"
