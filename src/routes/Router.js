@@ -17,8 +17,8 @@ const ForgotPassword = lazy(() =>
 const Signup = lazy(() => import("../components/signup/Signup"));
 const Batch = lazy(() => import("../views/Batch"));
 const EditProfile = lazy(() => import("../components/EditProfile/EditProfile"));
-// const Usertable = lazy(() => import("../components/tables/usertable"));
-// const BatchTable = lazy(() => import("../components/tables/batchtable"));
+const Usertable = lazy(() => import("../components/tables/usertable"));
+const BatchTable = lazy(() => import("../components/tables/batchtable"));
 const BatchDetails = lazy(() =>
   import("../components/BatchDetails/BatchDetails")
 );

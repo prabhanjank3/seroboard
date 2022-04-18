@@ -7,7 +7,7 @@ import "../component.css";
 import { convertArrayToPgArray } from "../../services/commonFunctions";
 import BatchDropdown from "../utils/BatchDropdownInput"
 import ExcelFileInput from '../utils/excelfileinput';
-import emailjs from '@emailjs/browser';
+// import emailjs from '@emailjs/browser';
 
 const AddHelpForm = (props) => {
   const initialState = {
@@ -27,7 +27,7 @@ const AddHelpForm = (props) => {
     var ret = stringToPgArray(formState.participantskills);
     var data = { ...formState, participantskills: ret };
     props.action(data);
-    emailjs.send('service_fo2n2if', 'template_vsn6ir9', 'formState', 'lCI_PMrNHlmFaPtzU');
+    // emailjs.send('service_fo2n2if', 'template_vsn6ir9', 'formState', 'lCI_PMrNHlmFaPtzU');
   };
   const onExcelUpload = (data) => {
     console.log(data)

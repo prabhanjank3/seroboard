@@ -6,6 +6,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import {insertNewUsers} from '../../services/apicalls/apicall';
 const AddMultipleUserModal = (props) => {
+    console.log(props);
     const navigate = useNavigate();
     const handleShow = () => setShow(true);
   const [excelData, setExcelData] = useState(null);
@@ -44,11 +45,12 @@ const AddMultipleUserModal = (props) => {
   }
 
   const handleSubmit =(e)=>{
+      e.preventDefault();
          return insertNewUsers(excelData).then(resp => {
-        // handleClose();
+        handleClose();
        alert(`User created successfully!`);
-       
-       navigate('/');
+       props.setData();
+    //    navigate('/starter');
 
     }).catch(err => {
         alert('Something went wrong!');
