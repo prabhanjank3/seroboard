@@ -15,6 +15,43 @@ const insertUser = async (userObj, resp) => {
     resp.send(err ? err : result.rows);
   });
 };
+// const insertUsers = async (userObj, resp) => {
+//   console.log(userObj[0]);
+//   for(var i=0;i<userObj.length;i++){
+//   const {
+//     userid,
+//     userfirstname,
+//     userlastname,
+//     useremail,
+//     userpassword,
+//     userrole,
+//   } = { ...userObj[i], userid: "USR" + Math.floor(Math.random() * 1000 + 1) };
+//   console.log( userid,
+//     userfirstname,
+//     userlastname,
+//     useremail,
+//     userpassword,
+//     userrole)
+//     const jsdata = JSON.parse(userObj);
+//     console.log(jsdata);
+
+// // pool.query("INSERT INTO `nodes`(`sensorvalue`) VALUES ('"+jsdata.sensorvalue+"')", (err, res) => {
+// //     if(err) throw err;
+// //     console.log("counter record inserted");  
+// // }); 
+//   const qry = `INSERT INTO public."user" values('${userid}','${userfirstname}', '${userlastname}', '${useremail}', '${userrole}' ,'${userpassword}' ) RETURNING userid,userfirstname, userlastname, useremail, userrole, userpassword`;
+//   await pool.query(qry, [], (err, result) => {
+//     resp.send(err ? err : result.rows);
+//   });
+// }
+// };
+const insertUsers  = async(req,resp) => {
+  const qry = `INSERT INTO public."user" (userid,userfirstname,userlastname,useremail,userpassword,userrole) VALUES ${Utils.insertMultipleUsers(req.body)}`;
+  pool.query(qry,[], (err, result) => {
+      console.log(err);
+      resp.send(err?err:{status:'Success', code:200});
+  })
+}
 const getAllUsers = async (resp) => {
   await pool.query(`SELECT * from public."user"`, [], (err, result) => {
     resp.send(err ? err : result.rows);
@@ -92,6 +129,7 @@ const updateUser = (identifier, newValues, resp) => {
 };
 
 module.exports.insertUser = insertUser;
+module.exports.insertUsers = insertUsers;
 module.exports.getAllUsers = getAllUsers;
 module.exports.getUserByCondition = getUserByCondition;
 module.exports.deleteUser = deleteUser;

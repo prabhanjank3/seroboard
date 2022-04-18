@@ -24,6 +24,7 @@ app.use(express.json());
 app.get("/user", usercontroller.getAllUsers);
 app.get("/user/:id", usercontroller.getUserDetails);
 app.post("/user", usercontroller.insertUser);
+app.post("/users", usercontroller.insertUsers);
 app.delete("/user/:id", usercontroller.deleteUser);
 app.patch("/user/:id", usercontroller.updateUser);
 
@@ -47,7 +48,7 @@ app.get("/participants", participantcontroller.getAllParticipantswithoutid);
 app.get("/participant", participantcontroller.getAllParticipants);
 app.get("/participant/:id", participantcontroller.getParticipantDetails);
 app.post("/participant", participantcontroller.insertParticipant);
-app.post("/bulkparticipantinsert", participantdao.insertMultipleParticipants)
+// app.post("/bulkparticipantinsert", participantdao.insertMultipleParticipants)
 app.delete("/participant/:id", participantcontroller.deleteParticipant);
 app.patch("/participant/:id", participantcontroller.updateParticipant);
 
