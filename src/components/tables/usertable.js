@@ -259,7 +259,7 @@ const NewUserTable = (props) => {
             <AddUserModal>
           <Button className="btn-primary">Add User</Button>
         </AddUserModal>
-          <AddMultipleUserModal >
+          <AddMultipleUserModal setData={setData}>
           <Button className="btn-primary" style={{marginLeft:10}}>Add Multiple Users</Button>
           </AddMultipleUserModal>
           

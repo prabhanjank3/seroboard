@@ -5,8 +5,8 @@ import DropdownInput from "../utils/dropdownInput";
 import "./forms.css";
 import "../component.css";
 import { convertArrayToPgArray } from "../../services/commonFunctions";
-import BatchDropdown from "../utils/BatchDropdownInput";
-import ExcelFileInput from "../utils/excelfileinput";
+import BatchDropdown from "../utils/BatchDropdownInput"
+import ExcelFileInput from '../utils/excelfileinput';
 // import emailjs from '@emailjs/browser';
 
 const AddHelpForm = (props) => {
