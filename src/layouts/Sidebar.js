@@ -5,7 +5,6 @@ import probg from "../assets/images/bg/user-bg.jpg";
 import { connect } from "react-redux";
 import apiserologo from "../assets/images/logos/APISERO-logo.svg";
 
-
 let navigation = [];
 const adminNav = [
   {
@@ -31,16 +30,6 @@ const adminNav = [
   {
     title: "Participants",
     href: "/participants",
-    icon: "bi bi-person-badge",
-  },
-  {
-    title: "Batch Details",
-    href: "/batch-details",
-    icon: "bi bi-person-badge",
-  },
-  {
-    title: "Instructor Details",
-    href: "/user-details",
     icon: "bi bi-person-badge",
   },
   {

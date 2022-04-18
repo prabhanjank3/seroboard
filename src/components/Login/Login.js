@@ -43,7 +43,6 @@ function Login(props) {
         }
       );
       const data = response.data;
-      console.log(data);
       if (data.length > 0) {
         props.setUserLoggedIn("LOG_IN", {
           ...data[0],
@@ -67,8 +66,6 @@ function Login(props) {
         }
       );
       const data = response.data;
-
-      console.log(data[0]);
       if (data.length > 0) {
         props.setUserLoggedIn("LOG_IN", data[0]);
       } else {

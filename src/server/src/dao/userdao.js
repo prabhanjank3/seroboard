@@ -37,21 +37,22 @@ const insertUser = async (userObj, resp) => {
 
 // // pool.query("INSERT INTO `nodes`(`sensorvalue`) VALUES ('"+jsdata.sensorvalue+"')", (err, res) => {
 // //     if(err) throw err;
-// //     console.log("counter record inserted");  
-// // }); 
+// //     console.log("counter record inserted");
+// // });
 //   const qry = `INSERT INTO public."user" values('${userid}','${userfirstname}', '${userlastname}', '${useremail}', '${userrole}' ,'${userpassword}' ) RETURNING userid,userfirstname, userlastname, useremail, userrole, userpassword`;
 //   await pool.query(qry, [], (err, result) => {
 //     resp.send(err ? err : result.rows);
 //   });
 // }
 // };
-const insertUsers  = async(req,resp) => {
-  const qry = `INSERT INTO public."user" (userid,userfirstname,userlastname,useremail,userpassword,userrole) VALUES ${Utils.insertMultipleUsers(req.body)}`;
-  pool.query(qry,[], (err, result) => {
-      console.log(err);
-      resp.send(err?err:{status:'Success', code:200});
-  })
-}
+const insertUsers = async (req, resp) => {
+  const qry = `INSERT INTO public."user" (userid,userfirstname,userlastname,useremail,userpassword,userrole) VALUES ${Utils.insertMultipleUsers(
+    req.body
+  )}`;
+  pool.query(qry, [], (err, result) => {
+    resp.send(err ? err : { status: "Success", code: 200 });
+  });
+};
 const getAllUsers = async (resp) => {
   await pool.query(`SELECT * from public."user"`, [], (err, result) => {
     resp.send(err ? err : result.rows);
@@ -71,8 +72,10 @@ const getUserByCondition = (condition, resp) => {
 
 const getAllUsersEmail = (email, resp) => {
   let userData = [];
-  let user = [];
+  let userObj = [{}];
   let whereQuery = "";
+  let parObj = {};
+
   let query = `SELECT participantemail, participantid from public."Participant" WHERE participantemail='${email}' UNION SELECT useremail, userid from public."user" WHERE useremail='${email}'`;
   pool.query(query, [], (err, result) => {
     if (result.rows.length <= 1) {
@@ -81,19 +84,33 @@ const getAllUsersEmail = (email, resp) => {
       if (userData.participantid.includes("USR")) {
         query = `SELECT * FROM public."user" WHERE useremail = '${whereQuery}'`;
         pool.query(query, [], (err, result) => {
-          console.log(result.rows);
           resp.send(err ? err : result.rows);
         });
       } else {
-        console.log(userData);
         query = `SELECT * from public."Participant" WHERE participantemail='${email}'`;
+
         pool.query(query, [], (err, result) => {
-          console.log(result.rows);
-          resp.send(err ? err : result.rows);
+          if (result.rows.length === 1) {
+            parObj = result.rows[0];
+            userObj = [
+              {
+                userid: parObj.participantid,
+                userfirstname: parObj.participantfirstname,
+                userlastname: parObj.participantlastname,
+                useremail: parObj.participantemail,
+                userrole: "PARTICIPANT",
+                userpassword: "reactapp@2022",
+                participantskills: parObj.participantskills,
+                participantbatchid: parObj.participantbatchid,
+              },
+            ];
+            resp.send(err ? err : userObj);
+          } else {
+            resp.send(err);
+          }
         });
       }
     }
-    // resp.send(err ? err : result.rows);
   });
 };
 
