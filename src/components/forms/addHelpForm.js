@@ -17,7 +17,7 @@ const AddHelpForm = (props) => {
     participantbatchid: props.id,
     participantskills: "",
   };
-  console.log(formState)
+  console.log(formState);
   const navigate = useNavigate();
   const stringToPgArray = (str) => {
     var starr = str.split(",");
@@ -30,8 +30,8 @@ const AddHelpForm = (props) => {
     // emailjs.send('service_fo2n2if', 'template_vsn6ir9', 'formState', 'lCI_PMrNHlmFaPtzU');
   };
   const onExcelUpload = (data) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
   const [formState, setState] = useState(initialState);
   return (
     <div>

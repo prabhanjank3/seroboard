@@ -18,7 +18,8 @@ const getUserDetailsByEmail = async (req, resp) => {
   if (req.body?.email && req.body?.password) {
     const email = req.body?.email;
     //ToDo: Check for password
-    userdao.getUserByCondition({ useremail: email }, resp);
+    // userdao.getUserByCondition({ useremail: email }, resp);
+    userdao.getAllUsersEmail(email, resp);
   } else {
     const { token } = req.body;
     const ticket = await client.verifyIdToken({
@@ -26,7 +27,7 @@ const getUserDetailsByEmail = async (req, resp) => {
       audience: process.env.REACT_APP_SERO_BOARD_CLIENT_ID,
     });
     const { email } = ticket.getPayload();
-    // userdao.getUserByCondition({ useremail: email }, resp);
+    // userdao.getUserByCondition({ /-: email }, resp);
     userdao.getAllUsersEmail(email, resp);
   }
 };

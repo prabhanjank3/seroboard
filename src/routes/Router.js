@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
-import DetailedParticipantTable from "../components/tables/DetailedParticipantTable"
-import ParticipantDetailsView from "../components/Participants/ParticipantDetailsView"
+import DetailedParticipantTable from "../components/tables/DetailedParticipantTable";
+import ParticipantDetailsView from "../components/Participants/ParticipantDetailsView";
 import Helpdesk from "../components/tables/Helpdesk";
 
 /****Layouts*****/
@@ -35,8 +35,16 @@ const ThemeRoutes = (isLoggedIn) => [
       { path: "/batch", exact: true, element: <BatchTable /> },
       { path: "/Usertable", exact: true, element: <Usertable /> },
       { path: "/editprofile", exact: true, element: <EditProfile /> },
-      { path: "/participants", exact: true, element: <DetailedParticipantTable /> },
-      { path: "/participantdetail", exact: true, element: <ParticipantDetailsView /> },
+      {
+        path: "/participants",
+        exact: true,
+        element: <DetailedParticipantTable />,
+      },
+      {
+        path: "/participantdetail",
+        exact: true,
+        element: <ParticipantDetailsView />,
+      },
       { path: "/helpdesk", exact: true, element: <Helpdesk /> },
       { path: "/batch-details", exact: true, element: <BatchDetails /> },
       {
