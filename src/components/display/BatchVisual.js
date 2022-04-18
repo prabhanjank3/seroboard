@@ -11,7 +11,7 @@ import BatchAvgScoreChart from '../dashboard/BatchAvgScoreChart';
 import Batchdetailscard from './batchdetailscard';
 import { batch } from 'react-redux';
 export default (props) => {
-    let [visualstate, setvisualstate] = useState({progress:0, avgscore:0, batchid:props.batchid})
+    let [visualstate, setvisualstate] = useState({progress:0, avgscore:0, batchid:props.batchid,batchdetails:{}})
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
     function dateDiffInDays(a, b) {
         const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
@@ -20,7 +20,6 @@ export default (props) => {
       }
     const setBatch = (batchid) =>
     {
-        console.log(batchid)
         Promise.all([getBatchDetails(batchid),axios.get(properties.SERVER_URL+'/batchavgscore/'+batchid)]).then(resp => {
             console.log(resp)
             let st = new Date(resp[0].data[0]['batchstartdate']);
@@ -30,6 +29,7 @@ export default (props) => {
                 ...visualstate,
                 progress:temp,
                 batchid:batchid,
+                batchdetails:resp[0].data[0],
                 avgscore:(resp[1].data.length>0)?resp[1].data[0]['avgscore']:0
             })
         })
@@ -45,12 +45,13 @@ export default (props) => {
         </Row>
         <br></br>
         <Row>
-            <Col lg={6}><ProgressCircle title={'Batch Progress'} progress={visualstate.progress} color={'#008FFB'}/></Col>
+        <Col lg={6}><Batchdetailscard batchid={visualstate.batchid} batchdetails={visualstate.batchdetails}/></Col>
+            
             <Col lg={6}><ProgressCircle title={'Avarage Score'} progress={visualstate.avgscore} color={'#00E396'}/></Col>
         </Row>
         <Row>
             <Col lg={6}><TopPerformerWidget batchid={visualstate.batchid}/></Col>
-            <Col lg={6}><Batchdetailscard batchid={visualstate.batchid}/></Col>
+            <Col lg={6}><ProgressCircle title={'Batch Progress'} progress={visualstate.progress} color={'#008FFB'}/></Col>
         </Row>
     </Container>
     );
