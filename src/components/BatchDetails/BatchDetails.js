@@ -15,7 +15,8 @@ import {
 } from "reactstrap";
 import ProgressCircle from "../dashboard/ProgressCircle";
 import Chart from "react-apexcharts";
-
+import ParticipantBulkUpload from '../modals/participantBulkUploadModal';
+import BatchVisual from '../display/BatchVisual'
 function BatchDetails() {
   const [chartState, setChartState] = useState({ catagories: [], data: [] });
   const options = {
@@ -71,6 +72,7 @@ function BatchDetails() {
   console.log(batchDetails);
   return (
     <div>
+      <BatchVisual batchid={batchDetails.batchid}/>
       <div className="d-flex justify-content-between">
         <h5>Batch Details</h5>
         <Link to="/batch">
@@ -79,34 +81,7 @@ function BatchDetails() {
         </Link>
       </div>
       <Row className="mt-3">
-        <Col md="6" lg="6">
-          <Card body color="light-warning">
-            <CardText>
-              <div className="d-flex flex-column">
-                <div>
-                  <h6>Batch Name</h6>
-                  <p>FAST: PYTHON TRAINING</p>
-                </div>
-                <div>
-                  <h6>START DATE</h6>
-                  <p>21-02-2022</p>
-                </div>
-                <div>
-                  <h6>END DATE</h6>
-                  <p>25-05-2022</p>
-                </div>
-                <div>
-                  <h6>COORDINATOR</h6>
-                  <p>OMKAR SUTAR</p>
-                </div>
-                <div>
-                  <h6>INSTRUCTOR</h6>
-                  <p>MAHESH JAWALKAR</p>
-                </div>
-              </div>
-            </CardText>
-          </Card>
-        </Col>
+        
         <Col md="6" lg="6">
           <ProgressCircle progress={20} />
         </Col>
@@ -196,9 +171,10 @@ function BatchDetails() {
                 <Button className="btn" color="success">
                   Add Participants
                 </Button>
-                <Button className="btn" color="info">
+                <ParticipantBulkUpload />
+                {/* <Button className="btn" color="info">
                   Participants Bulk Upload
-                </Button>
+                </Button> */}
                 <Button className="btn" color="warning">
                   Upload PPT's
                 </Button>

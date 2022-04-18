@@ -3,6 +3,7 @@ import * as XLSX from "xlsx";
 
 export default function App( props) {
   const onChange = (e) => {
+    e.preventDefault();
     const [file] = e.target.files;
     const reader = new FileReader();
 

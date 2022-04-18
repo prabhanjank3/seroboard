@@ -9,7 +9,8 @@ var postasscontroller = require("./controller/postasscontroller");
 var assignmentcontroller = require("./controller/assignmentcontroller");
 var assignmentreccontroller = require("./controller/assignmentrecordcontroller");
 var postassrecdao = require("./dao/postassrecorddao");
-var assignmentdao = require("./dao/assignmentdao")
+var assignmentdao = require("./dao/assignmentdao");
+var participantdao = require('./dao/participantdao');
 var batchdao = require("./dao/batchdao");
 var axios = require("axios");
 var cors = require("cors");
@@ -46,6 +47,7 @@ app.get("/participants", participantcontroller.getAllParticipantswithoutid);
 app.get("/participant", participantcontroller.getAllParticipants);
 app.get("/participant/:id", participantcontroller.getParticipantDetails);
 app.post("/participant", participantcontroller.insertParticipant);
+app.post("/bulkparticipantinsert", participantdao.insertMultipleParticipants)
 app.delete("/participant/:id", participantcontroller.deleteParticipant);
 app.patch("/participant/:id", participantcontroller.updateParticipant);
 
